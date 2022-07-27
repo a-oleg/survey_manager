@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class SurveyManager {
+    /**Метод, создающий новый опрос*/
     public boolean creatingNewSurvey(String [] surveyData) throws ServerException {
         if(surveyData == null) {
             throw new ServerException("The surveyData array cannot have a null value");
@@ -15,15 +16,18 @@ public class SurveyManager {
 
     }
 
+    /**Метод, проверяющий наличие БД*/
     private boolean checkingTheExistenceOfTheDatabase() {
 
     }
 
     //Вероятно, метод создания БД пригодится в большом количестве мест приложения. Может, его лучше куда-то вынести?
+    /**Метод создания БД*/
     private boolean creatindDatabase() {
 
     }
 
+    /**Метод, проверяющий наличие опроса в БД*/
     private boolean checkingPresenceOfSurveyInTheDatabase(String [] surveyData) {
 
     }
