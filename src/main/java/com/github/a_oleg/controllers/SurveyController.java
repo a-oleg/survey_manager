@@ -1,12 +1,13 @@
 package com.github.a_oleg.controllers;
 
+import com.github.a_oleg.dto.SurveyDto;
 import com.github.a_oleg.exceptions.ClientException;
 import com.github.a_oleg.exceptions.ServerException;
 import com.github.a_oleg.service.SurveyManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("survey")
@@ -18,24 +19,26 @@ public class SurveyController {
     }
 
     @PostMapping("creating")
-    public void creatingSurvey(String dataForNewSurvey) throws ClientException, ServerException {
-        if(dataForNewSurvey == null) {
-            throw new ClientException("The data for creating a survey cannot be null");
-        }
-        //Предварительный формат dataForNewSurvey: user-создатель, название опроса, папка для опроса, теги
-        //Вопрос: символ ";" очень употребимый и его могут задать в имени опроса, тогда программа сломается. Как этого избежать?
-        String [] surveyData = dataForNewSurvey.split(";");
-        surveyManager.creatingNewSurvey(surveyData);
+    public ResponseEntity<SurveyDto> creatingSurvey(SurveyDto surveyDto) throws ClientException, ServerException {
+
+        return  ResponseEntity.status(HttpStatus.CREATED).body(surveyDto);
+    }
+
+    @GetMapping("get")
+    public ResponseEntity<SurveyDto> getSurvey(String id) {
+        //Нужно взять surveyDto из БД
+        return  ResponseEntity.status(HttpStatus.OK).body(surveyDto);
     }
 
     //Веротно, нужно спрограммировать синхронизацию для всех методов
-    @PostMapping("edit")
-    public void editSurvey() {
-
+    @PutMapping("edit")
+    public void editSurvey(SurveyDto surveyDto) {
+        //Используя новую копию, заменим старую в БД
+        //tru-catch return (код 500)  return  ResponseEntity.status(HttpStatus.NOT_FOUND).body(surveyDto);
     }
 
-    @PostMapping("delete")
-    public void deleteSurvey() {
+    @DeleteMapping("delete")
+    public void deleteSurvey(String id) {
 
     }
 }
