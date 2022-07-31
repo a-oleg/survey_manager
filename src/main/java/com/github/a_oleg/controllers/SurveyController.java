@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("survey")
+@RequestMapping("surveys")
 public class SurveyController {
     private final SurveyManager surveyManager;
     @Autowired
@@ -18,17 +18,28 @@ public class SurveyController {
         this.surveyManager = surveyManager;
     }
 
-    @PostMapping("creating")
+    @PostMapping("new")
     public ResponseEntity<SurveyDto> creatingSurvey(SurveyDto surveyDto) throws ClientException, ServerException {
-
-        return  ResponseEntity.status(HttpStatus.CREATED).body(surveyDto);
+        //логирование info
+        if(surveyDto == null) {
+            //логирование worning
+            ResponseEntity.status(HttpStatus.BAD_REQUEST).body(surveyDto);
+        }
+        System.out.println(surveyDto.getSurveyName());
+        if(surveyManager.creatingNewSurvey(surveyDto)) {
+            //логирование debug
+            return ResponseEntity.status(HttpStatus.CREATED).body(surveyDto);
+        } else {
+            //логирование worning
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(surveyDto);
+        }
     }
 
-    @GetMapping("get")
-    public ResponseEntity<SurveyDto> getSurvey(String id) {
-        //Нужно взять surveyDto из БД
-        return  ResponseEntity.status(HttpStatus.OK).body(surveyDto);
-    }
+//    @GetMapping("get")
+//    public ResponseEntity<SurveyDto> getSurvey(String id) {
+//        Нужно взять surveyDto из БД
+//        return  ResponseEntity.status(HttpStatus.OK).body(surveyDto);
+//    }
 
     //Веротно, нужно спрограммировать синхронизацию для всех методов
     @PutMapping("edit")

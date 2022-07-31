@@ -1,6 +1,7 @@
 package com.github.a_oleg.entity;
 
 public class AbstractQuestion {
-    //Как сделать абстрактный класс, но чтобы он заносился в БД? У нас есть таблица "Вопросы"
+    //Наследников засовывать в пакет entity
+    int id;
     String textQuestion;
 }
