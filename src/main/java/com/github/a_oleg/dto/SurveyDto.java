@@ -5,18 +5,26 @@ public class SurveyDto {
     String creator;
     String surveyName;
     int folderId;
+    boolean activityStatus;
 
-    public SurveyDto(int id, String creator, String surveyName, int folderId) {
+
+    public SurveyDto() {
+
+    }
+
+    public SurveyDto(String creator, String surveyName, int folderId, boolean activityStatus) {
+        this.creator = creator;
+        this.surveyName = surveyName;
+        this.folderId = folderId;
+        this.activityStatus = activityStatus;
+    }
+
+    public SurveyDto(int id, String creator, String surveyName, int folderId, boolean activityStatus) {
         this.id = id;
         this.creator = creator;
         this.surveyName = surveyName;
         this.folderId = folderId;
-    }
-
-    public SurveyDto(String creator, String surveyName, int folderId) {
-        this.creator = creator;
-        this.surveyName = surveyName;
-        this.folderId = folderId;
+        this.activityStatus = activityStatus;
     }
 
     public int getId() {
@@ -49,5 +57,13 @@ public class SurveyDto {
 
     public void setFolderId(int folderId) {
         this.folderId = folderId;
+    }
+
+    public boolean isActivityStatus() {
+        return activityStatus;
+    }
+
+    public void setActivityStatus(boolean activityStatus) {
+        this.activityStatus = activityStatus;
     }
 }
