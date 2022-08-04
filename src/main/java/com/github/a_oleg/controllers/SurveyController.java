@@ -3,7 +3,7 @@ package com.github.a_oleg.controllers;
 import com.github.a_oleg.dto.SurveyDto;
 import com.github.a_oleg.exceptions.ClientException;
 import com.github.a_oleg.exceptions.ServerException;
-import com.github.a_oleg.service.SurveyManager;
+import com.github.a_oleg.service.SurveyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,27 +12,30 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("surveys")
 public class SurveyController {
-    private final SurveyManager surveyManager;
+    private final SurveyService surveyService;
     @Autowired
-    public SurveyController(SurveyManager surveyManager) {
-        this.surveyManager = surveyManager;
+    public SurveyController(SurveyService surveyService) {
+        this.surveyService = surveyService;
     }
 
     @PostMapping("new")
-    public ResponseEntity<SurveyDto> creatingSurvey(SurveyDto surveyDto) throws ClientException, ServerException {
+    public ResponseEntity<SurveyDto> creatingSurvey(@RequestBody SurveyDto surveyDto) throws ClientException, ServerException {
         //логирование info
         if(surveyDto == null) {
             //логирование worning
             ResponseEntity.status(HttpStatus.BAD_REQUEST).body(surveyDto);
         }
         System.out.println(surveyDto.getSurveyName());
-        if(surveyManager.creatingNewSurvey(surveyDto)) {
-            //логирование debug
-            return ResponseEntity.status(HttpStatus.CREATED).body(surveyDto);
-        } else {
-            //логирование worning
+        SurveyDto result;
+        try {
+            result = surveyService.createSurvey(surveyDto);
+        } catch (ServerException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(surveyDto);
         }
+        if(result == null) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(surveyDto);
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(surveyDto);
     }
 
 //    @GetMapping("get")
@@ -42,7 +45,7 @@ public class SurveyController {
 //    }
 
     //Веротно, нужно спрограммировать синхронизацию для всех методов
-    @PutMapping("edit")
+    @PutMapping("update")
     public void editSurvey(SurveyDto surveyDto) {
         //Используя новую копию, заменим старую в БД
         //tru-catch return (код 500)  return  ResponseEntity.status(HttpStatus.NOT_FOUND).body(surveyDto);

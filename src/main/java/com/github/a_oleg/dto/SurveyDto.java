@@ -59,7 +59,7 @@ public class SurveyDto {
         this.folderId = folderId;
     }
 
-    public boolean isActivityStatus() {
+    public boolean getActivityStatus() {
         return activityStatus;
     }
 

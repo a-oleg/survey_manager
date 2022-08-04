@@ -1,0 +1,20 @@
+package com.github.a_oleg.converter;
+
+import com.github.a_oleg.dto.SurveyDto;
+import com.github.a_oleg.entity.Survey;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
+
+@Component
+public class SurveyDtoToSurveyConverter implements Converter<SurveyDto, Survey> {
+    public Survey convert(SurveyDto surveyDto) {
+        Survey targetSurvey = new Survey();
+        targetSurvey.setId(surveyDto.getId());
+        targetSurvey.setCreator(surveyDto.getCreator());
+        targetSurvey.setSurveyName(surveyDto.getSurveyName());
+        targetSurvey.setFolderId(surveyDto.getFolderId());
+        targetSurvey.setActivityStatus(surveyDto.getActivityStatus());
+
+        return targetSurvey;
+    }
+}
