@@ -45,11 +45,23 @@ public class SurveyController {
         return ResponseEntity.status(HttpStatus.CREATED).body(surveyDto);
     }
 
-//    @GetMapping("get")
-//    public ResponseEntity<SurveyDto> getSurvey(String id) {
-//        Нужно взять surveyDto из БД
-//        return  ResponseEntity.status(HttpStatus.OK).body(surveyDto);
-//    }
+    @GetMapping("get")
+    public SurveyDto getSurvey(@RequestBody SurveyDto surveyDto) {
+        logger.info("Info: SurveyController.getSurvey - The request to return the survey from the database was accepted");
+        if(surveyDto == null) {
+            logger.warn("Warning: SurveyController.getSurvey - The request body is null");
+            //Как одновременно возвращать и SurveyDto, и ResponseEntity
+            //return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(surveyDto);
+        }
+        SurveyDto returnedSurveyDto;
+        try {
+            returnedSurveyDto = surveyService.getSurvey(surveyDto.getId());
+            return returnedSurveyDto;
+        } catch (ServerException e) {
+            //logger.warn(e.getCause());
+            //return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(surveyDto);
+        }
+    }
 
     //Веротно, нужно спрограммировать синхронизацию для всех методов
     @PutMapping("update")

@@ -28,12 +28,30 @@ public class SurveyService {
         return conversionService.convert(surveyRepository.save(survey), SurveyDto.class);
     }
 
+    public SurveyDto getSurvey(Integer surveyId) throws ServerException {
+        if(surveyId == null) {
+            throw new ServerException("Error: SurveyService.getSurvey - SurveyID cannot be null");
+        }
+        if(surveyRepository.findById(surveyId).isPresent()) {
+            Survey survey = surveyRepository.findById(surveyId).orElse(new Survey());
+            return conversionService.convert(surveyRepository.save(survey), SurveyDto.class);
+        } else {
+            throw new ServerException("Error: SurveyService.getSurvey - Failed to return survey with ID " + surveyId);
+        }
+    }
+
     /**Метод, удаляющий опрос*/
     public boolean deleteSurvey(Integer surveyId) throws ServerException {
+        //Вопрос: у нас два exception - один, что surveyId не может быть null и эту ошибку нужно вернуть пользователю. А второй exception, что опроса уже нет в базе данных и в этом случае нужно вернуть клиенту инфу, что всё ок, опрос уже удалён. Как возвращать разные коды от одного ServerException?
         if(surveyId == null) {
             throw new ServerException("Error: SurveyService.deleteSurvey - SurveyID cannot be null");
         }
-        Survey survey = SurveyRepository.findById(surveyId);
-        SurveyRepository.delete(survey);
+        if(surveyRepository.findById(surveyId).isPresent()) {
+            Survey survey = surveyRepository.findById(surveyId).orElse(new Survey());
+            surveyRepository.delete(survey);
+            return true;
+        } else {
+            throw new ServerException("Error: SurveyService.deleteSurvey - The survey ID " + surveyId + " is missing from the database");
+        }
     }
 }
