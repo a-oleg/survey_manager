@@ -2,6 +2,7 @@ package com.github.a_oleg.service;
 
 import com.github.a_oleg.dto.SurveyDto;
 import com.github.a_oleg.entity.Survey;
+import com.github.a_oleg.exceptions.ClientException;
 import com.github.a_oleg.exceptions.ServerException;
 import com.github.a_oleg.repository.SurveyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ public class SurveyService {
         return conversionService.convert(surveyRepository.save(survey), SurveyDto.class);
     }
 
+    /**Метод, возвращающий опрос*/
     public SurveyDto getSurvey(Integer surveyId) throws ServerException {
         if(surveyId == null) {
             throw new ServerException("Error: SurveyService.getSurvey - SurveyID cannot be null");
@@ -40,18 +42,32 @@ public class SurveyService {
         }
     }
 
+    /**Метод, обновляющий данные опроса*/
+    public SurveyDto updateSurvey(SurveyDto surveyDto) throws ClientException {
+        if(surveyDto == null) {
+            throw new ClientException("Error: SurveyService.updateSurvey - SurveyDto cannot be null");
+        }
+        Survey searchingSurvey = conversionService.convert(surveyDto, Survey.class);
+        Survey survey;
+        if(surveyRepository.findById((Integer)searchingSurvey.getId()).isPresent()) {
+            survey = surveyRepository.findById((Integer)searchingSurvey.getId()).orElse(new Survey());
+            return conversionService.convert(surveyRepository.save(survey), SurveyDto.class);
+        } else {
+            throw new ClientException("Error: SurveyService.updateSurvey - Couldn't find survey with ID " + surveyDto.getId());
+        }
+    }
+
     /**Метод, удаляющий опрос*/
-    public boolean deleteSurvey(Integer surveyId) throws ServerException {
-        //Вопрос: у нас два exception - один, что surveyId не может быть null и эту ошибку нужно вернуть пользователю. А второй exception, что опроса уже нет в базе данных и в этом случае нужно вернуть клиенту инфу, что всё ок, опрос уже удалён. Как возвращать разные коды от одного ServerException?
+    public SurveyDto deleteSurvey(Integer surveyId) throws ClientException {
         if(surveyId == null) {
-            throw new ServerException("Error: SurveyService.deleteSurvey - SurveyID cannot be null");
+            throw new ClientException("Error: SurveyService.deleteSurvey - SurveyID " + surveyId + " cannot be null");
         }
         if(surveyRepository.findById(surveyId).isPresent()) {
             Survey survey = surveyRepository.findById(surveyId).orElse(new Survey());
             surveyRepository.delete(survey);
-            return true;
+            return conversionService.convert(survey, SurveyDto.class);
         } else {
-            throw new ServerException("Error: SurveyService.deleteSurvey - The survey ID " + surveyId + " is missing from the database");
+            throw new ClientException("Error: SurveyService.deleteSurvey - The survey ID " + surveyId + " is missing from the database");
         }
     }
 }
