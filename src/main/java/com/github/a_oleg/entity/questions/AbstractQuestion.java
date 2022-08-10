@@ -1,7 +1,5 @@
 package com.github.a_oleg.entity.questions;
-
-public class AbstractQuestion {
-    //Наследников засовывать в пакет entity
+public abstract class AbstractQuestion {
     int id;
     String textQuestion;
 }

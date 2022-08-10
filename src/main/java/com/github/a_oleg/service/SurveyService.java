@@ -47,10 +47,8 @@ public class SurveyService {
         if(surveyDto == null) {
             throw new ClientException("Error: SurveyService.updateSurvey - SurveyDto cannot be null");
         }
-        Survey searchingSurvey = conversionService.convert(surveyDto, Survey.class);
-        Survey survey;
-        if(surveyRepository.findById((Integer)searchingSurvey.getId()).isPresent()) {
-            survey = surveyRepository.findById((Integer)searchingSurvey.getId()).orElse(new Survey());
+        Survey survey = conversionService.convert(surveyDto, Survey.class);
+        if(surveyRepository.findById((Integer)survey.getId()).isPresent()) {
             return conversionService.convert(surveyRepository.save(survey), SurveyDto.class);
         } else {
             throw new ClientException("Error: SurveyService.updateSurvey - Couldn't find survey with ID " + surveyDto.getId());
