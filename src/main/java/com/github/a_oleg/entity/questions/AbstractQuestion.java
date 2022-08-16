@@ -32,7 +32,6 @@ public abstract class AbstractQuestion {
         this.descriptionText = descriptionText;
         this.buttonText = buttonText;
     }
-
     public AbstractQuestion(int surveyId, int folderId, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
         this.surveyId = surveyId;
         this.folderId = folderId;

@@ -36,7 +36,7 @@ public class SurveyService {
         }
         if(surveyRepository.findById(surveyId).isPresent()) {
             Survey survey = surveyRepository.findById(surveyId).orElse(new Survey());
-            return conversionService.convert(surveyRepository.save(survey), SurveyDto.class);
+            return conversionService.convert(survey, SurveyDto.class);
         } else {
             throw new ServerException("Error: SurveyService.getSurvey - Failed to return survey with ID " + surveyId);
         }
