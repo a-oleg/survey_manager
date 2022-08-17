@@ -20,6 +20,6 @@ public class QuestionController {
     }
     @PostMapping("new/withtextanswer")
     public ResponseEntity<QuestionDto> createQuestion(@RequestBody QuestionDto questionDto) {
-
+        return null;
     }
 }
