@@ -1,30 +1,17 @@
-package com.github.a_oleg.entity.questions;
+package com.github.a_oleg.dto.questions;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-public abstract class AbstractQuestion {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "question_id")
+public abstract class AbstractQuestionDto {
     int questionId;
-    @Column(name = "survey_id")
     int surveyId;
-    @Column(name = "folder_id")
     int folderId;
-    @Column(name = "type_question")
     String typeQuestion;
-    @Column(name = "text_question")
     String textQuestion;
-    @Column(name = "description_text")
     String descriptionText;
-    @Column(name = "button_text")
     String buttonText;
 
-    public AbstractQuestion(int questionId, int surveyId, int folderId, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
-        this.questionId = questionId;
+    public AbstractQuestionDto() {
+    }
+    public AbstractQuestionDto(int surveyId, int folderId, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
         this.surveyId = surveyId;
         this.folderId = folderId;
         this.typeQuestion = typeQuestion;
@@ -32,17 +19,12 @@ public abstract class AbstractQuestion {
         this.descriptionText = descriptionText;
         this.buttonText = buttonText;
     }
-    public AbstractQuestion(int surveyId, int folderId, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
-        this.surveyId = surveyId;
+    public AbstractQuestionDto(int folderId, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
         this.folderId = folderId;
         this.typeQuestion = typeQuestion;
         this.textQuestion = textQuestion;
         this.descriptionText = descriptionText;
         this.buttonText = buttonText;
-    }
-
-    public AbstractQuestion() {
-
     }
 
     public int getQuestionId() {
@@ -57,9 +39,7 @@ public abstract class AbstractQuestion {
         return surveyId;
     }
 
-    public void setSurveyId(int surveyId) {
-        this.surveyId = surveyId;
-    }
+    public void setSurveyId(int surveyId) { this.surveyId = surveyId; }
 
     public int getFolderId() {
         return folderId;

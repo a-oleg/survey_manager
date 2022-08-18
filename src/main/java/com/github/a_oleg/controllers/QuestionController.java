@@ -1,9 +1,11 @@
 package com.github.a_oleg.controllers;
 
-import com.github.a_oleg.dto.QuestionDto;
+import com.github.a_oleg.dto.questions.QuestionWithTextAnswerDto;
+import com.github.a_oleg.exceptions.ServerException;
 import com.github.a_oleg.service.QuestionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,7 +21,18 @@ public class QuestionController {
         this.questionService = questionService;
     }
     @PostMapping("new/withtextanswer")
-    public ResponseEntity<QuestionDto> createQuestion(@RequestBody QuestionDto questionDto) {
-        return null;
+    public ResponseEntity<QuestionWithTextAnswerDto> createQuestionWithTextAnswer(@RequestBody QuestionWithTextAnswerDto questionWithTextAnswerDto) {
+        logger.info("Info: QuestionController.createQuestionWithTextAnswer - A request to create a new question has been accepted");
+        if(questionWithTextAnswerDto == null) {
+            logger.warn("Warning: QuestionController.createQuestionWithTextAnswer - The request body is null");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(questionWithTextAnswerDto);
+        }
+        QuestionWithTextAnswerDto resultQuestionWithTextAnswerDto;
+        try {
+            resultQuestionWithTextAnswerDto = questionService.createQuestionWithTextAnswer(questionWithTextAnswerDto);
+        } catch (ServerException e) {
+            logger.error("Error: QuestionController.createQuestionWithTextAnswer - " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(questionWithTextAnswerDto);
+        }
     }
 }

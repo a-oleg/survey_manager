@@ -23,7 +23,7 @@ public class SurveyService {
     /**Метод, создающий новый опрос*/
     public SurveyDto createSurvey(SurveyDto surveyDto) throws ServerException {
         if(surveyDto == null) {
-            throw new ServerException("Error: SurveyService.createSurvey - The surveyData array cannot have a null value");
+            throw new ServerException("Error: SurveyService.createSurvey - The surveyDto cannot have a null value");
         }
         Survey survey = conversionService.convert(surveyDto, Survey.class);
         return conversionService.convert(surveyRepository.save(survey), SurveyDto.class);
