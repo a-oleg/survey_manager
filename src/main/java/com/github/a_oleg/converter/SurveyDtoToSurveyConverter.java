@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class SurveyDtoToSurveyConverter implements Converter<SurveyDto, Survey> {
     public Survey convert(SurveyDto surveyDto) {
         Survey targetSurvey = new Survey();
-        targetSurvey.setId(surveyDto.getId());
+        targetSurvey.setSurveyId(surveyDto.getSurveyId());
         targetSurvey.setCreator(surveyDto.getCreator());
         targetSurvey.setSurveyName(surveyDto.getSurveyName());
         targetSurvey.setFolderId(surveyDto.getFolderId());

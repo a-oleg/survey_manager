@@ -7,7 +7,7 @@ public class QuestionWithTextAnswerToQuestionWithTextAnswerDtoConverter {
     public QuestionWithTextAnswerDto convert(QuestionWithTextAnswer questionWithTextAnswer) {
         QuestionWithTextAnswerDto targetQuestionWithTextAnswerDto = new QuestionWithTextAnswerDto();
         targetQuestionWithTextAnswerDto.setQuestionId(questionWithTextAnswer.getQuestionId());
-        targetQuestionWithTextAnswerDto.setFolderId(questionWithTextAnswer.getFolderId());
+        targetQuestionWithTextAnswerDto.setFolderId(questionWithTextAnswer.getQuestionNumberInTheSurvey());
         targetQuestionWithTextAnswerDto.setTypeQuestion(questionWithTextAnswer.getTypeQuestion());
         targetQuestionWithTextAnswerDto.setTextQuestion(questionWithTextAnswer.getTextQuestion());
         targetQuestionWithTextAnswerDto.setDescriptionText(questionWithTextAnswer.getDescriptionText());

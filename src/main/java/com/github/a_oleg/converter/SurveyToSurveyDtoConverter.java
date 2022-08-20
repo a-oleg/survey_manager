@@ -10,7 +10,7 @@ public class SurveyToSurveyDtoConverter implements Converter<Survey, SurveyDto> 
     @Override
     public SurveyDto convert(Survey survey) {
         SurveyDto targetSurveyDto = new SurveyDto();
-        targetSurveyDto.setId(survey.getId());
+        targetSurveyDto.setSurveyId(survey.getSurveyId());
         targetSurveyDto.setCreator(survey.getCreator());
         targetSurveyDto.setSurveyName(survey.getSurveyName());
         targetSurveyDto.setFolderId(survey.getFolderId());

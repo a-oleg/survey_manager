@@ -7,8 +7,8 @@ import javax.persistence.*;
 public class Survey {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    int id;
+    @Column(name = "survey_id")
+    int surveyId;
 
     @Column(name = "creator")
     String creator;
@@ -38,20 +38,20 @@ public class Survey {
         this.activityStatus = status;
     }
 
-    public Survey(int id, String creator, String surveyName, int folderId, boolean status) {
-        this.id = id;
+    public Survey(int surveyId, String creator, String surveyName, int folderId, boolean status) {
+        this.surveyId = surveyId;
         this.creator = creator;
         this.surveyName = surveyName;
         this.folderId = folderId;
         this.activityStatus = status;
     }
 
-    public int getId() {
-        return id;
+    public int getSurveyId() {
+        return surveyId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setSurveyId(int surveyId) {
+        this.surveyId = surveyId;
     }
 
     public String getCreator() {

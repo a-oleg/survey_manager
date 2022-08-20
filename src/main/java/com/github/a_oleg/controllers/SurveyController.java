@@ -75,7 +75,7 @@ public class SurveyController {
             logger.warn(e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(surveyDto);
         }
-        logger.info("Info: SurveyController.editSurvey - The survey ID " + surveyDto.getId() + " has been updated successfully");
+        logger.info("Info: SurveyController.editSurvey - The survey ID " + surveyDto.getSurveyId() + " has been updated successfully");
         return ResponseEntity.status(HttpStatus.OK).body(updatedSurveyDto);
     }
 
@@ -97,7 +97,7 @@ public class SurveyController {
             logger.info("Info: SurveyController.deleteSurvey - The survey ID" + idSurvey + " was successfully deleted");
             return ResponseEntity.status(HttpStatus.OK).body(resultDto);
         } else {
-            logger.error("Error: SurveyController.deleteSurvey - Survey ID" + resultDto.getId() + " deletion failed");
+            logger.error("Error: SurveyController.deleteSurvey - Survey ID" + resultDto.getSurveyId() + " deletion failed");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(resultDto);
         }
     }

@@ -12,8 +12,8 @@ public abstract class AbstractQuestion {
     int questionId;
     @Column(name = "survey_id")
     int surveyId;
-    @Column(name = "folder_id")
-    int folderId;
+    @Column(name = "question_number_in_the_survey")
+    int questionNumberInTheSurvey;
     @Column(name = "type_question")
     String typeQuestion;
     @Column(name = "text_question")
@@ -23,18 +23,18 @@ public abstract class AbstractQuestion {
     @Column(name = "button_text")
     String buttonText;
 
-    public AbstractQuestion(int questionId, int surveyId, int folderId, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
+    public AbstractQuestion(int questionId, int surveyId, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
         this.questionId = questionId;
         this.surveyId = surveyId;
-        this.folderId = folderId;
+        this.questionNumberInTheSurvey = questionNumberInTheSurvey;
         this.typeQuestion = typeQuestion;
         this.textQuestion = textQuestion;
         this.descriptionText = descriptionText;
         this.buttonText = buttonText;
     }
-    public AbstractQuestion(int surveyId, int folderId, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
+    public AbstractQuestion(int surveyId, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
         this.surveyId = surveyId;
-        this.folderId = folderId;
+        this.questionNumberInTheSurvey = questionNumberInTheSurvey;
         this.typeQuestion = typeQuestion;
         this.textQuestion = textQuestion;
         this.descriptionText = descriptionText;
@@ -61,12 +61,12 @@ public abstract class AbstractQuestion {
         this.surveyId = surveyId;
     }
 
-    public int getFolderId() {
-        return folderId;
+    public int getQuestionNumberInTheSurvey() {
+        return questionNumberInTheSurvey;
     }
 
-    public void setFolderId(int folderId) {
-        this.folderId = folderId;
+    public void setQuestionNumberInTheSurvey(int questionNumberInTheSurvey) {
+        this.questionNumberInTheSurvey = questionNumberInTheSurvey;
     }
 
     public String getTypeQuestion() {

@@ -1,8 +1,20 @@
 CREATE TABLE IF NOT EXISTS surveys
 (
-    id BIGSERIAL PRIMARY KEY,
+    survey_id BIGSERIAL PRIMARY KEY,
     creator VARCHAR(50) NOT NULL,
     survey_name VARCHAR(50) NOT NULL,
     folder_id INTEGER NOT NULL,
     activity_status BOOLEAN NOT NULL
+);
+CREATE TABLE IF NOT EXISTS question_with_text_answer
+(
+    question_id BIGSERIAL PRIMARY KEY,
+    survey_id INTEGER REFERENCES surveys(survey_id),
+    question_number_in_the_survey INTEGER NOT NULL,
+    type_question VARCHAR(50) NOT NULL,
+    text_question VARCHAR(50) NOT NULL,
+    description_text VARCHAR(50) NOT NULL,
+    button_text VARCHAR(50) NOT NULL,
+    prefix_text VARCHAR(50) NOT NULL,
+    postfix_text VARCHAR(50) NOT NULL
 );

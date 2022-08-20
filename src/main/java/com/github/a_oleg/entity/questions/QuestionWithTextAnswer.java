@@ -1,7 +1,9 @@
 package com.github.a_oleg.entity.questions;
 
-import javax.persistence.Column;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "question_with_text_answer")
 public class QuestionWithTextAnswer extends AbstractQuestion {
     @Column(name = "prefix_text")
     String prefixText;

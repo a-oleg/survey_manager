@@ -1,7 +1,7 @@
 package com.github.a_oleg.dto;
 
 public class SurveyDto {
-    int id;
+    int surveyId;
     String creator;
     String surveyName;
     int folderId;
@@ -19,20 +19,20 @@ public class SurveyDto {
         this.activityStatus = activityStatus;
     }
 
-    public SurveyDto(int id, String creator, String surveyName, int folderId, boolean activityStatus) {
-        this.id = id;
+    public SurveyDto(int surveyId, String creator, String surveyName, int folderId, boolean activityStatus) {
+        this.surveyId = surveyId;
         this.creator = creator;
         this.surveyName = surveyName;
         this.folderId = folderId;
         this.activityStatus = activityStatus;
     }
 
-    public int getId() {
-        return id;
+    public int getSurveyId() {
+        return surveyId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setSurveyId(int surveyId) {
+        this.surveyId = surveyId;
     }
 
     public String getCreator() {

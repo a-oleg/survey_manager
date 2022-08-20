@@ -5,6 +5,7 @@ import com.github.a_oleg.exceptions.ServerException;
 import com.github.a_oleg.service.QuestionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class QuestionController {
     private Logger logger = LoggerFactory.getLogger(SurveyController.class);
     private final QuestionService questionService;
+    @Autowired
     public QuestionController(QuestionService questionService) {
         this.questionService = questionService;
     }
@@ -34,5 +36,7 @@ public class QuestionController {
             logger.error("Error: QuestionController.createQuestionWithTextAnswer - " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(questionWithTextAnswerDto);
         }
+        logger.info("Info: QuestionController.createQuestionWithTextAnswer - The question was successfully created");
+        return ResponseEntity.status(HttpStatus.CREATED).body(resultQuestionWithTextAnswerDto);
     }
 }
