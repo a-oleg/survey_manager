@@ -1,6 +1,9 @@
 package com.github.a_oleg.service;
 
+import com.github.a_oleg.dto.SurveyDto;
 import com.github.a_oleg.dto.questions.QuestionWithTextAnswerDto;
+import com.github.a_oleg.entity.Survey;
+import com.github.a_oleg.entity.questions.AbstractQuestion;
 import com.github.a_oleg.entity.questions.QuestionWithTextAnswer;
 import com.github.a_oleg.exceptions.ClientException;
 import com.github.a_oleg.exceptions.ServerException;
@@ -34,10 +37,11 @@ public class QuestionService {
                 QuestionWithTextAnswerDto.class);
     }
 
+    //Переписать метод, нужно принимать QuestionDto
     /**Метод, возвращающий вопрос с текстовым ответом*/
     public QuestionWithTextAnswerDto getQuestionWithTextAnswerDto(Integer questionId) throws ServerException {
         if(questionId == null) {
-            throw new ServerException("Error: QuestionService.getQuestionWithTextAnswerDto - SurveyID cannot be null");
+            throw new ServerException("Error: QuestionService.getQuestionWithTextAnswerDto - QuestionId cannot be null");
         }
         if(questionWithTextAnswerRepository.findById(questionId).isPresent()) {
             QuestionWithTextAnswer questionWithTextAnswer = questionWithTextAnswerRepository.
@@ -45,7 +49,7 @@ public class QuestionService {
             return conversionService.convert(questionWithTextAnswer, QuestionWithTextAnswerDto.class);
         } else {
             throw new ServerException("Error: QuestionService.getQuestionWithTextAnswerDto -" +
-                    " Failed to return survey with ID " + questionId);
+                    " Failed to return question with ID " + questionId);
         }
     }
 
@@ -62,8 +66,13 @@ public class QuestionService {
             return conversionService.convert(questionWithTextAnswerRepository.save(questionWithTextAnswer),
                     QuestionWithTextAnswerDto.class);
         } else {
-            throw new ClientException("Error: SurveyService.updateSurvey - Couldn't find survey with ID " +
+            throw new ClientException("Error: QuestionService.updateQuestionWithTextAnswerDto - Couldn't find question with ID " +
                     questionWithTextAnswerDto.getQuestionId());
         }
+    }
+
+    /**Метод, удаляющий вопрос*/
+    public AbstractQuestion deleteQuestion(int questionId, String typeQuestion) throws ClientException {
+        return null;
     }
 }

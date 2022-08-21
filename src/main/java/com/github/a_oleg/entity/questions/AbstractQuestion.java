@@ -1,10 +1,8 @@
 package com.github.a_oleg.entity.questions;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+@MappedSuperclass
 public abstract class AbstractQuestion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
