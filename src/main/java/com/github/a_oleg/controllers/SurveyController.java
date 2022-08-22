@@ -46,7 +46,7 @@ public class SurveyController {
     public ResponseEntity<SurveyDto> getSurvey(@RequestParam(name = "surveyId", required = true)Integer surveyId) {
         logger.info("Info: SurveyController.getSurvey - The request to return the survey from the database was accepted");
         if(surveyId == null) {
-            logger.warn("Warning: SurveyController.getSurvey - The request body is null");
+            logger.warn("Warning: SurveyController.getSurvey - The request is null");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
         SurveyDto returnedSurveyDto;
@@ -68,7 +68,7 @@ public class SurveyController {
             logger.warn("Warning: SurveyController.editSurvey - The request body is null");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(surveyDto);
         }
-        SurveyDto updatedSurveyDto = new SurveyDto();
+        SurveyDto updatedSurveyDto;
         try {
             updatedSurveyDto = surveyService.updateSurvey(surveyDto);
         } catch (ClientException e) {
@@ -83,7 +83,7 @@ public class SurveyController {
     public ResponseEntity<SurveyDto> deleteSurvey(@RequestParam(name = "surveyId", required = true) Integer surveyId) {
         logger.info("Info: SurveyController.deleteSurvey - The request to delete the survey was accepted");
         if(surveyId == null) {
-            logger.warn("Warning: SurveyController.deleteSurvey - The request body is null");
+            logger.warn("Warning: SurveyController.deleteSurvey - The request is null");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
         SurveyDto resultDto;
@@ -94,10 +94,10 @@ public class SurveyController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
         if(resultDto != null) {
-            logger.info("Info: SurveyController.deleteSurvey - The survey ID" + surveyId + " was successfully deleted");
+            logger.info("Info: SurveyController.deleteSurvey - The survey ID " + surveyId + " was successfully deleted");
             return ResponseEntity.status(HttpStatus.OK).body(resultDto);
         } else {
-            logger.error("Error: SurveyController.deleteSurvey - Survey ID" + resultDto.getSurveyId() + " deletion failed");
+            logger.error("Error: SurveyController.deleteSurvey - Survey ID " + resultDto.getSurveyId() + " deletion failed");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(resultDto);
         }
     }

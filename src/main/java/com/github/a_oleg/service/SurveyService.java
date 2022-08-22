@@ -51,7 +51,8 @@ public class SurveyService {
         if(surveyRepository.findById((Integer)survey.getSurveyId()).isPresent()) {
             return conversionService.convert(surveyRepository.save(survey), SurveyDto.class);
         } else {
-            throw new ClientException("Error: SurveyService.updateSurvey - Couldn't find survey with ID " + surveyDto.getSurveyId());
+            throw new ClientException("Error: SurveyService.updateSurvey - Couldn't find survey with ID "
+                    + surveyDto.getSurveyId());
         }
     }
 
@@ -65,7 +66,8 @@ public class SurveyService {
             surveyRepository.delete(survey);
             return conversionService.convert(survey, SurveyDto.class);
         } else {
-            throw new ClientException("Error: SurveyService.deleteSurvey - The survey ID " + surveyId + " is missing from the database");
+            throw new ClientException("Error: SurveyService.deleteSurvey - The survey ID " + surveyId +
+                    " is missing from the database");
         }
     }
 }
