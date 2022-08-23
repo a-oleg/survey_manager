@@ -10,20 +10,23 @@ public class QuestionWithTextAnswer extends AbstractQuestion {
     @Column(name = "postfix_text")
     String postfixText;
 
-    public QuestionWithTextAnswer(int questionId, int surveyId, int folderId, String typeQuestion, String textQuestion, String descriptionText, String buttonText, String prefixText, String postfixText) {
-        super(questionId, surveyId, folderId, typeQuestion, textQuestion, descriptionText, buttonText);
-        this.prefixText = prefixText;
-        this.postfixText = postfixText;
-    }
-
-    public QuestionWithTextAnswer(int surveyId, int folderId, String typeQuestion, String textQuestion, String descriptionText, String buttonText, String prefixText, String postfixText) {
-        super(surveyId, folderId, typeQuestion, textQuestion, descriptionText, buttonText);
-        this.prefixText = prefixText;
-        this.postfixText = postfixText;
-    }
-
     public QuestionWithTextAnswer() {
         super();
+    }
+
+    public QuestionWithTextAnswer(int questionId, int surveyId, int questionNumberInTheSurvey, String typeQuestion,
+                                  String textQuestion, String descriptionText, String buttonText, String prefixText,
+                                  String postfixText) {
+        super(questionId, surveyId, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
+        this.prefixText = prefixText;
+        this.postfixText = postfixText;
+    }
+
+    public QuestionWithTextAnswer(int surveyId, int questionNumberInTheSurvey, String typeQuestion, String textQuestion,
+                                  String descriptionText, String buttonText, String prefixText, String postfixText) {
+        super(surveyId, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
+        this.prefixText = prefixText;
+        this.postfixText = postfixText;
     }
 
     public String getPrefixText() {

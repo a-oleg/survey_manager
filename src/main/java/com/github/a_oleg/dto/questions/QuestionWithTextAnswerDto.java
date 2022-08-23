@@ -6,13 +6,18 @@ public class QuestionWithTextAnswerDto extends AbstractQuestionDto {
 
     public QuestionWithTextAnswerDto() {
     }
-    public QuestionWithTextAnswerDto(int surveyId, int folderId, String typeQuestion, String textQuestion, String descriptionText, String buttonText, String prefixText, String postfixText) {
-        super(surveyId, folderId, typeQuestion, textQuestion, descriptionText, buttonText);
+
+    public QuestionWithTextAnswerDto(int questionId, int surveyId, int questionNumberInTheSurvey, String typeQuestion,
+                                     String textQuestion, String descriptionText, String buttonText, String prefixText,
+                                     String postfixText) {
+        super(questionId, surveyId, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
         this.prefixText = prefixText;
         this.postfixText = postfixText;
     }
-    public QuestionWithTextAnswerDto(int folderId, String typeQuestion, String textQuestion, String descriptionText, String buttonText, String prefixText, String postfixText) {
-        super(folderId, typeQuestion, textQuestion, descriptionText, buttonText);
+
+    public QuestionWithTextAnswerDto(int surveyId, int questionNumberInTheSurvey, String typeQuestion, String textQuestion,
+                                     String descriptionText, String buttonText, String prefixText, String postfixText) {
+        super(surveyId, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
         this.prefixText = prefixText;
         this.postfixText = postfixText;
     }

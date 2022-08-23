@@ -12,9 +12,9 @@ CREATE TABLE IF NOT EXISTS question_with_text_answer
     survey_id INTEGER REFERENCES surveys(survey_id),
     question_number_in_the_survey INTEGER NOT NULL,
     type_question VARCHAR(50) NOT NULL,
-    text_question VARCHAR(50) NOT NULL,
-    description_text VARCHAR(50) NOT NULL,
-    button_text VARCHAR(50) NOT NULL,
-    prefix_text VARCHAR(50) NOT NULL,
-    postfix_text VARCHAR(50) NOT NULL
+    text_question VARCHAR(255) NOT NULL,
+    description_text VARCHAR(255) NOT NULL,
+    button_text VARCHAR(255) NOT NULL,
+    prefix_text VARCHAR(255) NOT NULL,
+    postfix_text VARCHAR(255) NOT NULL
 );

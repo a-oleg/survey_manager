@@ -23,7 +23,8 @@ public class QuestionController {
 
     /**Метод, принимающий запрос на саздание вопроса с текстовым ответом*/
     @PostMapping("new/withtextanswer")
-    public ResponseEntity<QuestionWithTextAnswerDto> createQuestionWithTextAnswer(@RequestBody QuestionWithTextAnswerDto questionWithTextAnswerDto) {
+    public ResponseEntity<QuestionWithTextAnswerDto> createQuestionWithTextAnswer(@RequestBody QuestionWithTextAnswerDto
+                                                                                              questionWithTextAnswerDto) {
         logger.info("Info: QuestionController.createQuestionWithTextAnswer - A request to create a new question" +
                 " has been accepted");
         if(questionWithTextAnswerDto == null) {

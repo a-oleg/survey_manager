@@ -3,7 +3,7 @@ package com.github.a_oleg.dto.questions;
 public abstract class AbstractQuestionDto {
     int questionId;
     int surveyId;
-    int folderId;
+    int questionNumberInTheSurvey;
     String typeQuestion;
     String textQuestion;
     String descriptionText;
@@ -11,16 +11,20 @@ public abstract class AbstractQuestionDto {
 
     public AbstractQuestionDto() {
     }
-    public AbstractQuestionDto(int surveyId, int folderId, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
+
+    public AbstractQuestionDto(int questionId, int surveyId, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
+        this.questionId = questionId;
         this.surveyId = surveyId;
-        this.folderId = folderId;
+        this.questionNumberInTheSurvey = questionNumberInTheSurvey;
         this.typeQuestion = typeQuestion;
         this.textQuestion = textQuestion;
         this.descriptionText = descriptionText;
         this.buttonText = buttonText;
     }
-    public AbstractQuestionDto(int folderId, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
-        this.folderId = folderId;
+
+    public AbstractQuestionDto(int surveyId, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
+        this.surveyId = surveyId;
+        this.questionNumberInTheSurvey = questionNumberInTheSurvey;
         this.typeQuestion = typeQuestion;
         this.textQuestion = textQuestion;
         this.descriptionText = descriptionText;
@@ -39,14 +43,16 @@ public abstract class AbstractQuestionDto {
         return surveyId;
     }
 
-    public void setSurveyId(int surveyId) { this.surveyId = surveyId; }
-
-    public int getFolderId() {
-        return folderId;
+    public void setSurveyId(int surveyId) {
+        this.surveyId = surveyId;
     }
 
-    public void setFolderId(int folderId) {
-        this.folderId = folderId;
+    public int getQuestionNumberInTheSurvey() {
+        return questionNumberInTheSurvey;
+    }
+
+    public void setQuestionNumberInTheSurvey(int questionNumberInTheSurvey) {
+        this.questionNumberInTheSurvey = questionNumberInTheSurvey;
     }
 
     public String getTypeQuestion() {
