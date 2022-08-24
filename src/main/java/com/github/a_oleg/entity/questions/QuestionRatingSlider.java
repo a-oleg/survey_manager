@@ -37,7 +37,7 @@ public abstract class QuestionRatingSlider extends AbstractQuestion {
     @MappedSuperclass
     public abstract class QuestionSlider extends QuestionRatingSlider {
         @Entity
-        @Table(name = "question_slider")
+        @Table(name = "question_numeric_slider")
         class QuestionNumericSlider extends QuestionSlider {
             @Column(name = "count_of_scale_elements")
             int countOfScaleElements;
@@ -50,7 +50,7 @@ public abstract class QuestionRatingSlider extends AbstractQuestion {
         }
 
         @Entity
-        @Table(name = "question_slider")
+        @Table(name = "question_percentage_slider")
         class QuestionPercentageSlider extends QuestionSlider {
             @Column(name = "step")
             int step;
