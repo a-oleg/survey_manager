@@ -21,7 +21,6 @@ public abstract class QuestionRatingSlider extends AbstractQuestion {
             ORANGEWHITE
     }
 
-
     @Entity
     @Table(name = "question_rating")
     class QuestionRating extends QuestionRatingSlider {
