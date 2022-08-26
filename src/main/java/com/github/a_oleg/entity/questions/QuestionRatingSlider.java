@@ -6,9 +6,9 @@ import javax.persistence.*;
 @MappedSuperclass
 public abstract class QuestionRatingSlider extends AbstractQuestion {
     private enum TypeFigure {
+        CIRCLE,
         SMILE,
         STAR,
-        CIRCLE,
         SQUARE
     }
 

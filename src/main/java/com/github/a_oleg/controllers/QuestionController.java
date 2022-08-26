@@ -1,5 +1,6 @@
 package com.github.a_oleg.controllers;
 
+import com.github.a_oleg.dto.questions.QuestionRatingDto;
 import com.github.a_oleg.dto.questions.QuestionWithTextAnswerDto;
 import com.github.a_oleg.exceptions.ClientException;
 import com.github.a_oleg.exceptions.ServerException;
@@ -107,5 +108,44 @@ public class QuestionController {
                     resultQuestionWithTextAnswerDto.getQuestionId() + " deletion failed");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(resultQuestionWithTextAnswerDto);
         }
+    }
+
+    /**Метод, принимающий запрос на саздание вопроса-рейтинга*/
+    @PostMapping("new/rating")
+    public ResponseEntity<QuestionRatingDto> createQuestionRating(@RequestBody QuestionRatingDto questionRatingDto) {
+        logger.info("Info: QuestionController.createQuestionRating - A request to create a new question" +
+                " has been accepted");
+        if(questionRatingDto == null) {
+            logger.warn("Warning: QuestionController.createQuestionRating - The request body is null");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(questionRatingDto);
+        }
+//        enum TypeFigure {
+//            HEART,
+//            SMILE,
+//            STAR,
+//            CIRCLE,
+//            SQUARE
+//        }
+//
+//        enum GradientType {
+//            NO,
+//            BLACKWHITE,
+//            BLUEWHITE,
+//            GRAYWHITE,
+//            GREENWHITE,
+//            ORANGEWHITE
+//        }
+//        if(questionRatingDto.getTypeFigure()) {
+//
+//        }
+        QuestionRatingDto resultQuestionRatingDto;
+        try {
+            resultQuestionRatingDto = questionService.createQuestionRating(questionRatingDto);
+        } catch (ServerException e) {
+            logger.error("Error: QuestionController.createQuestionRating - " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(questionRatingDto);
+        }
+        logger.info("Info: QuestionController.createQuestionRating - The question was successfully created");
+        return ResponseEntity.status(HttpStatus.CREATED).body(resultQuestionRatingDto);
     }
 }

@@ -1,6 +1,5 @@
 package com.github.a_oleg.repository.questions;
 
-import com.github.a_oleg.entity.Survey;
 import com.github.a_oleg.entity.questions.QuestionWithTextAnswer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

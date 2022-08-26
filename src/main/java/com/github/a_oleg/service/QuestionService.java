@@ -1,9 +1,12 @@
 package com.github.a_oleg.service;
 
+import com.github.a_oleg.dto.questions.QuestionRatingDto;
 import com.github.a_oleg.dto.questions.QuestionWithTextAnswerDto;
+import com.github.a_oleg.entity.questions.QuestionRating;
 import com.github.a_oleg.entity.questions.QuestionWithTextAnswer;
 import com.github.a_oleg.exceptions.ClientException;
 import com.github.a_oleg.exceptions.ServerException;
+import com.github.a_oleg.repository.questions.QuestionRatingRepository;
 import com.github.a_oleg.repository.questions.QuestionWithTextAnswerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
@@ -12,12 +15,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class QuestionService {
     private final QuestionWithTextAnswerRepository questionWithTextAnswerRepository;
+    private final QuestionRatingRepository questionRatingRepository;
     private final ConversionService conversionService;
 
     @Autowired
-    public QuestionService(QuestionWithTextAnswerRepository questionWithTextAnswerRepository,
+    public QuestionService(QuestionWithTextAnswerRepository questionWithTextAnswerRepository, QuestionRatingRepository questionRatingRepository,
                            ConversionService conversionService) {
         this.questionWithTextAnswerRepository = questionWithTextAnswerRepository;
+        this.questionRatingRepository = questionRatingRepository;
         this.conversionService = conversionService;
     }
 
@@ -81,5 +86,16 @@ public class QuestionService {
             throw new ClientException("Error: QuestionService.deleteQuestionWithTextAnswer - The questionID "
                     + questionId + " is missing from the database");
         }
+    }
+
+    /**Метод, создающий новый вопрос-рейтинг*/
+    public QuestionRatingDto createQuestionRating(QuestionRatingDto questionRatingDto) throws ServerException {
+        if(questionRatingDto == null) {
+            throw new ServerException("Error: QuestionService.createQuestionRating - The questionRating cannot have a null value");
+        }
+        QuestionRating questionRating = conversionService.convert(questionRatingDto,
+                QuestionRating.class);
+        return conversionService.convert(questionRatingRepository.save(questionRating),
+                QuestionRatingDto.class);
     }
 }
