@@ -47,16 +47,17 @@ public class QuestionController {
     @GetMapping("get/withtextanswer")
     public ResponseEntity<QuestionWithTextAnswerDto> getQuestionWithTextAnswer(@RequestParam(name = "questionId",
             required = true)Integer questionId) {
-        logger.info("Info: QuestionController.getQuestionWithTextAnswer - The request to return the question from the" +
-                " database was accepted");
+        logger.info("Info: QuestionController.getQuestionWithTextAnswer - The request to return the question with text answer" +
+                + questionId + " from the database was accepted");
         if(questionId == null) {
-            logger.warn("Warning: QuestionController.getQuestionWithTextAnswer - The request is null");
+            logger.warn("Warning: QuestionController.getQuestionWithTextAnswer - The request is null for id" + questionId);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
         QuestionWithTextAnswerDto questionWithTextAnswerDto;
         try {
             questionWithTextAnswerDto = questionService.getQuestionWithTextAnswerDto(questionId);
-            logger.info("Info: QuestionController.getQuestionWithTextAnswer - The question was successfully received");
+            logger.info("Info: QuestionController.getQuestionWithTextAnswer - The question id" + questionId +
+                    " was successfully received");
             return ResponseEntity.status(HttpStatus.OK).body(questionWithTextAnswerDto);
         } catch (ServerException e) {
             logger.warn(e.getMessage());
@@ -67,8 +68,8 @@ public class QuestionController {
     /**Метод, обновляющий данные вопроса с текстовым ответом*/
     @PutMapping("update/withtextanswer")
     public ResponseEntity<QuestionWithTextAnswerDto> updateQuestionWithTextAnswer(@RequestBody QuestionWithTextAnswerDto questionWithTextAnswerDto) {
-        logger.info("Info: QuestionController.updateQuestionWithTextAnswer - The request to edit question" +
-                questionWithTextAnswerDto.getQuestionId() + " the question was accepted");
+        logger.info("Info: QuestionController.updateQuestionWithTextAnswer - The request to edit question with text" +
+                " answer " + questionWithTextAnswerDto.getQuestionId() + " the question was accepted");
         if(questionWithTextAnswerDto == null) {
             logger.warn("Warning: QuestionController.updateQuestionWithTextAnswer - The request body is null");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(questionWithTextAnswerDto);
@@ -147,5 +148,27 @@ public class QuestionController {
         }
         logger.info("Info: QuestionController.createQuestionRating - The question was successfully created");
         return ResponseEntity.status(HttpStatus.CREATED).body(resultQuestionRatingDto);
+    }
+
+    /**Метод, принимающий запрос на возврат вопроса-рейтинга*/
+    @GetMapping("get/rating")
+    public ResponseEntity<QuestionRatingDto> getQuestionRating(@RequestParam(name = "questionId", required = true)
+                                                                   Integer questionId) {
+        logger.info("Info: QuestionController.getQuestionRating - The request to return the question-rating" + questionId +
+                " from the database was accepted");
+        if(questionId == null) {
+            logger.warn("Warning: QuestionController.getQuestionRating - The request is null for if" + questionId);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+        QuestionRatingDto questionRatingDto;
+        try {
+            questionRatingDto = questionService.getQuestionRating(questionId);
+            logger.info("Info: QuestionController.getQuestionRating - The question id" + questionId +
+                    " was successfully received");
+            return ResponseEntity.status(HttpStatus.OK).body(questionRatingDto);
+        } catch (ServerException e) {
+            logger.warn(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 }

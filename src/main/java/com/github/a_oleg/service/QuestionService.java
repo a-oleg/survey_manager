@@ -98,4 +98,19 @@ public class QuestionService {
         return conversionService.convert(questionRatingRepository.save(questionRating),
                 QuestionRatingDto.class);
     }
+
+    /**Метод, возвращающий вопрос-рейтинг*/
+    public QuestionRatingDto getQuestionRating(Integer questionId) throws ServerException {
+        if(questionId == null) {
+            throw new ServerException("Error: QuestionService.getQuestionRating - QuestionId cannot be null");
+        }
+        if(questionRatingRepository.findById(questionId).isPresent()) {
+            QuestionRating questionRating = questionRatingRepository.
+                    findById(questionId).orElse(new QuestionRating());
+            return conversionService.convert(questionRating, QuestionRatingDto.class);
+        } else {
+            throw new ServerException("Error: QuestionService.getQuestionRating -" +
+                    " Failed to return question with ID " + questionId);
+        }
+    }
 }
