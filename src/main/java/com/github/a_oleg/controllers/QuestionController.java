@@ -81,14 +81,17 @@ public class QuestionController {
             logger.warn(e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(questionWithTextAnswerDto);
         }
-        logger.info("Info: QuestionController.updateQuestionWithTextAnswer - The question ID " + questionWithTextAnswerDto.getQuestionId() + " has been updated successfully");
+        logger.info("Info: QuestionController.updateQuestionWithTextAnswer - The question ID " +
+                questionWithTextAnswerDto.getQuestionId() + " has been updated successfully");
         return ResponseEntity.status(HttpStatus.OK).body(updatedQuestionWithTextAnswerDto);
     }
 
+    /**Метод, удаляющий вопрос с текстовым ответом*/
     @DeleteMapping("delete/withtextanswer")
     public ResponseEntity<QuestionWithTextAnswerDto> deleteQuestionWithTextAnswer(@RequestParam(name = "questionId",
             required = true) Integer questionId) {
-        logger.info("Info: QuestionController.deleteQuestionWithTextAnswer - The request to delete the question was accepted");
+        logger.info("Info: QuestionController.deleteQuestionWithTextAnswer - The request to delete the question ID " +
+                questionId + " was accepted");
         if(questionId == null) {
             logger.warn("Warning: QuestionController.deleteQuestionWithTextAnswer - The question is null");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
@@ -169,6 +172,55 @@ public class QuestionController {
         } catch (ServerException e) {
             logger.warn(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    /**Метод, обновляющий данные вопроса-рейтинга*/
+    @PutMapping("update/rating")
+    public ResponseEntity<QuestionRatingDto> updateQuestionRating(@RequestBody QuestionRatingDto questionRatingDto) {
+        logger.info("Info: QuestionController.updateQuestionRating - The request to edit question with text" +
+                " answer " + questionRatingDto.getQuestionId() + " the question was accepted");
+        if(questionRatingDto == null) {
+            logger.warn("Warning: QuestionController.updateQuestionRating - The request body is null");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(questionRatingDto);
+        }
+        QuestionRatingDto updatedQuestionRatingDto;
+        try {
+            updatedQuestionRatingDto = questionService.updateQuestionRatingDto(questionRatingDto);
+        } catch (ClientException e) {
+            logger.warn(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(questionRatingDto);
+        }
+        logger.info("Info: QuestionController.updateQuestionRating - The question ID " + questionRatingDto.getQuestionId() +
+                " has been updated successfully");
+        return ResponseEntity.status(HttpStatus.OK).body(updatedQuestionRatingDto);
+    }
+
+    /**Метод, удаляющий вопрос с текстовым ответом*/
+    @DeleteMapping("delete/rating")
+    public ResponseEntity<QuestionRatingDto> deleteQuestionRating(@RequestParam(name = "questionId",
+            required = true) Integer questionId) {
+        logger.info("Info: QuestionController.deleteQuestionRating - The request to delete the question ID "
+                + questionId + " was accepted");
+        if(questionId == null) {
+            logger.warn("Warning: QuestionController.deleteQuestionRating - The question is null");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+        QuestionRatingDto resultQuestionRatingDto;
+        try {
+            resultQuestionRatingDto = questionService.deleteQuestionRating(questionId);
+        } catch (ClientException e) {
+            logger.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        if(resultQuestionRatingDto != null) {
+            logger.info("Info: QuestionController.deleteQuestionRating - The question ID " + questionId +
+                    " was successfully deleted");
+            return ResponseEntity.status(HttpStatus.OK).body(resultQuestionRatingDto);
+        } else {
+            logger.error("Error: QuestionController.deleteQuestionRating - Question ID " +
+                    resultQuestionRatingDto.getQuestionId() + " deletion failed");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(resultQuestionRatingDto);
         }
     }
 }

@@ -83,7 +83,7 @@ public class QuestionService {
             questionWithTextAnswerRepository.delete(questionWithTextAnswer);
             return conversionService.convert(questionWithTextAnswer, QuestionWithTextAnswerDto.class);
         } else {
-            throw new ClientException("Error: QuestionService.deleteQuestionWithTextAnswer - The questionID "
+            throw new ClientException("Error: QuestionService.deleteQuestionWithTextAnswer - The question ID "
                     + questionId + " is missing from the database");
         }
     }
@@ -105,12 +105,45 @@ public class QuestionService {
             throw new ServerException("Error: QuestionService.getQuestionRating - QuestionId cannot be null");
         }
         if(questionRatingRepository.findById(questionId).isPresent()) {
-            QuestionRating questionRating = questionRatingRepository.
-                    findById(questionId).orElse(new QuestionRating());
+            QuestionRating questionRating = questionRatingRepository.findById(questionId).orElse(new QuestionRating());
             return conversionService.convert(questionRating, QuestionRatingDto.class);
         } else {
             throw new ServerException("Error: QuestionService.getQuestionRating -" +
                     " Failed to return question with ID " + questionId);
+        }
+    }
+
+    /**Метод, обновляющий данные вопроса-рейтинга*/
+    public QuestionRatingDto updateQuestionRatingDto(QuestionRatingDto questionRatingDto)
+            throws ClientException {
+        if(questionRatingDto == null) {
+            throw new ClientException("Error: QuestionService.updateQuestionRatingDto -" +
+                    " QuestionWithTextAnswerDto cannot be null");
+        }
+        QuestionRating questionRating = conversionService.convert(questionRatingDto,
+                QuestionRating.class);
+        if(questionRatingRepository.findById((Integer)questionRating.getQuestionId()).isPresent()) {
+            return conversionService.convert(questionRatingRepository.save(questionRating),
+                    QuestionRatingDto.class);
+        } else {
+            throw new ClientException("Error: QuestionService.updateQuestionRatingDto - Couldn't find question" +
+                    " with ID " + questionRatingDto.getQuestionId());
+        }
+    }
+
+    /**Метод, удаляющий вопрос-рейтинг*/
+    public QuestionRatingDto deleteQuestionRating(Integer questionId) throws ClientException {
+        if(questionId == null) {
+            throw new ClientException("Error: QuestionService.deleteQuestionRating - The questionID " + questionId +
+                    " cannot be null");
+        }
+        if(questionRatingRepository.findById(questionId).isPresent()) {
+            QuestionRating questionRating = questionRatingRepository.findById(questionId).orElse(new QuestionRating());
+            questionRatingRepository.delete(questionRating);
+            return conversionService.convert(questionRating, QuestionRatingDto.class);
+        } else {
+            throw new ClientException("Error: QuestionService.deleteQuestionRating - The question ID "
+                    + questionId + " is missing from the database");
         }
     }
 }
