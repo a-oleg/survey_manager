@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class QuestionRatingToQuestionRatingDtoConverter implements Converter<QuestionRating, QuestionRatingDto> {
+    @Override
     public QuestionRatingDto convert(QuestionRating questionRating) {
         QuestionRatingDto targetQuestionRatingDto = new QuestionRatingDto();
         targetQuestionRatingDto.setQuestionId(questionRating.getQuestionId());

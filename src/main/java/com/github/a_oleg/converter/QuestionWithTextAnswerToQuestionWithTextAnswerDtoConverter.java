@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class QuestionWithTextAnswerToQuestionWithTextAnswerDtoConverter implements Converter<QuestionWithTextAnswer, QuestionWithTextAnswerDto> {
+    @Override
     public QuestionWithTextAnswerDto convert(QuestionWithTextAnswer questionWithTextAnswer) {
         QuestionWithTextAnswerDto targetQuestionWithTextAnswerDto = new QuestionWithTextAnswerDto();
         targetQuestionWithTextAnswerDto.setQuestionId(questionWithTextAnswer.getQuestionId());

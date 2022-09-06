@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class SurveyDtoToSurveyConverter implements Converter<SurveyDto, Survey> {
+    @Override
     public Survey convert(SurveyDto surveyDto) {
         Survey targetSurvey = new Survey();
         targetSurvey.setSurveyId(surveyDto.getSurveyId());

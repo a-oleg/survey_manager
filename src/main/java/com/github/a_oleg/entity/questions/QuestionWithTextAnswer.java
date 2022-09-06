@@ -1,6 +1,8 @@
 package com.github.a_oleg.entity.questions;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "question_with_text_answer")
