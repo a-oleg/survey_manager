@@ -196,7 +196,7 @@ public class QuestionController {
         return ResponseEntity.status(HttpStatus.OK).body(updatedQuestionRatingDto);
     }
 
-    /**Метод, удаляющий вопрос с текстовым ответом*/
+    /**Метод, удаляющий вопрос-рейтинг*/
     @DeleteMapping("delete/rating")
     public ResponseEntity<QuestionRatingDto> deleteQuestionRating(@RequestParam(name = "questionId",
             required = true) Integer questionId) {
