@@ -1,4 +1,4 @@
-package com.github.a_oleg.converter;
+package com.github.a_oleg.converters;
 
 import com.github.a_oleg.dto.questions.QuestionSliderDto;
 import com.github.a_oleg.entity.questions.QuestionSlider;
@@ -20,7 +20,7 @@ public class QuestionSliderDtoToQuestionSliderConverter implements Converter<Que
         targetqQuestionSlider.setTypeSlider(questionSliderDto.getTypeSlider());
         targetqQuestionSlider.setCountOfScaleElements(questionSliderDto.getCountOfScaleElements());
         targetqQuestionSlider.setDefaultScaleElementNumber(questionSliderDto.getDefaultScaleElementNumber());
-        targetqQuestionSlider.setTypeFigure(questionSliderDto.getTypeFigure());
+        targetqQuestionSlider.setFigureType(questionSliderDto.getFigureType());
 
         return targetqQuestionSlider;
     }

@@ -1,5 +1,8 @@
 package com.github.a_oleg.entity.questions;
 
+import com.github.a_oleg.enums.FigureType;
+import com.github.a_oleg.enums.GradientType;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -9,30 +12,26 @@ import javax.persistence.Table;
 public class QuestionRating extends AbstractQuestion {
     @Column(name = "count_of_scale_elements")
     int countOfScaleElements;
-    @Column(name = "type_figure")
-    String typeFigure;
+    @Column(name = "figure_type")
+    FigureType figureType;
     @Column(name = "gradient_type")
-    String gradientType;
+    GradientType gradientType;
 
     public QuestionRating() {
         super();
     }
 
-    public QuestionRating(int questionId, int surveyId, int questionNumberInTheSurvey, String typeQuestion,
-                          String textQuestion, String descriptionText, String buttonText, int countOfScaleElements,
-                          String typeFigure, String gradientType) {
+    public QuestionRating(int questionId, int surveyId, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, int countOfScaleElements, FigureType figureType, GradientType gradientType) {
         super(questionId, surveyId, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
         this.countOfScaleElements = countOfScaleElements;
-        this.typeFigure = typeFigure;
+        this.figureType = figureType;
         this.gradientType = gradientType;
     }
 
-    public QuestionRating(int surveyId, int questionNumberInTheSurvey, String typeQuestion, String textQuestion,
-                          String descriptionText, String buttonText, int countOfScaleElements, String typeFigure,
-                          String gradientType) {
+    public QuestionRating(int surveyId, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, int countOfScaleElements, FigureType figureType, GradientType gradientType) {
         super(surveyId, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
         this.countOfScaleElements = countOfScaleElements;
-        this.typeFigure = typeFigure;
+        this.figureType = figureType;
         this.gradientType = gradientType;
     }
 
@@ -44,19 +43,19 @@ public class QuestionRating extends AbstractQuestion {
         this.countOfScaleElements = countOfScaleElements;
     }
 
-    public String getTypeFigure() {
-        return typeFigure;
+    public FigureType getFigureType() {
+        return figureType;
     }
 
-    public void setTypeFigure(String typeFigure) {
-        this.typeFigure = typeFigure;
+    public void setFigureType(FigureType figureType) {
+        this.figureType = figureType;
     }
 
-    public String getGradientType() {
+    public GradientType getGradientType() {
         return gradientType;
     }
 
-    public void setGradientType(String gradientType) {
+    public void setGradientType(GradientType gradientType) {
         this.gradientType = gradientType;
     }
 }

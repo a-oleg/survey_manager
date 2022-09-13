@@ -79,6 +79,7 @@ public class SurveyController {
         return ResponseEntity.status(HttpStatus.OK).body(updatedSurveyDto);
     }
 
+    /**Метод, удаляющий опрос*/
     @DeleteMapping("delete")
     public ResponseEntity<SurveyDto> deleteSurvey(@RequestParam(name = "surveyId", required = true) Integer surveyId) {
         logger.info("Info: SurveyController.deleteSurvey - The request to delete the survey was accepted");

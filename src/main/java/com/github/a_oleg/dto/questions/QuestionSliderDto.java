@@ -1,28 +1,30 @@
 package com.github.a_oleg.dto.questions;
 
+import com.github.a_oleg.enums.FigureType;
+
 public class QuestionSliderDto extends AbstractQuestionDto {
     String typeSlider;
     int countOfScaleElements;
     int defaultScaleElementNumber;
-    String typeFigure;
+    FigureType figureType;
 
     public QuestionSliderDto() {
     }
 
-    public QuestionSliderDto(int questionId, int surveyId, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, String typeSlider, int countOfScaleElements, int defaultScaleElementNumber, String typeFigure) {
+    public QuestionSliderDto(int questionId, int surveyId, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, String typeSlider, int countOfScaleElements, int defaultScaleElementNumber, FigureType figureType) {
         super(questionId, surveyId, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
         this.typeSlider = typeSlider;
         this.countOfScaleElements = countOfScaleElements;
         this.defaultScaleElementNumber = defaultScaleElementNumber;
-        this.typeFigure = typeFigure;
+        this.figureType = figureType;
     }
 
-    public QuestionSliderDto(int surveyId, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, String typeSlider, int countOfScaleElements, int defaultScaleElementNumber, String typeFigure) {
+    public QuestionSliderDto(int surveyId, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, String typeSlider, int countOfScaleElements, int defaultScaleElementNumber, FigureType figureType) {
         super(surveyId, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
         this.typeSlider = typeSlider;
         this.countOfScaleElements = countOfScaleElements;
         this.defaultScaleElementNumber = defaultScaleElementNumber;
-        this.typeFigure = typeFigure;
+        this.figureType = figureType;
     }
 
     public String getTypeSlider() {
@@ -49,11 +51,11 @@ public class QuestionSliderDto extends AbstractQuestionDto {
         this.defaultScaleElementNumber = defaultScaleElementNumber;
     }
 
-    public String getTypeFigure() {
-        return typeFigure;
+    public FigureType getFigureType() {
+        return figureType;
     }
 
-    public void setTypeFigure(String typeFigure) {
-        this.typeFigure = typeFigure;
+    public void setFigureType(FigureType figureType) {
+        this.figureType = figureType;
     }
 }

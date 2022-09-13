@@ -222,45 +222,24 @@ public class QuestionController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(resultQuestionRatingDto);
         }
     }
-//    /**
-//     * Метод, принимающий запрос на саздание вопроса шкала рейтинга
-//     */
-//    @PostMapping("new/rating")
-//    public ResponseEntity<QuestionScaleOfOpinionDto> createQuestionScaleOfOpinion(@RequestBody QuestionScaleOfOpinionDto
-//                                                                                              questionScaleOfOpinionDto) {
-//        logger.info("Info: QuestionController.createQuestionScaleOfOpinion - A request to create a new question" +
-//                " has been accepted");
-//        if (questionScaleOfOpinionDto == null) {
-//            logger.warn("Warning: QuestionController.createQuestionScaleOfOpinion - The request body is null");
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(questionScaleOfOpinionDto);
-//        }
-////        enum TypeFigure {
-////            HEART,
-////            SMILE,
-////            STAR,
-////            CIRCLE,
-////            SQUARE
-////        }
-////
-////        enum GradientType {
-////            NO,
-////            BLACKWHITE,
-////            BLUEWHITE,
-////            GRAYWHITE,
-////            GREENWHITE,
-////            ORANGEWHITE
-////        }
-////        if(questionRatingDto.getTypeFigure()) {
-////
-////        }
-//        QuestionScaleOfOpinionDto resultQuestionScaleOfOpinionDto;
-//        try {
-//            resultQuestionScaleOfOpinionDto = questionService.createQuestionScaleOfOpinionDto(questionScaleOfOpinionDto);
-//        } catch (ServerException e) {
-//            logger.error("Error: QuestionController.createQuestionScaleOfOpinion - " + e.getMessage());
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(questionScaleOfOpinionDto);
-//        }
-//        logger.info("Info: QuestionController.createQuestionScaleOfOpinion - The question was successfully created");
-//        return ResponseEntity.status(HttpStatus.CREATED).body(resultQuestionScaleOfOpinionDto);
-//    }
+    /**Метод, принимающий запрос на саздание вопроса-шкалы мнения*/
+    @PostMapping("new/rating")
+    public ResponseEntity<QuestionScaleOfOpinionDto> createQuestionScaleOfOpinion(@RequestBody QuestionScaleOfOpinionDto
+                                                                                              questionScaleOfOpinionDto) {
+        logger.info("Info: QuestionController.createQuestionScaleOfOpinion - A request to create a new question" +
+                " has been accepted");
+        if (questionScaleOfOpinionDto == null) {
+            logger.warn("Warning: QuestionController.createQuestionScaleOfOpinion - The request body is null");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(questionScaleOfOpinionDto);
+        }
+        QuestionScaleOfOpinionDto resultQuestionScaleOfOpinionDto;
+        try {
+            resultQuestionScaleOfOpinionDto = questionService.createQuestionScaleOfOpinion(questionScaleOfOpinionDto);
+        } catch (ServerException e) {
+            logger.error("Error: QuestionController.createQuestionScaleOfOpinion - " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(questionScaleOfOpinionDto);
+        }
+        logger.info("Info: QuestionController.createQuestionScaleOfOpinion - The question was successfully created");
+        return ResponseEntity.status(HttpStatus.CREATED).body(resultQuestionScaleOfOpinionDto);
+    }
 }

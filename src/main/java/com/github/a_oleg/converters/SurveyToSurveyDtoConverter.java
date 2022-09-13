@@ -1,4 +1,4 @@
-package com.github.a_oleg.converter;
+package com.github.a_oleg.converters;
 
 import com.github.a_oleg.dto.SurveyDto;
 import com.github.a_oleg.entity.Survey;

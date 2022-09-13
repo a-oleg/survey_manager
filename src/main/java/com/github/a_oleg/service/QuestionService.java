@@ -1,12 +1,15 @@
 package com.github.a_oleg.service;
 
 import com.github.a_oleg.dto.questions.QuestionRatingDto;
+import com.github.a_oleg.dto.questions.QuestionScaleOfOpinionDto;
 import com.github.a_oleg.dto.questions.QuestionWithTextAnswerDto;
 import com.github.a_oleg.entity.questions.QuestionRating;
+import com.github.a_oleg.entity.questions.QuestionScaleOfOpinion;
 import com.github.a_oleg.entity.questions.QuestionWithTextAnswer;
 import com.github.a_oleg.exceptions.ClientException;
 import com.github.a_oleg.exceptions.ServerException;
 import com.github.a_oleg.repository.questions.QuestionRatingRepository;
+import com.github.a_oleg.repository.questions.QuestionScaleOfOpinionRepository;
 import com.github.a_oleg.repository.questions.QuestionWithTextAnswerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
@@ -16,13 +19,17 @@ import org.springframework.stereotype.Service;
 public class QuestionService {
     private final QuestionWithTextAnswerRepository questionWithTextAnswerRepository;
     private final QuestionRatingRepository questionRatingRepository;
+    private final QuestionScaleOfOpinionRepository questionScaleOfOpinionRepository;
     private final ConversionService conversionService;
 
     @Autowired
-    public QuestionService(QuestionWithTextAnswerRepository questionWithTextAnswerRepository, QuestionRatingRepository questionRatingRepository,
+    public QuestionService(QuestionWithTextAnswerRepository questionWithTextAnswerRepository,
+                           QuestionRatingRepository questionRatingRepository,
+                           QuestionScaleOfOpinionRepository questionScaleOfOpinionRepository,
                            ConversionService conversionService) {
         this.questionWithTextAnswerRepository = questionWithTextAnswerRepository;
         this.questionRatingRepository = questionRatingRepository;
+        this.questionScaleOfOpinionRepository = questionScaleOfOpinionRepository;
         this.conversionService = conversionService;
     }
 
@@ -145,5 +152,18 @@ public class QuestionService {
             throw new ClientException("Error: QuestionService.deleteQuestionRating - The question ID "
                     + questionId + " is missing from the database");
         }
+    }
+
+    /**Метод, создающий новый вопрос-шкалу мнений*/
+    public QuestionScaleOfOpinionDto createQuestionScaleOfOpinion(QuestionScaleOfOpinionDto questionScaleOfOpinionDto)
+            throws ServerException {
+        if(questionScaleOfOpinionDto == null) {
+            throw new ServerException("Error: QuestionService.createQuestionScaleOfOpinion -" +
+                    " The questionScaleOfOpinionDto cannot have a null value");
+        }
+        QuestionScaleOfOpinion questionScaleOfOpinion = conversionService.convert(questionScaleOfOpinionDto,
+                QuestionScaleOfOpinion.class);
+        return conversionService.convert(questionScaleOfOpinionRepository.save(questionScaleOfOpinion),
+                QuestionWithTextAnswerDto.class);
     }
 }

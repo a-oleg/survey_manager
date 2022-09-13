@@ -28,6 +28,6 @@ CREATE TABLE IF NOT EXISTS question_rating
     description_text VARCHAR(255) NOT NULL,
     button_text VARCHAR(255) NOT NULL,
     count_of_scale_elements INTEGER NOT NULL,
-    type_figure VARCHAR(50) NOT NULL,
+    figure_type VARCHAR(50) NOT NULL,
     gradient_type VARCHAR(50) NOT NULL
 );
