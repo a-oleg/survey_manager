@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS question_with_text_answer
     prefix_text VARCHAR(255) NOT NULL,
     postfix_text VARCHAR(255) NOT NULL
 );
-CREATE TABLE IF NOT EXISTS question_rating
+CREATE TABLE IF NOT EXISTS question_scale_of_opinion
 (
     question_id BIGSERIAL PRIMARY KEY,
     survey_id INTEGER REFERENCES surveys(survey_id),
@@ -27,7 +27,6 @@ CREATE TABLE IF NOT EXISTS question_rating
     text_question VARCHAR(255) NOT NULL,
     description_text VARCHAR(255) NOT NULL,
     button_text VARCHAR(255) NOT NULL,
-    count_of_scale_elements INTEGER NOT NULL,
     figure_type VARCHAR(50) NOT NULL,
     gradient_type VARCHAR(50) NOT NULL
 );

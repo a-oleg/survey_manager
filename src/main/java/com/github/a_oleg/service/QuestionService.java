@@ -164,6 +164,6 @@ public class QuestionService {
         QuestionScaleOfOpinion questionScaleOfOpinion = conversionService.convert(questionScaleOfOpinionDto,
                 QuestionScaleOfOpinion.class);
         return conversionService.convert(questionScaleOfOpinionRepository.save(questionScaleOfOpinion),
-                QuestionWithTextAnswerDto.class);
+                QuestionScaleOfOpinionDto.class);
     }
 }
