@@ -18,7 +18,7 @@ public class QuestionWithMultipleAnswersDtoToQuestionWithMultipleAnswers impleme
         targetQuestionWithMultipleAnswers.setTextQuestion(questionWithMultipleAnswersDto.getTextQuestion());
         targetQuestionWithMultipleAnswers.setDescriptionText(questionWithMultipleAnswersDto.getDescriptionText());
         targetQuestionWithMultipleAnswers.setButtonText(questionWithMultipleAnswersDto.getButtonText());
-        targetQuestionWithMultipleAnswers.setAnswerOptions(StringUtils.join(questionWithMultipleAnswersDto.getAnswerOptions(), ";"));
+        targetQuestionWithMultipleAnswers.setAnswerOptions(StringUtils.join(questionWithMultipleAnswersDto.getAnswerOptions(), '~'));
         targetQuestionWithMultipleAnswers.setMultipleChoiceOfAnswers(questionWithMultipleAnswersDto.isMultipleChoiceOfAnswers());
 
         return targetQuestionWithMultipleAnswers;
