@@ -66,7 +66,7 @@ public class QuestionService {
             throws ClientException {
         if(questionWithTextAnswerDto == null) {
             throw new ClientException("Error: QuestionService.updateQuestionWithTextAnswerDto -" +
-                    " QuestionWithTextAnswerDto cannot be null");
+                    " Question cannot be null");
         }
         QuestionWithTextAnswer questionWithTextAnswer = conversionService.convert(questionWithTextAnswerDto,
                 QuestionWithTextAnswer.class);
@@ -125,7 +125,7 @@ public class QuestionService {
             throws ClientException {
         if(questionRatingDto == null) {
             throw new ClientException("Error: QuestionService.updateQuestionRatingDto -" +
-                    " QuestionWithTextAnswerDto cannot be null");
+                    " Question cannot be null");
         }
         QuestionRating questionRating = conversionService.convert(questionRatingDto,
                 QuestionRating.class);
@@ -165,5 +165,54 @@ public class QuestionService {
                 QuestionScaleOfOpinion.class);
         return conversionService.convert(questionScaleOfOpinionRepository.save(questionScaleOfOpinion),
                 QuestionScaleOfOpinionDto.class);
+    }
+
+    /**Метод, возвращающий вопрос-шкалу мнений*/
+    public QuestionScaleOfOpinionDto getQuestionScaleOfOpinion(Integer questionId) throws ServerException {
+        if(questionId == null) {
+            throw new ServerException("Error: QuestionService.getQuestionScaleOfOpinion - QuestionId cannot be null");
+        }
+        if(questionWithTextAnswerRepository.findById(questionId).isPresent()) {
+            QuestionScaleOfOpinion questionScaleOfOpinion = questionScaleOfOpinionRepository.
+                    findById(questionId).orElse(new QuestionScaleOfOpinion());
+            return conversionService.convert(questionScaleOfOpinion, QuestionScaleOfOpinionDto.class);
+        } else {
+            throw new ServerException("Error: QuestionService.getQuestionScaleOfOpinion -" +
+                    " Failed to return question with ID " + questionId);
+        }
+    }
+
+    /**Метод, обновляющий данные вопроса с текстовым ответом*/
+    public QuestionScaleOfOpinionDto updateQuestionScaleOfOpinionDto(QuestionScaleOfOpinionDto questionScaleOfOpinionDto)
+            throws ClientException {
+        if(questionScaleOfOpinionDto == null) {
+            throw new ClientException("Error: QuestionService.updateQuestionScaleOfOpinionDto -" +
+                    " Question cannot be null");
+        }
+        QuestionScaleOfOpinion questionScaleOfOpinion = conversionService.convert(questionScaleOfOpinionDto,
+                QuestionScaleOfOpinion.class);
+        if(questionWithTextAnswerRepository.findById((Integer)questionScaleOfOpinion.getQuestionId()).isPresent()) {
+            return conversionService.convert(questionScaleOfOpinionRepository.save(questionScaleOfOpinion),
+                    QuestionScaleOfOpinionDto.class);
+        } else {
+            throw new ClientException("Error: QuestionService.updateQuestionScaleOfOpinionDto - Couldn't find question" +
+                    " with ID " + questionScaleOfOpinionDto.getQuestionId());
+        }
+    }
+
+    /**Метод, удаляющий вопрос с текстовым ответом*/
+    public QuestionScaleOfOpinionDto deleteQuestionScaleOfOpinion(Integer questionId) throws ClientException {
+        if(questionId == null) {
+            throw new ClientException("Error: QuestionService.deleteQuestionScaleOfOpinion - The questionID "
+                    + questionId + " cannot be null");
+        }
+        if(questionScaleOfOpinionRepository.findById(questionId).isPresent()) {
+            QuestionScaleOfOpinion questionScaleOfOpinion = questionScaleOfOpinionRepository.findById(questionId).orElse(new QuestionScaleOfOpinion());
+            questionScaleOfOpinionRepository.delete(questionScaleOfOpinion);
+            return conversionService.convert(questionScaleOfOpinion, QuestionScaleOfOpinionDto.class);
+        } else {
+            throw new ClientException("Error: QuestionService.deleteQuestionScaleOfOpinion - The question ID "
+                    + questionId + " is missing from the database");
+        }
     }
 }

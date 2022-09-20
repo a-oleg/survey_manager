@@ -54,7 +54,7 @@ public class QuestionController {
     public ResponseEntity<QuestionWithTextAnswerDto> getQuestionWithTextAnswer(@RequestParam(name = "questionId",
             required = true) Integer questionId) {
         logger.info("Info: QuestionController.getQuestionWithTextAnswer - The request to return the question with text answer" +
-                +questionId + " from the database was accepted");
+                questionId + " from the database was accepted");
         if (questionId == null) {
             logger.warn("Warning: QuestionController.getQuestionWithTextAnswer - The request is null for id" + questionId);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
@@ -222,8 +222,9 @@ public class QuestionController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(resultQuestionRatingDto);
         }
     }
+
     /**Метод, принимающий запрос на саздание вопроса-шкалы мнения*/
-    @PostMapping("new/rating")
+    @PostMapping("new/scaleofopinion")
     public ResponseEntity<QuestionScaleOfOpinionDto> createQuestionScaleOfOpinion(@RequestBody QuestionScaleOfOpinionDto
                                                                                               questionScaleOfOpinionDto) {
         logger.info("Info: QuestionController.createQuestionScaleOfOpinion - A request to create a new question" +
@@ -241,5 +242,76 @@ public class QuestionController {
         }
         logger.info("Info: QuestionController.createQuestionScaleOfOpinion - The question was successfully created");
         return ResponseEntity.status(HttpStatus.CREATED).body(resultQuestionScaleOfOpinionDto);
+    }
+
+    /**Метод, принимающий запрос на возврат вопроса-шкалы мнения*/
+    @GetMapping("get/scaleofopinion")
+    public ResponseEntity<QuestionScaleOfOpinionDto> getQuestionScaleOfOpinion(@RequestParam(name = "questionId",
+            required = true) Integer questionId) {
+        logger.info("Info: QuestionController.getQuestionScaleOfOpinion - The request to return the question with text answer" +
+                questionId + " from the database was accepted");
+        if (questionId == null) {
+            logger.warn("Warning: QuestionController.getQuestionScaleOfOpinion - The request is null for id" + questionId);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+        QuestionScaleOfOpinionDto questionScaleOfOpinionDto;
+        try {
+            questionScaleOfOpinionDto = questionService.getQuestionScaleOfOpinion(questionId);
+            logger.info("Info: QuestionController.getQuestionScaleOfOpinion - The question id" + questionId +
+                    " was successfully received");
+            return ResponseEntity.status(HttpStatus.OK).body(questionScaleOfOpinionDto);
+        } catch (ServerException e) {
+            logger.warn(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    /**Метод, обновляющий данные вопроса-шкалы мнения*/
+    @PutMapping("update/scaleofopinion")
+    public ResponseEntity<QuestionScaleOfOpinionDto> updateQuestionScaleOfOpinion(@RequestBody QuestionScaleOfOpinionDto questionScaleOfOpinionDto) {
+        logger.info("Info: QuestionController.updateQuestionScaleOfOpinion - The request to edit question with text" +
+                " answer " + questionScaleOfOpinionDto.getQuestionId() + " the question was accepted");
+        if (questionScaleOfOpinionDto == null) {
+            logger.warn("Warning: QuestionController.updateQuestionScaleOfOpinion - The request body is null");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(questionScaleOfOpinionDto);
+        }
+        QuestionScaleOfOpinionDto updatedQuestionScaleOfOpinionDto;
+        try {
+            updatedQuestionScaleOfOpinionDto = questionService.updateQuestionScaleOfOpinionDto(questionScaleOfOpinionDto);
+        } catch (ClientException e) {
+            logger.warn(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(questionScaleOfOpinionDto);
+        }
+        logger.info("Info: QuestionController.updateQuestionScaleOfOpinion - The question ID " +
+                questionScaleOfOpinionDto.getQuestionId() + " has been updated successfully");
+        return ResponseEntity.status(HttpStatus.OK).body(updatedQuestionScaleOfOpinionDto);
+    }
+
+    /**Метод, удаляющий вопроса-шкалы мнения*/
+    @DeleteMapping("delete/scaleofopinion")
+    public ResponseEntity<QuestionScaleOfOpinionDto> deleteQuestionScaleOfOpinion(@RequestParam(name = "questionId",
+            required = true) Integer questionId) {
+        logger.info("Info: QuestionController.deleteQuestionScaleOfOpinion - The request to delete the question ID " +
+                questionId + " was accepted");
+        if (questionId == null) {
+            logger.warn("Warning: QuestionController.deleteQuestionScaleOfOpinion - The question is null");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+        QuestionScaleOfOpinionDto resultQuestionScaleOfOpinionDto;
+        try {
+            resultQuestionScaleOfOpinionDto = questionService.deleteQuestionScaleOfOpinion(questionId);
+        } catch (ClientException e) {
+            logger.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        if (resultQuestionScaleOfOpinionDto != null) {
+            logger.info("Info: QuestionController.deleteQuestionScaleOfOpinion - The question ID " + questionId +
+                    " was successfully deleted");
+            return ResponseEntity.status(HttpStatus.OK).body(resultQuestionScaleOfOpinionDto);
+        } else {
+            logger.error("Error: QuestionController.deleteQuestionScaleOfOpinion - Question ID " +
+                    resultQuestionScaleOfOpinionDto.getQuestionId() + " deletion failed");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(resultQuestionScaleOfOpinionDto);
+        }
     }
 }
