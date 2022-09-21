@@ -2,6 +2,7 @@ package com.github.a_oleg.controllers;
 
 import com.github.a_oleg.dto.questions.QuestionRatingDto;
 import com.github.a_oleg.dto.questions.QuestionScaleOfOpinionDto;
+import com.github.a_oleg.dto.questions.QuestionSliderDto;
 import com.github.a_oleg.dto.questions.QuestionWithTextAnswerDto;
 import com.github.a_oleg.exceptions.ClientException;
 import com.github.a_oleg.exceptions.ServerException;
@@ -61,7 +62,7 @@ public class QuestionController {
         }
         QuestionWithTextAnswerDto questionWithTextAnswerDto;
         try {
-            questionWithTextAnswerDto = questionService.getQuestionWithTextAnswerDto(questionId);
+            questionWithTextAnswerDto = questionService.getQuestionWithTextAnswer(questionId);
             logger.info("Info: QuestionController.getQuestionWithTextAnswer - The question id" + questionId +
                     " was successfully received");
             return ResponseEntity.status(HttpStatus.OK).body(questionWithTextAnswerDto);
@@ -75,7 +76,8 @@ public class QuestionController {
      * Метод, обновляющий данные вопроса с текстовым ответом
      */
     @PutMapping("update/withtextanswer")
-    public ResponseEntity<QuestionWithTextAnswerDto> updateQuestionWithTextAnswer(@RequestBody QuestionWithTextAnswerDto questionWithTextAnswerDto) {
+    public ResponseEntity<QuestionWithTextAnswerDto> updateQuestionWithTextAnswer(@RequestBody QuestionWithTextAnswerDto
+                                                                                              questionWithTextAnswerDto) {
         logger.info("Info: QuestionController.updateQuestionWithTextAnswer - The request to edit question with text" +
                 " answer " + questionWithTextAnswerDto.getQuestionId() + " the question was accepted");
         if (questionWithTextAnswerDto == null) {
@@ -183,7 +185,7 @@ public class QuestionController {
         }
         QuestionRatingDto updatedQuestionRatingDto;
         try {
-            updatedQuestionRatingDto = questionService.updateQuestionRatingDto(questionRatingDto);
+            updatedQuestionRatingDto = questionService.updateQuestionRating(questionRatingDto);
         } catch (ClientException e) {
             logger.warn(e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(questionRatingDto);
@@ -220,6 +222,100 @@ public class QuestionController {
             logger.error("Error: QuestionController.deleteQuestionRating - Question ID " +
                     resultQuestionRatingDto.getQuestionId() + " deletion failed");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(resultQuestionRatingDto);
+        }
+    }
+
+    /**Метод, принимающий запрос на саздание вопроса-слайдера*/
+    @PostMapping("new/slider")
+    public ResponseEntity<QuestionSliderDto> createQuestionSlider(@RequestBody QuestionSliderDto questionSliderDto) {
+        logger.info("Info: QuestionController.createQuestionSlider - A request to create a new question" +
+                " has been accepted");
+        if (questionSliderDto == null) {
+            logger.warn("Warning: QuestionController.createQuestionSlider - The request body is null");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(questionSliderDto);
+        }
+        QuestionSliderDto resultQuestionSliderDto;
+        try {
+            resultQuestionSliderDto = questionService.createQuestionSlider(questionSliderDto);
+        } catch (ServerException e) {
+            logger.error("Error: QuestionController.createQuestionSlider - " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(questionSliderDto);
+        }
+        logger.info("Info: QuestionController.createQuestionSlider - The question was successfully created");
+        return ResponseEntity.status(HttpStatus.CREATED).body(resultQuestionSliderDto);
+    }
+
+    /**Метод, принимающий запрос на возврат вопроса-слайдера*/
+    @GetMapping("get/slider")
+    public ResponseEntity<QuestionSliderDto> getQuestionSlider(@RequestParam(name = "questionId",
+            required = true) Integer questionId) {
+        logger.info("Info: QuestionController.getQuestionSlider - The request to return the question with text answer" +
+                questionId + " from the database was accepted");
+        if (questionId == null) {
+            logger.warn("Warning: QuestionController.getQuestionSlider - The request is null for id" + questionId);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+        QuestionSliderDto questionSliderDto;
+        try {
+            questionSliderDto = questionService.getQuestionSlider(questionId);
+            logger.info("Info: QuestionController.getQuestionSlider - The question id" + questionId +
+                    " was successfully received");
+            return ResponseEntity.status(HttpStatus.OK).body(questionSliderDto);
+        } catch (ServerException e) {
+            logger.warn(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    /**Метод, обновляющий данные вопроса-слайдера*/
+    @PutMapping("update/slider")
+    public ResponseEntity<QuestionSliderDto> updateQuestionSlider(@RequestBody QuestionSliderDto questionSliderDto) {
+        logger.info("Info: QuestionController.updateQuestionSlider - The request to edit question with text" +
+                " answer " + questionSliderDto.getQuestionId() + " the question was accepted");
+        if (questionSliderDto == null) {
+            logger.warn("Warning: QuestionController.updateQuestionSlider - The request body is null");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(questionSliderDto);
+        }
+        QuestionSliderDto updatedQuestionSliderDto;
+        try {
+            updatedQuestionSliderDto = questionService.updateQuestionSlider(questionSliderDto);
+        } catch (ClientException e) {
+            logger.warn(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(questionSliderDto);
+        }
+        logger.info("Info: QuestionController.updateQuestionSlider - The question ID " +
+                questionSliderDto.getQuestionId() + " has been updated successfully");
+        return ResponseEntity.status(HttpStatus.OK).body(updatedQuestionSliderDto);
+    }
+
+
+    /**
+     * Метод, удаляющий вопрос с текстовым ответом
+     */
+    @DeleteMapping("delete/slider")
+    public ResponseEntity<QuestionSliderDto> deleteQuestionSlider(@RequestParam(name = "questionId",
+            required = true) Integer questionId) {
+        logger.info("Info: QuestionController.deleteQuestionSlider - The request to delete the question ID " +
+                questionId + " was accepted");
+        if (questionId == null) {
+            logger.warn("Warning: QuestionController.deleteQuestionSlider - The question is null");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+        QuestionSliderDto resultQuestionSliderDto;
+        try {
+            resultQuestionSliderDto = questionService.deleteQuestionSlider(questionId);
+        } catch (ClientException e) {
+            logger.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        if (resultQuestionSliderDto != null) {
+            logger.info("Info: QuestionController.deleteQuestionSlider - The question ID " + questionId +
+                    " was successfully deleted");
+            return ResponseEntity.status(HttpStatus.OK).body(resultQuestionSliderDto);
+        } else {
+            logger.error("Error: QuestionController.deleteQuestionSlider - Question ID " +
+                    resultQuestionSliderDto.getQuestionId() + " deletion failed");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(resultQuestionSliderDto);
         }
     }
 
@@ -268,7 +364,8 @@ public class QuestionController {
 
     /**Метод, обновляющий данные вопроса-шкалы мнения*/
     @PutMapping("update/scaleofopinion")
-    public ResponseEntity<QuestionScaleOfOpinionDto> updateQuestionScaleOfOpinion(@RequestBody QuestionScaleOfOpinionDto questionScaleOfOpinionDto) {
+    public ResponseEntity<QuestionScaleOfOpinionDto> updateQuestionScaleOfOpinion(@RequestBody QuestionScaleOfOpinionDto
+                                                                                              questionScaleOfOpinionDto) {
         logger.info("Info: QuestionController.updateQuestionScaleOfOpinion - The request to edit question with text" +
                 " answer " + questionScaleOfOpinionDto.getQuestionId() + " the question was accepted");
         if (questionScaleOfOpinionDto == null) {
@@ -277,7 +374,7 @@ public class QuestionController {
         }
         QuestionScaleOfOpinionDto updatedQuestionScaleOfOpinionDto;
         try {
-            updatedQuestionScaleOfOpinionDto = questionService.updateQuestionScaleOfOpinionDto(questionScaleOfOpinionDto);
+            updatedQuestionScaleOfOpinionDto = questionService.updateQuestionScaleOfOpinion(questionScaleOfOpinionDto);
         } catch (ClientException e) {
             logger.warn(e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(questionScaleOfOpinionDto);
