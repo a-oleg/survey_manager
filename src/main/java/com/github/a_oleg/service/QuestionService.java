@@ -1,19 +1,10 @@
 package com.github.a_oleg.service;
 
-import com.github.a_oleg.dto.questions.QuestionRatingDto;
-import com.github.a_oleg.dto.questions.QuestionScaleOfOpinionDto;
-import com.github.a_oleg.dto.questions.QuestionSliderDto;
-import com.github.a_oleg.dto.questions.QuestionWithTextAnswerDto;
-import com.github.a_oleg.entity.questions.QuestionRating;
-import com.github.a_oleg.entity.questions.QuestionScaleOfOpinion;
-import com.github.a_oleg.entity.questions.QuestionSlider;
-import com.github.a_oleg.entity.questions.QuestionWithTextAnswer;
+import com.github.a_oleg.dto.questions.*;
+import com.github.a_oleg.entity.questions.*;
 import com.github.a_oleg.exceptions.ClientException;
 import com.github.a_oleg.exceptions.ServerException;
-import com.github.a_oleg.repository.questions.QuestionRatingRepository;
-import com.github.a_oleg.repository.questions.QuestionScaleOfOpinionRepository;
-import com.github.a_oleg.repository.questions.QuestionSliderRepository;
-import com.github.a_oleg.repository.questions.QuestionWithTextAnswerRepository;
+import com.github.a_oleg.repository.questions.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
@@ -24,6 +15,7 @@ public class QuestionService {
     private final QuestionRatingRepository questionRatingRepository;
     private final QuestionSliderRepository questionSliderRepository;
     private final QuestionScaleOfOpinionRepository questionScaleOfOpinionRepository;
+    private final QuestionNPSRepository questionNPSRepository;
     private final ConversionService conversionService;
 
     @Autowired
@@ -31,11 +23,13 @@ public class QuestionService {
                            QuestionRatingRepository questionRatingRepository,
                            QuestionSliderRepository questionSliderRepository,
                            QuestionScaleOfOpinionRepository questionScaleOfOpinionRepository,
+                           QuestionNPSRepository questionNPSRepository,
                            ConversionService conversionService) {
         this.questionWithTextAnswerRepository = questionWithTextAnswerRepository;
         this.questionRatingRepository = questionRatingRepository;
         this.questionSliderRepository = questionSliderRepository;
         this.questionScaleOfOpinionRepository = questionScaleOfOpinionRepository;
+        this.questionNPSRepository = questionNPSRepository;
         this.conversionService = conversionService;
     }
 
@@ -68,7 +62,7 @@ public class QuestionService {
     }
 
     /**Метод, обновляющий данные вопроса с текстовым ответом*/
-    public QuestionWithTextAnswerDto updateQuestionWithTextAnswerDto(QuestionWithTextAnswerDto questionWithTextAnswerDto)
+    public QuestionWithTextAnswerDto updateQuestionWithTextAnswer(QuestionWithTextAnswerDto questionWithTextAnswerDto)
             throws ClientException {
         if(questionWithTextAnswerDto == null) {
             throw new ClientException("Error: QuestionService.updateQuestionWithTextAnswerDto -" +
@@ -274,6 +268,65 @@ public class QuestionService {
             return conversionService.convert(questionScaleOfOpinion, QuestionScaleOfOpinionDto.class);
         } else {
             throw new ClientException("Error: QuestionService.deleteQuestionScaleOfOpinion - The question ID "
+                    + questionId + " is missing from the database");
+        }
+    }
+
+    /**Метод, создающий новый вопрос-NPS*/
+    public QuestionNPSDto createQuestionNPS(QuestionNPSDto questionNPSDto)
+            throws ServerException {
+        if(questionNPSDto == null) {
+            throw new ServerException("Error: QuestionService.createQuestionNPS -" +
+                    " The questionDto cannot have a null value");
+        }
+        QuestionNPS questionNPS = conversionService.convert(questionNPSDto,
+                QuestionNPS.class);
+        return conversionService.convert(questionNPSRepository.save(questionNPS), QuestionNPSDto.class);
+    }
+
+    /**Метод, возвращающий вопрос-NPS*/
+    public QuestionNPSDto getQuestionNPS(Integer questionId) throws ServerException {
+        if(questionId == null) {
+            throw new ServerException("Error: QuestionService.getQuestionNPS - QuestionId cannot be null");
+        }
+        if(questionNPSRepository.findById(questionId).isPresent()) {
+            QuestionNPS questionNPS = questionNPSRepository.findById(questionId).orElse(new QuestionNPS());
+            return conversionService.convert(questionNPS, QuestionNPSDto.class);
+        } else {
+            throw new ServerException("Error: QuestionService.getQuestionNPS -" +
+                    " Failed to return question with ID " + questionId);
+        }
+    }
+
+    /**Метод, обновляющий данные вопроса-NPS*/
+    public QuestionNPSDto updateQuestionNPS(QuestionNPSDto questionNPSDto)
+            throws ClientException {
+        if(questionNPSDto == null) {
+            throw new ClientException("Error: QuestionService.updateQuestionNPS - Question cannot be null");
+        }
+        QuestionNPS questionNPS = conversionService.convert(questionNPSDto,
+                QuestionNPS.class);
+        if(questionWithTextAnswerRepository.findById((Integer)questionNPS.getQuestionId()).isPresent()) {
+            return conversionService.convert(questionNPSRepository.save(questionNPS),
+                    QuestionNPSDto.class);
+        } else {
+            throw new ClientException("Error: QuestionService.updateQuestionNPS - Couldn't find question" +
+                    " with ID " + questionNPSDto.getQuestionId());
+        }
+    }
+
+    /**Метод, удаляющий вопрос-NPS*/
+    public QuestionNPSDto deleteQuestionNPS(Integer questionId) throws ClientException {
+        if(questionId == null) {
+            throw new ClientException("Error: QuestionService.deleteQuestionNPS - The questionID "
+                    + questionId + " cannot be null");
+        }
+        if(questionNPSRepository.findById(questionId).isPresent()) {
+            QuestionNPS questionNPS = questionNPSRepository.findById(questionId).orElse(new QuestionNPS());
+            questionNPSRepository.delete(questionNPS);
+            return conversionService.convert(questionNPS, QuestionNPSDto.class);
+        } else {
+            throw new ClientException("Error: QuestionService.deleteQuestionNPS - The question ID "
                     + questionId + " is missing from the database");
         }
     }

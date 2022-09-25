@@ -1,9 +1,6 @@
 package com.github.a_oleg.controllers;
 
-import com.github.a_oleg.dto.questions.QuestionRatingDto;
-import com.github.a_oleg.dto.questions.QuestionScaleOfOpinionDto;
-import com.github.a_oleg.dto.questions.QuestionSliderDto;
-import com.github.a_oleg.dto.questions.QuestionWithTextAnswerDto;
+import com.github.a_oleg.dto.questions.*;
 import com.github.a_oleg.exceptions.ClientException;
 import com.github.a_oleg.exceptions.ServerException;
 import com.github.a_oleg.service.QuestionService;
@@ -86,7 +83,7 @@ public class QuestionController {
         }
         QuestionWithTextAnswerDto updatedQuestionWithTextAnswerDto;
         try {
-            updatedQuestionWithTextAnswerDto = questionService.updateQuestionWithTextAnswerDto(questionWithTextAnswerDto);
+            updatedQuestionWithTextAnswerDto = questionService.updateQuestionWithTextAnswer(questionWithTextAnswerDto);
         } catch (ClientException e) {
             logger.warn(e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(questionWithTextAnswerDto);
@@ -409,6 +406,97 @@ public class QuestionController {
             logger.error("Error: QuestionController.deleteQuestionScaleOfOpinion - Question ID " +
                     resultQuestionScaleOfOpinionDto.getQuestionId() + " deletion failed");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(resultQuestionScaleOfOpinionDto);
+        }
+    }
+
+    /**Метод, создающий вопрос-NPS*/
+    @PostMapping("new/nps")
+    public ResponseEntity<QuestionNPSDto> createQuestionNPS(@RequestBody QuestionNPSDto questionNPSDto) {
+        logger.info("Info: QuestionController.createQuestionNPS - A request to create a new question" +
+                " has been accepted");
+        if (questionNPSDto == null) {
+            logger.warn("Warning: QuestionController.createQuestionNPS - The request body is null");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(questionNPSDto);
+        }
+        QuestionNPSDto resultQuestionNPSDto;
+        try {
+            resultQuestionNPSDto = questionService.createQuestionNPS(questionNPSDto);
+        } catch (ServerException e) {
+            logger.error("Error: QuestionController.createQuestionNPS - " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(questionNPSDto);
+        }
+        logger.info("Info: QuestionController.createQuestionNPS - The question was successfully created");
+        return ResponseEntity.status(HttpStatus.CREATED).body(resultQuestionNPSDto);
+    }
+
+    /**Метод, принимающий запрос на возврат вопроса-NPS*/
+    @GetMapping("get/nps")
+    public ResponseEntity<QuestionNPSDto> getQuestionNPS(@RequestParam(name = "questionId",
+            required = true) Integer questionId) {
+        logger.info("Info: QuestionController.getQuestionNPS - The request to return the question with text answer" +
+                questionId + " from the database was accepted");
+        if (questionId == null) {
+            logger.warn("Warning: QuestionController.getQuestionNPS - The request is null for id" + questionId);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+        QuestionNPSDto questionNPSDto;
+        try {
+            questionNPSDto = questionService.getQuestionNPS(questionId);
+            logger.info("Info: QuestionController.getQuestionNPS - The question id" + questionId +
+                    " was successfully received");
+            return ResponseEntity.status(HttpStatus.OK).body(questionNPSDto);
+        } catch (ServerException e) {
+            logger.warn(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    /**Метод, обновляющий данные вопроса-NPS*/
+    @PutMapping("update/nps")
+    public ResponseEntity<QuestionNPSDto> updateQuestionNPS(@RequestBody QuestionNPSDto questionNPSDto) {
+        logger.info("Info: QuestionController.updateQuestionNPS - The request to edit question with text" +
+                " answer " + questionNPSDto.getQuestionId() + " the question was accepted");
+        if (questionNPSDto == null) {
+            logger.warn("Warning: QuestionController.updateQuestionNPS - The request body is null");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(questionNPSDto);
+        }
+        QuestionNPSDto updatedQuestionNPSDto;
+        try {
+            updatedQuestionNPSDto = questionService.updateQuestionNPS(questionNPSDto);
+        } catch (ClientException e) {
+            logger.warn(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(questionNPSDto);
+        }
+        logger.info("Info: QuestionController.updateQuestionNPS - The question ID " +
+                questionNPSDto.getQuestionId() + " has been updated successfully");
+        return ResponseEntity.status(HttpStatus.OK).body(updatedQuestionNPSDto);
+    }
+
+    /**Метод, удаляющий вопрос-NPS*/
+    @DeleteMapping("delete/nps")
+    public ResponseEntity<QuestionNPSDto> deleteQuestionNPS(@RequestParam(name = "questionId",
+            required = true) Integer questionId) {
+        logger.info("Info: QuestionController.deleteQuestionNPS - The request to delete the question ID " +
+                questionId + " was accepted");
+        if (questionId == null) {
+            logger.warn("Warning: QuestionController.deleteQuestionNPS - The question is null");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+        QuestionNPSDto resultQuestionNPSDto;
+        try {
+            resultQuestionNPSDto = questionService.deleteQuestionNPS(questionId);
+        } catch (ClientException e) {
+            logger.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        if (resultQuestionNPSDto != null) {
+            logger.info("Info: QuestionController.deleteQuestionNPS - The question ID " + questionId +
+                    " was successfully deleted");
+            return ResponseEntity.status(HttpStatus.OK).body(resultQuestionNPSDto);
+        } else {
+            logger.error("Error: QuestionController.deleteQuestionNPS - Question ID " +
+                    resultQuestionNPSDto.getQuestionId() + " deletion failed");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(resultQuestionNPSDto);
         }
     }
 }
