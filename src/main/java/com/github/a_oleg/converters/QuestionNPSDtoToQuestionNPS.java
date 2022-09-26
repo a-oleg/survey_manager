@@ -19,6 +19,7 @@ public class QuestionNPSDtoToQuestionNPS implements Converter<QuestionNPSDto, Qu
         targetQuestionNPS.setButtonText(questionNPSDto.getButtonText());
         targetQuestionNPS.setHaveButtonIFindItDifficultToAnswer(questionNPSDto.isHaveButtonIFindItDifficultToAnswer());
         targetQuestionNPS.setTextInTheCommentField(questionNPSDto.getTextInTheCommentField());
+        targetQuestionNPS.setRatingForEnteringComment(questionNPSDto.getRatingForEnteringComment());
         targetQuestionNPS.setFigureType(questionNPSDto.getFigureType());
         targetQuestionNPS.setGradientType(questionNPSDto.getGradientType());
 

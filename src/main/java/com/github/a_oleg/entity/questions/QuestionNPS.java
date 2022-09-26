@@ -12,6 +12,8 @@ import javax.persistence.Table;
 public class QuestionNPS extends AbstractQuestion {
     @Column(name = "have_button_i_find_it_difficult_to_answer")
     boolean haveButtonIFindItDifficultToAnswer;
+    @Column(name = "rating_for_entering_comment")
+    int ratingForEnteringComment;
     @Column(name = "text_in_the_comment_field")
     String textInTheCommentField;
     @Column(name = "figure_type")
@@ -23,17 +25,19 @@ public class QuestionNPS extends AbstractQuestion {
         super();
     }
 
-    public QuestionNPS(int questionId, int surveyId, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, boolean haveButtonIFindItDifficultToAnswer, String textInTheCommentField, FigureType figureType, GradientType gradientType) {
+    public QuestionNPS(int questionId, int surveyId, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, boolean haveButtonIFindItDifficultToAnswer, int ratingForEnteringComment, String textInTheCommentField, FigureType figureType, GradientType gradientType) {
         super(questionId, surveyId, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
         this.haveButtonIFindItDifficultToAnswer = haveButtonIFindItDifficultToAnswer;
+        this.ratingForEnteringComment = ratingForEnteringComment;
         this.textInTheCommentField = textInTheCommentField;
         this.figureType = figureType;
         this.gradientType = gradientType;
     }
 
-    public QuestionNPS(int surveyId, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, boolean haveButtonIFindItDifficultToAnswer, String textInTheCommentField, FigureType figureType, GradientType gradientType) {
+    public QuestionNPS(int surveyId, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, boolean haveButtonIFindItDifficultToAnswer, int ratingForEnteringComment, String textInTheCommentField, FigureType figureType, GradientType gradientType) {
         super(surveyId, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
         this.haveButtonIFindItDifficultToAnswer = haveButtonIFindItDifficultToAnswer;
+        this.ratingForEnteringComment = ratingForEnteringComment;
         this.textInTheCommentField = textInTheCommentField;
         this.figureType = figureType;
         this.gradientType = gradientType;
@@ -45,6 +49,14 @@ public class QuestionNPS extends AbstractQuestion {
 
     public void setHaveButtonIFindItDifficultToAnswer(boolean haveButtonIFindItDifficultToAnswer) {
         this.haveButtonIFindItDifficultToAnswer = haveButtonIFindItDifficultToAnswer;
+    }
+
+    public int getRatingForEnteringComment() {
+        return ratingForEnteringComment;
+    }
+
+    public void setRatingForEnteringComment(int ratingForEnteringComment) {
+        this.ratingForEnteringComment = ratingForEnteringComment;
     }
 
     public String getTextInTheCommentField() {
