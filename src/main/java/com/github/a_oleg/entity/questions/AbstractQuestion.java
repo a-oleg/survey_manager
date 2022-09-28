@@ -1,5 +1,7 @@
 package com.github.a_oleg.entity.questions;
 
+import com.github.a_oleg.entity.Survey;
+
 import javax.persistence.*;
 
 @MappedSuperclass
@@ -8,8 +10,9 @@ public abstract class AbstractQuestion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "question_id")
     int questionId;
-    @Column(name = "survey_id")
-    int surveyId;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "survey_id")
+    Survey survey;
     @Column(name = "question_number_in_the_survey")
     int questionNumberInTheSurvey;
     @Column(name = "type_question")
