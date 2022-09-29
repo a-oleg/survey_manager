@@ -13,6 +13,7 @@ public class QuestionWithMultipleAnswersToQuestionWithMultipleAnswersDto impleme
     @Override
     public QuestionWithMultipleAnswersDto convert(QuestionWithMultipleAnswers questionWithMultipleAnswers) {
         QuestionWithMultipleAnswersDto targetQuestionWithMultipleAnswersDto = new QuestionWithMultipleAnswersDto();
+
         targetQuestionWithMultipleAnswersDto.setQuestionId(questionWithMultipleAnswers.getQuestionId());
         targetQuestionWithMultipleAnswersDto.setSurveyId(questionWithMultipleAnswers.getSurveyId());
         targetQuestionWithMultipleAnswersDto.setQuestionNumberInTheSurvey(questionWithMultipleAnswers.getQuestionNumberInTheSurvey());

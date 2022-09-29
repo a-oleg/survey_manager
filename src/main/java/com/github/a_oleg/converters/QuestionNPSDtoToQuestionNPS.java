@@ -10,8 +10,9 @@ public class QuestionNPSDtoToQuestionNPS implements Converter<QuestionNPSDto, Qu
     @Override
     public QuestionNPS convert(QuestionNPSDto questionNPSDto) {
         QuestionNPS targetQuestionNPS = new QuestionNPS();
+
         targetQuestionNPS.setQuestionId(questionNPSDto.getQuestionId());
-        targetQuestionNPS.setSurveyId(questionNPSDto.getSurveyId());
+        targetQuestionNPS.setSurvey(questionNPSDto.getSurveyId());
         targetQuestionNPS.setQuestionNumberInTheSurvey(questionNPSDto.getQuestionNumberInTheSurvey());
         targetQuestionNPS.setTypeQuestion(questionNPSDto.getTypeQuestion());
         targetQuestionNPS.setTextQuestion(questionNPSDto.getTextQuestion());

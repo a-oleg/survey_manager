@@ -10,6 +10,7 @@ public class QuestionRatingDtoToQuestionRatingConverter implements Converter<Que
     @Override
     public QuestionRating convert(QuestionRatingDto questionRatingDto) {
         QuestionRating targetQuestionRating = new QuestionRating();
+
         targetQuestionRating.setQuestionId(questionRatingDto.getQuestionId());
         targetQuestionRating.setSurveyId(questionRatingDto.getSurveyId());
         targetQuestionRating.setQuestionNumberInTheSurvey(questionRatingDto.getQuestionNumberInTheSurvey());

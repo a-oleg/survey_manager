@@ -1,5 +1,7 @@
 package com.github.a_oleg.entity.questions;
 
+import com.github.a_oleg.entity.Survey;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -16,17 +18,14 @@ public class QuestionWithTextAnswer extends AbstractQuestion {
         super();
     }
 
-    public QuestionWithTextAnswer(int questionId, int surveyId, int questionNumberInTheSurvey, String typeQuestion,
-                                  String textQuestion, String descriptionText, String buttonText, String prefixText,
-                                  String postfixText) {
-        super(questionId, surveyId, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
+    public QuestionWithTextAnswer(Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, String prefixText, String postfixText) {
+        super(survey, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
         this.prefixText = prefixText;
         this.postfixText = postfixText;
     }
 
-    public QuestionWithTextAnswer(int surveyId, int questionNumberInTheSurvey, String typeQuestion, String textQuestion,
-                                  String descriptionText, String buttonText, String prefixText, String postfixText) {
-        super(surveyId, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
+    public QuestionWithTextAnswer(int questionId, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, String prefixText, String postfixText) {
+        super(questionId, survey, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
         this.prefixText = prefixText;
         this.postfixText = postfixText;
     }

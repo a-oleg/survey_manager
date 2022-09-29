@@ -10,6 +10,7 @@ public class QuestionSliderDtoToQuestionSliderConverter implements Converter<Que
     @Override
     public QuestionSlider convert(QuestionSliderDto questionSliderDto) {
         QuestionSlider targetqQuestionSlider = new QuestionSlider();
+
         targetqQuestionSlider.setQuestionId(questionSliderDto.getQuestionId());
         targetqQuestionSlider.setSurveyId(questionSliderDto.getSurveyId());
         targetqQuestionSlider.setQuestionNumberInTheSurvey(questionSliderDto.getQuestionNumberInTheSurvey());

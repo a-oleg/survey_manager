@@ -1,5 +1,7 @@
 package com.github.a_oleg.entity.questions;
 
+import com.github.a_oleg.entity.Survey;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -12,17 +14,16 @@ public class QuestionWithMultipleAnswers extends AbstractQuestion {
     @Column(name = "multiple_choice_of_answers")
     boolean multipleChoiceOfAnswers;
 
-    public QuestionWithMultipleAnswers() {
-    }
+    public QuestionWithMultipleAnswers() { super(); }
 
-    public QuestionWithMultipleAnswers(int questionId, int surveyId, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, String answerOptions, boolean multipleChoiceOfAnswers) {
-        super(questionId, surveyId, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
+    public QuestionWithMultipleAnswers(Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, String answerOptions, boolean multipleChoiceOfAnswers) {
+        super(survey, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
         this.answerOptions = answerOptions;
         this.multipleChoiceOfAnswers = multipleChoiceOfAnswers;
     }
 
-    public QuestionWithMultipleAnswers(int surveyId, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, String answerOptions, boolean multipleChoiceOfAnswers) {
-        super(surveyId, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
+    public QuestionWithMultipleAnswers(int questionId, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, String answerOptions, boolean multipleChoiceOfAnswers) {
+        super(questionId, survey, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
         this.answerOptions = answerOptions;
         this.multipleChoiceOfAnswers = multipleChoiceOfAnswers;
     }

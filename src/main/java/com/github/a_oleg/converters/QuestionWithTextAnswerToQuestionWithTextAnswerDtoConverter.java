@@ -10,6 +10,7 @@ public class QuestionWithTextAnswerToQuestionWithTextAnswerDtoConverter implemen
     @Override
     public QuestionWithTextAnswerDto convert(QuestionWithTextAnswer questionWithTextAnswer) {
         QuestionWithTextAnswerDto targetQuestionWithTextAnswerDto = new QuestionWithTextAnswerDto();
+
         targetQuestionWithTextAnswerDto.setQuestionId(questionWithTextAnswer.getQuestionId());
         targetQuestionWithTextAnswerDto.setSurveyId(questionWithTextAnswer.getSurveyId());
         targetQuestionWithTextAnswerDto.setQuestionNumberInTheSurvey(questionWithTextAnswer.getQuestionNumberInTheSurvey());

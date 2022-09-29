@@ -10,6 +10,7 @@ public class QuestionNPSToQuestionNPSDto implements Converter<QuestionNPS, Quest
     @Override
     public QuestionNPSDto convert(QuestionNPS questionNPS) {
         QuestionNPSDto targetQuestionNPSDto = new QuestionNPSDto();
+
         targetQuestionNPSDto.setQuestionId(questionNPS.getQuestionId());
         targetQuestionNPSDto.setSurveyId(questionNPS.getSurveyId());
         targetQuestionNPSDto.setQuestionNumberInTheSurvey(questionNPS.getQuestionNumberInTheSurvey());
@@ -19,7 +20,7 @@ public class QuestionNPSToQuestionNPSDto implements Converter<QuestionNPS, Quest
         targetQuestionNPSDto.setButtonText(questionNPS.getButtonText());
         targetQuestionNPSDto.setHaveButtonIFindItDifficultToAnswer(questionNPS.isHaveButtonIFindItDifficultToAnswer());
         targetQuestionNPSDto.setRatingForEnteringComment(questionNPS.getRatingForEnteringComment());
-        targetQuestionNPSDto.setTextInTheCommentField(questionNPS.getTextInTheCommentField());
+        targetQuestionNPSDto.setTextInTheCommentField(questionNPS.getTextInCommentField());
         targetQuestionNPSDto.setFigureType(questionNPS.getFigureType());
         targetQuestionNPSDto.setGradientType(questionNPS.getGradientType());
 

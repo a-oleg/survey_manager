@@ -1,0 +1,31 @@
+package com.github.a_oleg.converters;
+
+import com.github.a_oleg.dto.questions.QuestionScaleOfOpinionDto;
+import com.github.a_oleg.entity.questions.QuestionScaleOfOpinion;
+import org.apache.tomcat.util.buf.StringUtils;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
+
+@Component
+public class QuestionScaleOfOpinionDtoToQuestionScaleOfOpinion implements Converter<QuestionScaleOfOpinionDto, QuestionScaleOfOpinion> {
+    @Override
+    public QuestionScaleOfOpinion convert(QuestionScaleOfOpinionDto questionScaleOfOpinionDto) {
+        QuestionScaleOfOpinion targetQuestionScaleOfOpinion = new QuestionScaleOfOpinion();
+
+        targetQuestionScaleOfOpinion.setQuestionId(questionScaleOfOpinionDto.getQuestionId());
+        targetQuestionScaleOfOpinion.setSurveyId(questionScaleOfOpinionDto.getSurveyId());
+        targetQuestionScaleOfOpinion.setQuestionNumberInTheSurvey(questionScaleOfOpinionDto.getQuestionNumberInTheSurvey());
+        targetQuestionScaleOfOpinion.setTypeQuestion(questionScaleOfOpinionDto.getTypeQuestion());
+        targetQuestionScaleOfOpinion.setTextQuestion(questionScaleOfOpinionDto.getTextQuestion());
+        targetQuestionScaleOfOpinion.setDescriptionText(questionScaleOfOpinionDto.getDescriptionText());
+        targetQuestionScaleOfOpinion.setButtonText(questionScaleOfOpinionDto.getButtonText());
+        targetQuestionScaleOfOpinion.setDescriptionOfAssessment(StringUtils.join(questionScaleOfOpinionDto.getDescriptionOfAssessment(), '~'));
+        targetQuestionScaleOfOpinion.setHaveButtonIFindItDifficultToAnswer(questionScaleOfOpinionDto.isHaveButtonIFindItDifficultToAnswer());
+        targetQuestionScaleOfOpinion.setRatingForEnteringComment(questionScaleOfOpinionDto.getRatingForEnteringComment());
+        targetQuestionScaleOfOpinion.setTextInCommentField(questionScaleOfOpinionDto.getTextInTheCommentField());
+        targetQuestionScaleOfOpinion.setFigureType(questionScaleOfOpinionDto.getFigureType());
+        targetQuestionScaleOfOpinion.setGradientType(questionScaleOfOpinionDto.getGradientType());
+
+        return targetQuestionScaleOfOpinion;
+    }
+}

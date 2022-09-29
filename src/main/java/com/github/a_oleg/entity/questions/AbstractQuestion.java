@@ -24,26 +24,26 @@ public abstract class AbstractQuestion {
     @Column(name = "button_text")
     String buttonText;
 
-    public AbstractQuestion(int questionId, int surveyId, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
-        this.questionId = questionId;
-        this.surveyId = surveyId;
-        this.questionNumberInTheSurvey = questionNumberInTheSurvey;
-        this.typeQuestion = typeQuestion;
-        this.textQuestion = textQuestion;
-        this.descriptionText = descriptionText;
-        this.buttonText = buttonText;
-    }
-    public AbstractQuestion(int surveyId, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
-        this.surveyId = surveyId;
-        this.questionNumberInTheSurvey = questionNumberInTheSurvey;
-        this.typeQuestion = typeQuestion;
-        this.textQuestion = textQuestion;
-        this.descriptionText = descriptionText;
-        this.buttonText = buttonText;
-    }
-
     public AbstractQuestion() {
+    }
 
+    public AbstractQuestion(Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
+        this.survey = survey;
+        this.questionNumberInTheSurvey = questionNumberInTheSurvey;
+        this.typeQuestion = typeQuestion;
+        this.textQuestion = textQuestion;
+        this.descriptionText = descriptionText;
+        this.buttonText = buttonText;
+    }
+
+    public AbstractQuestion(int questionId, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
+        this.questionId = questionId;
+        this.survey = survey;
+        this.questionNumberInTheSurvey = questionNumberInTheSurvey;
+        this.typeQuestion = typeQuestion;
+        this.textQuestion = textQuestion;
+        this.descriptionText = descriptionText;
+        this.buttonText = buttonText;
     }
 
     public int getQuestionId() {
@@ -54,12 +54,12 @@ public abstract class AbstractQuestion {
         this.questionId = questionId;
     }
 
-    public int getSurveyId() {
-        return surveyId;
+    public Survey getSurvey() {
+        return survey;
     }
 
-    public void setSurveyId(int surveyId) {
-        this.surveyId = surveyId;
+    public void setSurvey(Survey survey) {
+        this.survey = survey;
     }
 
     public int getQuestionNumberInTheSurvey() {

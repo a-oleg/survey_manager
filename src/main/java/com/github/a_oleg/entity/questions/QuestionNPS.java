@@ -1,5 +1,6 @@
 package com.github.a_oleg.entity.questions;
 
+import com.github.a_oleg.entity.Survey;
 import com.github.a_oleg.enums.FigureType;
 import com.github.a_oleg.enums.GradientType;
 
@@ -14,8 +15,8 @@ public class QuestionNPS extends AbstractQuestion {
     boolean haveButtonIFindItDifficultToAnswer;
     @Column(name = "rating_for_entering_comment")
     int ratingForEnteringComment;
-    @Column(name = "text_in_the_comment_field")
-    String textInTheCommentField;
+    @Column(name = "text_in_comment_field")
+    String textInCommentField;
     @Column(name = "figure_type")
     FigureType figureType;
     @Column(name = "gradient_type")
@@ -25,20 +26,20 @@ public class QuestionNPS extends AbstractQuestion {
         super();
     }
 
-    public QuestionNPS(int questionId, int surveyId, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, boolean haveButtonIFindItDifficultToAnswer, int ratingForEnteringComment, String textInTheCommentField, FigureType figureType, GradientType gradientType) {
-        super(questionId, surveyId, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
+    public QuestionNPS(Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, boolean haveButtonIFindItDifficultToAnswer, int ratingForEnteringComment, String textInCommentField, FigureType figureType, GradientType gradientType) {
+        super(survey, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
         this.haveButtonIFindItDifficultToAnswer = haveButtonIFindItDifficultToAnswer;
         this.ratingForEnteringComment = ratingForEnteringComment;
-        this.textInTheCommentField = textInTheCommentField;
+        this.textInCommentField = textInCommentField;
         this.figureType = figureType;
         this.gradientType = gradientType;
     }
 
-    public QuestionNPS(int surveyId, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, boolean haveButtonIFindItDifficultToAnswer, int ratingForEnteringComment, String textInTheCommentField, FigureType figureType, GradientType gradientType) {
-        super(surveyId, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
+    public QuestionNPS(int questionId, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, boolean haveButtonIFindItDifficultToAnswer, int ratingForEnteringComment, String textInCommentField, FigureType figureType, GradientType gradientType) {
+        super(questionId, survey, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
         this.haveButtonIFindItDifficultToAnswer = haveButtonIFindItDifficultToAnswer;
         this.ratingForEnteringComment = ratingForEnteringComment;
-        this.textInTheCommentField = textInTheCommentField;
+        this.textInCommentField = textInCommentField;
         this.figureType = figureType;
         this.gradientType = gradientType;
     }
@@ -59,12 +60,12 @@ public class QuestionNPS extends AbstractQuestion {
         this.ratingForEnteringComment = ratingForEnteringComment;
     }
 
-    public String getTextInTheCommentField() {
-        return textInTheCommentField;
+    public String getTextInCommentField() {
+        return textInCommentField;
     }
 
     public void setTextInTheCommentField(String textInTheCommentField) {
-        this.textInTheCommentField = textInTheCommentField;
+        this.textInCommentField = textInCommentField;
     }
 
     public FigureType getFigureType() {
