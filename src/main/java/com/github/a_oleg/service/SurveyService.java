@@ -2,13 +2,15 @@ package com.github.a_oleg.service;
 
 import com.github.a_oleg.dto.SurveyDto;
 import com.github.a_oleg.entity.Survey;
-import com.github.a_oleg.exceptions.ClientException;
-import com.github.a_oleg.exceptions.ServerException;
+import com.github.a_oleg.exception.ClientException;
+import com.github.a_oleg.exception.ServerException;
 import com.github.a_oleg.repository.SurveyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+@Transactional
 @Service
 public class SurveyService {
     private final SurveyRepository surveyRepository;

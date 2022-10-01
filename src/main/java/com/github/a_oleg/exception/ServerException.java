@@ -1,4 +1,4 @@
-package com.github.a_oleg.exceptions;
+package com.github.a_oleg.exception;
 
 public class ServerException extends Exception {
     public ServerException(String message) {

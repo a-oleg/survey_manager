@@ -1,4 +1,4 @@
-package com.github.a_oleg.converters;
+package com.github.a_oleg.converter;
 
 import com.github.a_oleg.dto.questions.QuestionRatingDto;
 import com.github.a_oleg.entity.questions.QuestionRating;
@@ -12,7 +12,7 @@ public class QuestionRatingDtoToQuestionRatingConverter implements Converter<Que
         QuestionRating targetQuestionRating = new QuestionRating();
 
         targetQuestionRating.setQuestionId(questionRatingDto.getQuestionId());
-        targetQuestionRating.setSurveyId(questionRatingDto.getSurveyId());
+        targetQuestionRating.setSurvey(questionRatingDto.getSurvey());
         targetQuestionRating.setQuestionNumberInTheSurvey(questionRatingDto.getQuestionNumberInTheSurvey());
         targetQuestionRating.setTypeQuestion(questionRatingDto.getTypeQuestion());
         targetQuestionRating.setTextQuestion(questionRatingDto.getTextQuestion());

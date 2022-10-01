@@ -1,4 +1,4 @@
-package com.github.a_oleg.converters;
+package com.github.a_oleg.converter;
 
 import com.github.a_oleg.dto.questions.QuestionWithMultipleAnswersDto;
 import com.github.a_oleg.entity.questions.QuestionWithMultipleAnswers;
@@ -13,7 +13,7 @@ public class QuestionWithMultipleAnswersDtoToQuestionWithMultipleAnswers impleme
         QuestionWithMultipleAnswers targetQuestionWithMultipleAnswers = new QuestionWithMultipleAnswers();
 
         targetQuestionWithMultipleAnswers.setQuestionId(questionWithMultipleAnswersDto.getQuestionId());
-        targetQuestionWithMultipleAnswers.setSurveyId(questionWithMultipleAnswersDto.getSurveyId());
+        targetQuestionWithMultipleAnswers.setSurvey(questionWithMultipleAnswersDto.getSurvey());
         targetQuestionWithMultipleAnswers.setQuestionNumberInTheSurvey(questionWithMultipleAnswersDto.getQuestionNumberInTheSurvey());
         targetQuestionWithMultipleAnswers.setTypeQuestion(questionWithMultipleAnswersDto.getTypeQuestion());
         targetQuestionWithMultipleAnswers.setTextQuestion(questionWithMultipleAnswersDto.getTextQuestion());

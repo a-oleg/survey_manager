@@ -1,19 +1,21 @@
 package com.github.a_oleg.dto.questions;
 
+import com.github.a_oleg.entity.Survey;
+
 import java.util.ArrayList;
 
 public class QuestionWithMultipleAnswersDto extends AbstractQuestionDto {
     ArrayList<String> answerOptions = new ArrayList<>();
     boolean multipleChoiceOfAnswers;
 
-    public QuestionWithMultipleAnswersDto(int questionId, int surveyId, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, ArrayList<String> answerOptions, boolean multipleChoiceOfAnswers) {
-        super(questionId, surveyId, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
+    public QuestionWithMultipleAnswersDto(int questionId, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, ArrayList<String> answerOptions, boolean multipleChoiceOfAnswers) {
+        super(questionId, survey, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
         this.answerOptions = answerOptions;
         this.multipleChoiceOfAnswers = multipleChoiceOfAnswers;
     }
 
-    public QuestionWithMultipleAnswersDto(int surveyId, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, ArrayList<String> answerOptions, boolean multipleChoiceOfAnswers) {
-        super(surveyId, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
+    public QuestionWithMultipleAnswersDto(Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, ArrayList<String> answerOptions, boolean multipleChoiceOfAnswers) {
+        super(survey, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
         this.answerOptions = answerOptions;
         this.multipleChoiceOfAnswers = multipleChoiceOfAnswers;
     }

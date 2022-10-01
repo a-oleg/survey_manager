@@ -1,8 +1,8 @@
-package com.github.a_oleg.controllers;
+package com.github.a_oleg.controller;
 
 import com.github.a_oleg.dto.questions.*;
-import com.github.a_oleg.exceptions.ClientException;
-import com.github.a_oleg.exceptions.ServerException;
+import com.github.a_oleg.exception.ClientException;
+import com.github.a_oleg.exception.ServerException;
 import com.github.a_oleg.service.QuestionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,6 +1,6 @@
-package com.github.a_oleg.entity.choiceoptions;
+package com.github.a_oleg.entity.choiceoption;
 
-import com.github.a_oleg.entity.questions.AbstractQuestion;
+import com.github.a_oleg.entity.questions.QuestionTheChoiceOfMedia;
 
 import javax.persistence.*;
 
@@ -16,7 +16,7 @@ public class ChoiceImage {
     byte[] image;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id")
-    AbstractQuestion question;
+    QuestionTheChoiceOfMedia questionTheChoiceOfMedia;
     @Column(name = "text")
     String text;
 }

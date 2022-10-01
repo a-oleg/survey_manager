@@ -1,4 +1,4 @@
-package com.github.a_oleg.converters;
+package com.github.a_oleg.converter;
 
 import com.github.a_oleg.dto.questions.QuestionSliderDto;
 import com.github.a_oleg.entity.questions.QuestionSlider;
@@ -12,7 +12,7 @@ public class QuestionSliderDtoToQuestionSliderConverter implements Converter<Que
         QuestionSlider targetqQuestionSlider = new QuestionSlider();
 
         targetqQuestionSlider.setQuestionId(questionSliderDto.getQuestionId());
-        targetqQuestionSlider.setSurveyId(questionSliderDto.getSurveyId());
+        targetqQuestionSlider.setSurvey(questionSliderDto.getSurvey());
         targetqQuestionSlider.setQuestionNumberInTheSurvey(questionSliderDto.getQuestionNumberInTheSurvey());
         targetqQuestionSlider.setTypeQuestion(questionSliderDto.getTypeQuestion());
         targetqQuestionSlider.setTextQuestion(questionSliderDto.getTextQuestion());

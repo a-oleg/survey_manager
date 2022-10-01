@@ -1,5 +1,6 @@
 package com.github.a_oleg.dto.questions;
 
+import com.github.a_oleg.entity.Survey;
 import com.github.a_oleg.enums.FigureType;
 import com.github.a_oleg.enums.GradientType;
 
@@ -11,15 +12,15 @@ public class QuestionRatingDto extends AbstractQuestionDto {
     public QuestionRatingDto() {
     }
 
-    public QuestionRatingDto(int questionId, int surveyId, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, int countOfScaleElements, FigureType figureType, GradientType gradientType) {
-        super(questionId, surveyId, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
+    public QuestionRatingDto(int questionId, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, int countOfScaleElements, FigureType figureType, GradientType gradientType) {
+        super(questionId, survey, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
         this.countOfScaleElements = countOfScaleElements;
         this.figureType = figureType;
         this.gradientType = gradientType;
     }
 
-    public QuestionRatingDto(int surveyId, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, int countOfScaleElements, FigureType figureType, GradientType gradientType) {
-        super(surveyId, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
+    public QuestionRatingDto(Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, int countOfScaleElements, FigureType figureType, GradientType gradientType) {
+        super(survey, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
         this.countOfScaleElements = countOfScaleElements;
         this.figureType = figureType;
         this.gradientType = gradientType;

@@ -1,4 +1,4 @@
-package com.github.a_oleg.converters;
+package com.github.a_oleg.converter;
 
 import com.github.a_oleg.dto.questions.QuestionWithTextAnswerDto;
 import com.github.a_oleg.entity.questions.QuestionWithTextAnswer;
@@ -12,7 +12,7 @@ public class QuestionWithTextAnswerToQuestionWithTextAnswerDtoConverter implemen
         QuestionWithTextAnswerDto targetQuestionWithTextAnswerDto = new QuestionWithTextAnswerDto();
 
         targetQuestionWithTextAnswerDto.setQuestionId(questionWithTextAnswer.getQuestionId());
-        targetQuestionWithTextAnswerDto.setSurveyId(questionWithTextAnswer.getSurveyId());
+        targetQuestionWithTextAnswerDto.setSurvey(questionWithTextAnswer.getSurvey());
         targetQuestionWithTextAnswerDto.setQuestionNumberInTheSurvey(questionWithTextAnswer.getQuestionNumberInTheSurvey());
         targetQuestionWithTextAnswerDto.setTypeQuestion(questionWithTextAnswer.getTypeQuestion());
         targetQuestionWithTextAnswerDto.setTextQuestion(questionWithTextAnswer.getTextQuestion());

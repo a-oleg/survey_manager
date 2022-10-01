@@ -1,5 +1,7 @@
 package com.github.a_oleg.dto.questions;
 
+import com.github.a_oleg.entity.Survey;
+
 public class QuestionWithTextAnswerDto extends AbstractQuestionDto {
     String prefixText;
     String postfixText;
@@ -7,17 +9,17 @@ public class QuestionWithTextAnswerDto extends AbstractQuestionDto {
     public QuestionWithTextAnswerDto() {
     }
 
-    public QuestionWithTextAnswerDto(int questionId, int surveyId, int questionNumberInTheSurvey, String typeQuestion,
+    public QuestionWithTextAnswerDto(int questionId, Survey survey, int questionNumberInTheSurvey, String typeQuestion,
                                      String textQuestion, String descriptionText, String buttonText, String prefixText,
                                      String postfixText) {
-        super(questionId, surveyId, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
+        super(questionId, survey, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
         this.prefixText = prefixText;
         this.postfixText = postfixText;
     }
 
-    public QuestionWithTextAnswerDto(int surveyId, int questionNumberInTheSurvey, String typeQuestion, String textQuestion,
+    public QuestionWithTextAnswerDto(Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion,
                                      String descriptionText, String buttonText, String prefixText, String postfixText) {
-        super(surveyId, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
+        super(survey, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
         this.prefixText = prefixText;
         this.postfixText = postfixText;
     }

@@ -1,4 +1,4 @@
-package com.github.a_oleg.converters;
+package com.github.a_oleg.converter;
 
 import com.github.a_oleg.dto.questions.QuestionScaleOfOpinionDto;
 import com.github.a_oleg.entity.questions.QuestionScaleOfOpinion;
@@ -13,7 +13,7 @@ public class QuestionScaleOfOpinionDtoToQuestionScaleOfOpinion implements Conver
         QuestionScaleOfOpinion targetQuestionScaleOfOpinion = new QuestionScaleOfOpinion();
 
         targetQuestionScaleOfOpinion.setQuestionId(questionScaleOfOpinionDto.getQuestionId());
-        targetQuestionScaleOfOpinion.setSurveyId(questionScaleOfOpinionDto.getSurveyId());
+        targetQuestionScaleOfOpinion.setSurvey(questionScaleOfOpinionDto.getSurvey());
         targetQuestionScaleOfOpinion.setQuestionNumberInTheSurvey(questionScaleOfOpinionDto.getQuestionNumberInTheSurvey());
         targetQuestionScaleOfOpinion.setTypeQuestion(questionScaleOfOpinionDto.getTypeQuestion());
         targetQuestionScaleOfOpinion.setTextQuestion(questionScaleOfOpinionDto.getTextQuestion());

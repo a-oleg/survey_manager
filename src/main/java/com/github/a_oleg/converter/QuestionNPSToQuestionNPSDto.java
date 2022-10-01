@@ -1,4 +1,4 @@
-package com.github.a_oleg.converters;
+package com.github.a_oleg.converter;
 
 import com.github.a_oleg.dto.questions.QuestionNPSDto;
 import com.github.a_oleg.entity.questions.QuestionNPS;
@@ -12,7 +12,7 @@ public class QuestionNPSToQuestionNPSDto implements Converter<QuestionNPS, Quest
         QuestionNPSDto targetQuestionNPSDto = new QuestionNPSDto();
 
         targetQuestionNPSDto.setQuestionId(questionNPS.getQuestionId());
-        targetQuestionNPSDto.setSurveyId(questionNPS.getSurveyId());
+        targetQuestionNPSDto.setSurvey(questionNPS.getSurvey());
         targetQuestionNPSDto.setQuestionNumberInTheSurvey(questionNPS.getQuestionNumberInTheSurvey());
         targetQuestionNPSDto.setTypeQuestion(questionNPS.getTypeQuestion());
         targetQuestionNPSDto.setTextQuestion(questionNPS.getTextQuestion());
