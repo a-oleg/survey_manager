@@ -47,7 +47,7 @@ public class SurveyService {
     /**Метод, обновляющий данные опроса*/
     public SurveyDto updateSurvey(SurveyDto surveyDto) throws ClientException {
         if(surveyDto == null) {
-            throw new ClientException("Error: SurveyService.updateSurvey - SurveyDto cannot be null");
+            throw new ClientException("Error: SurveyService.updateSurvey - The surveyDto cannot have a null value");
         }
         Survey survey = conversionService.convert(surveyDto, Survey.class);
         if(surveyRepository.findById((Integer)survey.getSurveyId()).isPresent()) {
