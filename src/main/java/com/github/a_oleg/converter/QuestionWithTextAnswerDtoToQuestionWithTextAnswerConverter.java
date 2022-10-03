@@ -18,8 +18,8 @@ public class QuestionWithTextAnswerDtoToQuestionWithTextAnswerConverter implemen
         targetQuestionWithTextAnswer.setTextQuestion(questionWithTextAnswerDto.getTextQuestion());
         targetQuestionWithTextAnswer.setDescriptionText(questionWithTextAnswerDto.getDescriptionText());
         targetQuestionWithTextAnswer.setButtonText(questionWithTextAnswerDto.getButtonText());
-        targetQuestionWithTextAnswer.setPrefixText(questionWithTextAnswerDto.getPrefixText());
-        targetQuestionWithTextAnswer.setPostfixText(questionWithTextAnswerDto.getPostfixText());
+        //targetQuestionWithTextAnswer.setPrefixText(questionWithTextAnswerDto.getPrefixText());
+        //targetQuestionWithTextAnswer.setPostfixText(questionWithTextAnswerDto.getPostfixText());
 
         return targetQuestionWithTextAnswer;
     }

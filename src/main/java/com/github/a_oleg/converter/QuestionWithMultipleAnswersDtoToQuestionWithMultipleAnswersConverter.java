@@ -7,7 +7,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 @Component
-public class QuestionWithMultipleAnswersDtoToQuestionWithMultipleAnswers implements Converter<QuestionWithMultipleAnswersDto, QuestionWithMultipleAnswers> {
+public class QuestionWithMultipleAnswersDtoToQuestionWithMultipleAnswersConverter implements Converter<QuestionWithMultipleAnswersDto, QuestionWithMultipleAnswers> {
     @Override
     public QuestionWithMultipleAnswers convert(QuestionWithMultipleAnswersDto questionWithMultipleAnswersDto) {
         QuestionWithMultipleAnswers targetQuestionWithMultipleAnswers = new QuestionWithMultipleAnswers();

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 @Component
-public class QuestionScaleOfOpinionToQuestionScaleOfOpinionDto implements Converter<QuestionScaleOfOpinion, QuestionScaleOfOpinionDto> {
+public class QuestionScaleOfOpinionToQuestionScaleOfOpinionDtoConverter implements Converter<QuestionScaleOfOpinion, QuestionScaleOfOpinionDto> {
     @Override
     public QuestionScaleOfOpinionDto convert(QuestionScaleOfOpinion questionScaleOfOpinion) {
         QuestionScaleOfOpinionDto targetQuestionScaleOfOpinionDto = new QuestionScaleOfOpinionDto();

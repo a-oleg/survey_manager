@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 @Component
-public class QuestionWithMultipleAnswersToQuestionWithMultipleAnswersDto implements Converter<QuestionWithMultipleAnswers, QuestionWithMultipleAnswersDto> {
+public class QuestionWithMultipleAnswersToQuestionWithMultipleAnswersDtoConverter implements Converter<QuestionWithMultipleAnswers, QuestionWithMultipleAnswersDto> {
     @Override
     public QuestionWithMultipleAnswersDto convert(QuestionWithMultipleAnswers questionWithMultipleAnswers) {
         QuestionWithMultipleAnswersDto targetQuestionWithMultipleAnswersDto = new QuestionWithMultipleAnswersDto();

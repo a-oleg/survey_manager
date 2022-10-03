@@ -6,7 +6,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 @Component
-public class QuestionNPSToQuestionNPSDto implements Converter<QuestionNPS, QuestionNPSDto> {
+public class QuestionNPSToQuestionNPSDtoConverter implements Converter<QuestionNPS, QuestionNPSDto> {
     @Override
     public QuestionNPSDto convert(QuestionNPS questionNPS) {
         QuestionNPSDto targetQuestionNPSDto = new QuestionNPSDto();

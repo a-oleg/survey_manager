@@ -1,48 +1,48 @@
 package com.github.a_oleg.entity.questions;
 
 import com.github.a_oleg.entity.Survey;
+import com.github.a_oleg.entity.choiceoption.ChoiceSubquestion;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "question_with_text_answer")
 public class QuestionWithTextAnswer extends AbstractQuestion {
-    @Column(name = "prefix_text")
-    String prefixText;
-    @Column(name = "postfix_text")
-    String postfixText;
+    @OneToMany(mappedBy = "questionWithTextAnswer",cascade = CascadeType.ALL)
+    List<ChoiceSubquestion> listChoiceSubquestion;
+    @Column(name = "have_button_i_find_it_difficult_to_answer")
+    boolean haveButtonIFindItDifficultToAnswer;
 
     public QuestionWithTextAnswer() {
         super();
     }
 
-    public QuestionWithTextAnswer(Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, String prefixText, String postfixText) {
+    public QuestionWithTextAnswer(Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, List<ChoiceSubquestion> listChoiceSubquestion, boolean haveButtonIFindItDifficultToAnswer) {
         super(survey, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
-        this.prefixText = prefixText;
-        this.postfixText = postfixText;
+        this.listChoiceSubquestion = listChoiceSubquestion;
+        this.haveButtonIFindItDifficultToAnswer = haveButtonIFindItDifficultToAnswer;
     }
 
-    public QuestionWithTextAnswer(int questionId, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, String prefixText, String postfixText) {
+    public QuestionWithTextAnswer(int questionId, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, List<ChoiceSubquestion> listChoiceSubquestion, boolean haveButtonIFindItDifficultToAnswer) {
         super(questionId, survey, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
-        this.prefixText = prefixText;
-        this.postfixText = postfixText;
+        this.listChoiceSubquestion = listChoiceSubquestion;
+        this.haveButtonIFindItDifficultToAnswer = haveButtonIFindItDifficultToAnswer;
     }
 
-    public String getPrefixText() {
-        return prefixText;
+    public List<ChoiceSubquestion> getListChoiceSubquestion() {
+        return listChoiceSubquestion;
     }
 
-    public void setPrefixText(String prefixText) {
-        this.prefixText = prefixText;
+    public void setListChoiceSubquestion(List<ChoiceSubquestion> listChoiceSubquestion) {
+        this.listChoiceSubquestion = listChoiceSubquestion;
     }
 
-    public String getPostfixText() {
-        return postfixText;
+    public boolean isHaveButtonIFindItDifficultToAnswer() {
+        return haveButtonIFindItDifficultToAnswer;
     }
 
-    public void setPostfixText(String postfixText) {
-        this.postfixText = postfixText;
+    public void setHaveButtonIFindItDifficultToAnswer(boolean haveButtonIFindItDifficultToAnswer) {
+        this.haveButtonIFindItDifficultToAnswer = haveButtonIFindItDifficultToAnswer;
     }
 }

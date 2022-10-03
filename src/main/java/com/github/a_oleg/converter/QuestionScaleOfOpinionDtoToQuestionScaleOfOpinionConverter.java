@@ -7,7 +7,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 @Component
-public class QuestionScaleOfOpinionDtoToQuestionScaleOfOpinion implements Converter<QuestionScaleOfOpinionDto, QuestionScaleOfOpinion> {
+public class QuestionScaleOfOpinionDtoToQuestionScaleOfOpinionConverter implements Converter<QuestionScaleOfOpinionDto, QuestionScaleOfOpinion> {
     @Override
     public QuestionScaleOfOpinion convert(QuestionScaleOfOpinionDto questionScaleOfOpinionDto) {
         QuestionScaleOfOpinion targetQuestionScaleOfOpinion = new QuestionScaleOfOpinion();
