@@ -1,6 +1,7 @@
 package com.github.a_oleg.service;
 
 import com.github.a_oleg.dto.SurveyDto;
+import com.github.a_oleg.entity.Survey;
 import com.github.a_oleg.exception.ClientException;
 import com.github.a_oleg.exception.ServerException;
 import com.github.a_oleg.repository.SurveyRepository;
@@ -12,6 +13,12 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.core.convert.ConversionService;
+
+import java.util.Optional;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class SurveyServiceTest {
@@ -89,9 +96,13 @@ public class SurveyServiceTest {
 
     @Test
     void deleteSurvey_whenCorrectSurveyID_thenReturnSurveyDto() throws ClientException {
+        Survey testSurvey = new Survey(1, "1", "1", 1, true);
+        when(surveyRepository.findById(any())).thenReturn(Optional.of(testSurvey));
+        doNothing().when(surveyRepository).delete(testSurvey);
         Integer surveyID = 256;
         surveyService.deleteSurvey(surveyID);
-        Mockito.verify(surveyRepository, Mockito.times(1)).save(Mockito.any());
+        Mockito.verify(surveyRepository, Mockito.times(2)).findById(Mockito.any());
+        Mockito.verify(surveyRepository, Mockito.times(1)).delete(Mockito.any());
     }
 
     @Test

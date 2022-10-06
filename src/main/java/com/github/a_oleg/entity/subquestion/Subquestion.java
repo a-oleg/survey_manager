@@ -1,4 +1,4 @@
-package com.github.a_oleg.entity.choiceoption;
+package com.github.a_oleg.entity.subquestion;
 
 import com.github.a_oleg.entity.questions.QuestionWithTextAnswer;
 
@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "subquestion")
-public class ChoiceSubquestion {
+public class Subquestion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "subquestion_id")

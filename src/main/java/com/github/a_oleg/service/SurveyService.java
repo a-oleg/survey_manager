@@ -63,6 +63,7 @@ public class SurveyService {
         if(surveyId == null) {
             throw new ClientException("Error: SurveyService.deleteSurvey - SurveyID " + surveyId + " cannot be null");
         }
+
         if(surveyRepository.findById(surveyId).isPresent()) {
             Survey survey = surveyRepository.findById(surveyId).orElse(new Survey());
             surveyRepository.delete(survey);
