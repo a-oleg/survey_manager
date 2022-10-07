@@ -12,6 +12,7 @@ public class QuestionRatingDtoToQuestionRatingConverter implements Converter<Que
         QuestionRating targetQuestionRating = new QuestionRating();
 
         targetQuestionRating.setQuestionId(questionRatingDto.getQuestionId());
+        targetQuestionRating.setParentCode(questionRatingDto.getParentCode());
         targetQuestionRating.setSurvey(questionRatingDto.getSurvey());
         targetQuestionRating.setQuestionNumberInTheSurvey(questionRatingDto.getQuestionNumberInTheSurvey());
         targetQuestionRating.setTypeQuestion(questionRatingDto.getTypeQuestion());
@@ -22,6 +23,6 @@ public class QuestionRatingDtoToQuestionRatingConverter implements Converter<Que
         targetQuestionRating.setFigureType(questionRatingDto.getFigureType());
         targetQuestionRating.setGradientType(questionRatingDto.getGradientType());
 
-        return null;
+        return targetQuestionRating;
     }
 }

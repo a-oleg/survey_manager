@@ -4,6 +4,7 @@ import com.github.a_oleg.entity.Survey;
 
 public abstract class AbstractQuestionDto {
     int questionId;
+    int parentCode;
     Survey survey;
     int questionNumberInTheSurvey;
     String typeQuestion;
@@ -14,8 +15,8 @@ public abstract class AbstractQuestionDto {
     public AbstractQuestionDto() {
     }
 
-    public AbstractQuestionDto(int questionId, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
-        this.questionId = questionId;
+    public AbstractQuestionDto(int parentCode, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
+        this.parentCode = parentCode;
         this.survey = survey;
         this.questionNumberInTheSurvey = questionNumberInTheSurvey;
         this.typeQuestion = typeQuestion;
@@ -24,7 +25,9 @@ public abstract class AbstractQuestionDto {
         this.buttonText = buttonText;
     }
 
-    public AbstractQuestionDto(Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
+    public AbstractQuestionDto(int questionId, int parentCode, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
+        this.questionId = questionId;
+        this.parentCode = parentCode;
         this.survey = survey;
         this.questionNumberInTheSurvey = questionNumberInTheSurvey;
         this.typeQuestion = typeQuestion;
@@ -39,6 +42,14 @@ public abstract class AbstractQuestionDto {
 
     public void setQuestionId(int questionId) {
         this.questionId = questionId;
+    }
+
+    public int getParentCode() {
+        return parentCode;
+    }
+
+    public void setParentCode(int parentCode) {
+        this.parentCode = parentCode;
     }
 
     public Survey getSurvey() {

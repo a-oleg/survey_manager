@@ -12,6 +12,7 @@ public class QuestionSliderToQuestionSliderDtoConverter implements Converter<Que
         QuestionSliderDto targetQuestionSliderDto = new QuestionSliderDto();
 
         targetQuestionSliderDto.setQuestionId(questionSlider.getQuestionId());
+        targetQuestionSliderDto.setParentCode(questionSlider.getParentCode());
         targetQuestionSliderDto.setSurvey(questionSlider.getSurvey());
         targetQuestionSliderDto.setQuestionNumberInTheSurvey(questionSlider.getQuestionNumberInTheSurvey());
         targetQuestionSliderDto.setTypeQuestion(questionSlider.getTypeQuestion());

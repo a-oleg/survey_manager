@@ -10,6 +10,8 @@ public abstract class AbstractQuestion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "question_id")
     int questionId;
+    @Column(name = "parent_code")
+    int parentCode;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "survey_id")
     Survey survey;
@@ -27,7 +29,8 @@ public abstract class AbstractQuestion {
     public AbstractQuestion() {
     }
 
-    public AbstractQuestion(Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
+    public AbstractQuestion(int parentCode, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
+        this.parentCode = parentCode;
         this.survey = survey;
         this.questionNumberInTheSurvey = questionNumberInTheSurvey;
         this.typeQuestion = typeQuestion;
@@ -36,8 +39,9 @@ public abstract class AbstractQuestion {
         this.buttonText = buttonText;
     }
 
-    public AbstractQuestion(int questionId, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
+    public AbstractQuestion(int questionId, int parentCode, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
         this.questionId = questionId;
+        this.parentCode = parentCode;
         this.survey = survey;
         this.questionNumberInTheSurvey = questionNumberInTheSurvey;
         this.typeQuestion = typeQuestion;
@@ -52,6 +56,14 @@ public abstract class AbstractQuestion {
 
     public void setQuestionId(int questionId) {
         this.questionId = questionId;
+    }
+
+    public int getParentCode() {
+        return parentCode;
+    }
+
+    public void setParentCode(int parentCode) {
+        this.parentCode = parentCode;
     }
 
     public Survey getSurvey() {
