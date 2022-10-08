@@ -13,14 +13,13 @@ public class QuestionWithTextAnswerDtoToQuestionWithTextAnswerConverter implemen
 
         targetQuestionWithTextAnswer.setQuestionId(questionWithTextAnswerDto.getQuestionId());
         targetQuestionWithTextAnswer.setParentCode(questionWithTextAnswerDto.getParentCode());
+        targetQuestionWithTextAnswer.setActivityStatus(questionWithTextAnswerDto.isActivityStatus());
         targetQuestionWithTextAnswer.setSurvey(questionWithTextAnswerDto.getSurvey());
         targetQuestionWithTextAnswer.setQuestionNumberInTheSurvey(questionWithTextAnswerDto.getQuestionNumberInTheSurvey());
         targetQuestionWithTextAnswer.setTypeQuestion(questionWithTextAnswerDto.getTypeQuestion());
         targetQuestionWithTextAnswer.setTextQuestion(questionWithTextAnswerDto.getTextQuestion());
         targetQuestionWithTextAnswer.setDescriptionText(questionWithTextAnswerDto.getDescriptionText());
         targetQuestionWithTextAnswer.setButtonText(questionWithTextAnswerDto.getButtonText());
-        //targetQuestionWithTextAnswer.setPrefixText(questionWithTextAnswerDto.getPrefixText());
-        //targetQuestionWithTextAnswer.setPostfixText(questionWithTextAnswerDto.getPostfixText());
 
         return targetQuestionWithTextAnswer;
     }

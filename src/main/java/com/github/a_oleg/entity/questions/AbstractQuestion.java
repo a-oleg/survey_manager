@@ -12,6 +12,8 @@ public abstract class AbstractQuestion {
     int questionId;
     @Column(name = "parent_code")
     int parentCode;
+    @Column(name = "activity_status")
+    boolean activityStatus;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "survey_id")
     Survey survey;
@@ -29,8 +31,9 @@ public abstract class AbstractQuestion {
     public AbstractQuestion() {
     }
 
-    public AbstractQuestion(int parentCode, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
+    public AbstractQuestion(int parentCode, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
         this.parentCode = parentCode;
+        this.activityStatus = activityStatus;
         this.survey = survey;
         this.questionNumberInTheSurvey = questionNumberInTheSurvey;
         this.typeQuestion = typeQuestion;
@@ -39,9 +42,10 @@ public abstract class AbstractQuestion {
         this.buttonText = buttonText;
     }
 
-    public AbstractQuestion(int questionId, int parentCode, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
+    public AbstractQuestion(int questionId, int parentCode, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
         this.questionId = questionId;
         this.parentCode = parentCode;
+        this.activityStatus = activityStatus;
         this.survey = survey;
         this.questionNumberInTheSurvey = questionNumberInTheSurvey;
         this.typeQuestion = typeQuestion;
@@ -64,6 +68,14 @@ public abstract class AbstractQuestion {
 
     public void setParentCode(int parentCode) {
         this.parentCode = parentCode;
+    }
+
+    public boolean isActivityStatus() {
+        return activityStatus;
+    }
+
+    public void setActivityStatus(boolean activityStatus) {
+        this.activityStatus = activityStatus;
     }
 
     public Survey getSurvey() {

@@ -16,6 +16,7 @@ public class QuestionWithMultipleAnswersToQuestionWithMultipleAnswersDtoConverte
 
         targetQuestionWithMultipleAnswersDto.setQuestionId(questionWithMultipleAnswers.getQuestionId());
         targetQuestionWithMultipleAnswersDto.setParentCode(questionWithMultipleAnswers.getParentCode());
+        targetQuestionWithMultipleAnswersDto.setActivityStatus(questionWithMultipleAnswers.isActivityStatus());
         targetQuestionWithMultipleAnswersDto.setSurvey(questionWithMultipleAnswers.getSurvey());
         targetQuestionWithMultipleAnswersDto.setQuestionNumberInTheSurvey(questionWithMultipleAnswers.getQuestionNumberInTheSurvey());
         targetQuestionWithMultipleAnswersDto.setTypeQuestion(questionWithMultipleAnswers.getTypeQuestion());
