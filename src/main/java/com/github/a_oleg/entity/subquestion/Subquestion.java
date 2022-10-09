@@ -1,6 +1,6 @@
 package com.github.a_oleg.entity.subquestion;
 
-import com.github.a_oleg.entity.questions.QuestionWithTextAnswer;
+import com.github.a_oleg.entity.question.QuestionWithTextAnswer;
 
 import javax.persistence.*;
 

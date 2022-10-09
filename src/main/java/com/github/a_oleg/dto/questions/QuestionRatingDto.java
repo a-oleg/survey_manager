@@ -12,15 +12,21 @@ public class QuestionRatingDto extends AbstractQuestionDto {
     public QuestionRatingDto() {
     }
 
-    public QuestionRatingDto(int questionId, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, int countOfScaleElements, FigureType figureType, GradientType gradientType) {
-        super(questionId, survey, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
+    public QuestionRatingDto(int countOfScaleElements, FigureType figureType, GradientType gradientType) {
         this.countOfScaleElements = countOfScaleElements;
         this.figureType = figureType;
         this.gradientType = gradientType;
     }
 
-    public QuestionRatingDto(Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, int countOfScaleElements, FigureType figureType, GradientType gradientType) {
-        super(survey, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
+    public QuestionRatingDto(int parentCode, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, int nextQuestionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, int countOfScaleElements, FigureType figureType, GradientType gradientType) {
+        super(parentCode, activityStatus, survey, questionNumberInTheSurvey, nextQuestionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
+        this.countOfScaleElements = countOfScaleElements;
+        this.figureType = figureType;
+        this.gradientType = gradientType;
+    }
+
+    public QuestionRatingDto(int questionId, int parentCode, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, int nextQuestionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, int countOfScaleElements, FigureType figureType, GradientType gradientType) {
+        super(questionId, parentCode, activityStatus, survey, questionNumberInTheSurvey, nextQuestionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
         this.countOfScaleElements = countOfScaleElements;
         this.figureType = figureType;
         this.gradientType = gradientType;

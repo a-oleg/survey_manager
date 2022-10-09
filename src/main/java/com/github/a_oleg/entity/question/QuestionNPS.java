@@ -1,4 +1,4 @@
-package com.github.a_oleg.entity.questions;
+package com.github.a_oleg.entity.question;
 
 import com.github.a_oleg.entity.Survey;
 import com.github.a_oleg.enums.FigureType;
@@ -9,10 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "question_scale_of_opinion")
-public class QuestionScaleOfOpinion extends AbstractQuestion {
-    @Column(name = "description_of_assessment")
-    String descriptionOfAssessment;
+@Table(name = "question_nps")
+public class QuestionNPS extends AbstractQuestion {
     @Column(name = "have_button_i_find_it_difficult_to_answer")
     boolean haveButtonIFindItDifficultToAnswer;
     @Column(name = "rating_for_entering_comment")
@@ -24,13 +22,12 @@ public class QuestionScaleOfOpinion extends AbstractQuestion {
     @Column(name = "gradient_type")
     GradientType gradientType;
 
-    public QuestionScaleOfOpinion() {
-        super();
+    public QuestionNPS() {
+
     }
 
-    public QuestionScaleOfOpinion(Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, String descriptionOfAssessment, boolean haveButtonIFindItDifficultToAnswer, int ratingForEnteringComment, String textInCommentField, FigureType figureType, GradientType gradientType) {
-        super(survey, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
-        this.descriptionOfAssessment = descriptionOfAssessment;
+    public QuestionNPS(int parentCode, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, int nextQuestionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, boolean haveButtonIFindItDifficultToAnswer, int ratingForEnteringComment, String textInCommentField, FigureType figureType, GradientType gradientType) {
+        super(parentCode, activityStatus, survey, questionNumberInTheSurvey, nextQuestionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
         this.haveButtonIFindItDifficultToAnswer = haveButtonIFindItDifficultToAnswer;
         this.ratingForEnteringComment = ratingForEnteringComment;
         this.textInCommentField = textInCommentField;
@@ -38,22 +35,13 @@ public class QuestionScaleOfOpinion extends AbstractQuestion {
         this.gradientType = gradientType;
     }
 
-    public QuestionScaleOfOpinion(int questionId, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, String descriptionOfAssessment, boolean haveButtonIFindItDifficultToAnswer, int ratingForEnteringComment, String textInCommentField, FigureType figureType, GradientType gradientType) {
-        super(questionId, survey, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
-        this.descriptionOfAssessment = descriptionOfAssessment;
+    public QuestionNPS(int questionId, int parentCode, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, int nextQuestionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, boolean haveButtonIFindItDifficultToAnswer, int ratingForEnteringComment, String textInCommentField, FigureType figureType, GradientType gradientType) {
+        super(questionId, parentCode, activityStatus, survey, questionNumberInTheSurvey, nextQuestionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
         this.haveButtonIFindItDifficultToAnswer = haveButtonIFindItDifficultToAnswer;
         this.ratingForEnteringComment = ratingForEnteringComment;
         this.textInCommentField = textInCommentField;
         this.figureType = figureType;
         this.gradientType = gradientType;
-    }
-
-    public String getDescriptionOfAssessment() {
-        return descriptionOfAssessment;
-    }
-
-    public void setDescriptionOfAssessment(String descriptionOfAssessment) {
-        this.descriptionOfAssessment = descriptionOfAssessment;
     }
 
     public boolean isHaveButtonIFindItDifficultToAnswer() {

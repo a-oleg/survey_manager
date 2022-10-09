@@ -1,6 +1,6 @@
 package com.github.a_oleg.repository.questions;
 
-import com.github.a_oleg.entity.questions.QuestionNPS;
+import com.github.a_oleg.entity.question.QuestionNPS;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

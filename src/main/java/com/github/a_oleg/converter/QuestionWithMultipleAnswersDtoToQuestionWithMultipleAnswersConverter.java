@@ -1,7 +1,7 @@
 package com.github.a_oleg.converter;
 
 import com.github.a_oleg.dto.questions.QuestionWithMultipleAnswersDto;
-import com.github.a_oleg.entity.questions.QuestionWithMultipleAnswers;
+import com.github.a_oleg.entity.question.QuestionWithMultipleAnswers;
 import org.apache.tomcat.util.buf.StringUtils;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -17,6 +17,7 @@ public class QuestionWithMultipleAnswersDtoToQuestionWithMultipleAnswersConverte
         targetQuestionWithMultipleAnswers.setActivityStatus(questionWithMultipleAnswersDto.isActivityStatus());
         targetQuestionWithMultipleAnswers.setSurvey(questionWithMultipleAnswersDto.getSurvey());
         targetQuestionWithMultipleAnswers.setQuestionNumberInTheSurvey(questionWithMultipleAnswersDto.getQuestionNumberInTheSurvey());
+        targetQuestionWithMultipleAnswers.setNextQuestionNumberInTheSurvey(questionWithMultipleAnswersDto.getNextQuestionNumberInTheSurvey());
         targetQuestionWithMultipleAnswers.setTypeQuestion(questionWithMultipleAnswersDto.getTypeQuestion());
         targetQuestionWithMultipleAnswers.setTextQuestion(questionWithMultipleAnswersDto.getTextQuestion());
         targetQuestionWithMultipleAnswers.setDescriptionText(questionWithMultipleAnswersDto.getDescriptionText());

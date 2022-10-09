@@ -1,7 +1,7 @@
 package com.github.a_oleg.converter;
 
 import com.github.a_oleg.dto.questions.QuestionNPSDto;
-import com.github.a_oleg.entity.questions.QuestionNPS;
+import com.github.a_oleg.entity.question.QuestionNPS;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
@@ -16,13 +16,14 @@ public class QuestionNPSToQuestionNPSDtoConverter implements Converter<QuestionN
         targetQuestionNPSDto.setActivityStatus(questionNPS.isActivityStatus());
         targetQuestionNPSDto.setSurvey(questionNPS.getSurvey());
         targetQuestionNPSDto.setQuestionNumberInTheSurvey(questionNPS.getQuestionNumberInTheSurvey());
+        targetQuestionNPSDto.setNextQuestionNumberInTheSurvey(questionNPS.getNextQuestionNumberInTheSurvey());
         targetQuestionNPSDto.setTypeQuestion(questionNPS.getTypeQuestion());
         targetQuestionNPSDto.setTextQuestion(questionNPS.getTextQuestion());
         targetQuestionNPSDto.setDescriptionText(questionNPS.getDescriptionText());
         targetQuestionNPSDto.setButtonText(questionNPS.getButtonText());
         targetQuestionNPSDto.setHaveButtonIFindItDifficultToAnswer(questionNPS.isHaveButtonIFindItDifficultToAnswer());
         targetQuestionNPSDto.setRatingForEnteringComment(questionNPS.getRatingForEnteringComment());
-        targetQuestionNPSDto.setTextInTheCommentField(questionNPS.getTextInCommentField());
+        targetQuestionNPSDto.setTextInCommentField(questionNPS.getTextInCommentField());
         targetQuestionNPSDto.setFigureType(questionNPS.getFigureType());
         targetQuestionNPSDto.setGradientType(questionNPS.getGradientType());
 

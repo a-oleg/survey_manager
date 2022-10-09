@@ -1,4 +1,4 @@
-package com.github.a_oleg.entity.questions;
+package com.github.a_oleg.entity.question;
 
 import com.github.a_oleg.entity.Survey;
 
@@ -14,16 +14,18 @@ public class QuestionWithMultipleAnswers extends AbstractQuestion {
     @Column(name = "multiple_choice_of_answers")
     boolean multipleChoiceOfAnswers;
 
-    public QuestionWithMultipleAnswers() { super(); }
+    public QuestionWithMultipleAnswers() {
 
-    public QuestionWithMultipleAnswers(Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, String answerOptions, boolean multipleChoiceOfAnswers) {
-        super(survey, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
+    }
+
+    public QuestionWithMultipleAnswers(int parentCode, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, int nextQuestionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, String answerOptions, boolean multipleChoiceOfAnswers) {
+        super(parentCode, activityStatus, survey, questionNumberInTheSurvey, nextQuestionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
         this.answerOptions = answerOptions;
         this.multipleChoiceOfAnswers = multipleChoiceOfAnswers;
     }
 
-    public QuestionWithMultipleAnswers(int questionId, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, String answerOptions, boolean multipleChoiceOfAnswers) {
-        super(questionId, survey, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
+    public QuestionWithMultipleAnswers(int questionId, int parentCode, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, int nextQuestionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, String answerOptions, boolean multipleChoiceOfAnswers) {
+        super(questionId, parentCode, activityStatus, survey, questionNumberInTheSurvey, nextQuestionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
         this.answerOptions = answerOptions;
         this.multipleChoiceOfAnswers = multipleChoiceOfAnswers;
     }

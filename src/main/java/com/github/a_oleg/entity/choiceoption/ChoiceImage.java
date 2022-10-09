@@ -1,6 +1,6 @@
 package com.github.a_oleg.entity.choiceoption;
 
-import com.github.a_oleg.entity.questions.QuestionTheChoiceOfMedia;
+import com.github.a_oleg.entity.question.QuestionTheChoiceOfMedia;
 
 import javax.persistence.*;
 

@@ -7,27 +7,27 @@ import com.github.a_oleg.enums.GradientType;
 public class QuestionNPSDto extends AbstractQuestionDto {
     boolean haveButtonIFindItDifficultToAnswer;
     int ratingForEnteringComment;
-    String textInTheCommentField;
+    String textInCommentField;
     FigureType figureType;
     GradientType gradientType;
 
     public QuestionNPSDto() {
     }
 
-    public QuestionNPSDto(int questionId, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, boolean haveButtonIFindItDifficultToAnswer, int ratingForEnteringComment, String textInTheCommentField, FigureType figureType, GradientType gradientType) {
-        super(questionId, survey, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
+    public QuestionNPSDto(int parentCode, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, int nextQuestionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, boolean haveButtonIFindItDifficultToAnswer, int ratingForEnteringComment, String textInCommentField, FigureType figureType, GradientType gradientType) {
+        super(parentCode, activityStatus, survey, questionNumberInTheSurvey, nextQuestionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
         this.haveButtonIFindItDifficultToAnswer = haveButtonIFindItDifficultToAnswer;
         this.ratingForEnteringComment = ratingForEnteringComment;
-        this.textInTheCommentField = textInTheCommentField;
+        this.textInCommentField = textInCommentField;
         this.figureType = figureType;
         this.gradientType = gradientType;
     }
 
-    public QuestionNPSDto(Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, boolean haveButtonIFindItDifficultToAnswer, int ratingForEnteringComment, String textInTheCommentField, FigureType figureType, GradientType gradientType) {
-        super(survey, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
+    public QuestionNPSDto(int questionId, int parentCode, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, int nextQuestionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, boolean haveButtonIFindItDifficultToAnswer, int ratingForEnteringComment, String textInCommentField, FigureType figureType, GradientType gradientType) {
+        super(questionId, parentCode, activityStatus, survey, questionNumberInTheSurvey, nextQuestionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
         this.haveButtonIFindItDifficultToAnswer = haveButtonIFindItDifficultToAnswer;
         this.ratingForEnteringComment = ratingForEnteringComment;
-        this.textInTheCommentField = textInTheCommentField;
+        this.textInCommentField = textInCommentField;
         this.figureType = figureType;
         this.gradientType = gradientType;
     }
@@ -48,12 +48,12 @@ public class QuestionNPSDto extends AbstractQuestionDto {
         this.ratingForEnteringComment = ratingForEnteringComment;
     }
 
-    public String getTextInTheCommentField() {
-        return textInTheCommentField;
+    public String getTextInCommentField() {
+        return textInCommentField;
     }
 
-    public void setTextInTheCommentField(String textInTheCommentField) {
-        this.textInTheCommentField = textInTheCommentField;
+    public void setTextInCommentField(String textInCommentField) {
+        this.textInCommentField = textInCommentField;
     }
 
     public FigureType getFigureType() {

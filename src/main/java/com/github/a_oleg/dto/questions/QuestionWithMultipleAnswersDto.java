@@ -8,14 +8,18 @@ public class QuestionWithMultipleAnswersDto extends AbstractQuestionDto {
     ArrayList<String> answerOptions = new ArrayList<>();
     boolean multipleChoiceOfAnswers;
 
-    public QuestionWithMultipleAnswersDto(int questionId, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, ArrayList<String> answerOptions, boolean multipleChoiceOfAnswers) {
-        super(questionId, survey, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
+    public QuestionWithMultipleAnswersDto() {
+
+    }
+
+    public QuestionWithMultipleAnswersDto(int parentCode, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, int nextQuestionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, ArrayList<String> answerOptions, boolean multipleChoiceOfAnswers) {
+        super(parentCode, activityStatus, survey, questionNumberInTheSurvey, nextQuestionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
         this.answerOptions = answerOptions;
         this.multipleChoiceOfAnswers = multipleChoiceOfAnswers;
     }
 
-    public QuestionWithMultipleAnswersDto(Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, ArrayList<String> answerOptions, boolean multipleChoiceOfAnswers) {
-        super(survey, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
+    public QuestionWithMultipleAnswersDto(int questionId, int parentCode, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, int nextQuestionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, ArrayList<String> answerOptions, boolean multipleChoiceOfAnswers) {
+        super(questionId, parentCode, activityStatus, survey, questionNumberInTheSurvey, nextQuestionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
         this.answerOptions = answerOptions;
         this.multipleChoiceOfAnswers = multipleChoiceOfAnswers;
     }
@@ -34,8 +38,5 @@ public class QuestionWithMultipleAnswersDto extends AbstractQuestionDto {
 
     public void setMultipleChoiceOfAnswers(boolean multipleChoiceOfAnswers) {
         this.multipleChoiceOfAnswers = multipleChoiceOfAnswers;
-    }
-
-    public QuestionWithMultipleAnswersDto() {
     }
 }

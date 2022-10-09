@@ -1,7 +1,7 @@
 package com.github.a_oleg.converter;
 
 import com.github.a_oleg.dto.questions.QuestionRatingDto;
-import com.github.a_oleg.entity.questions.QuestionRating;
+import com.github.a_oleg.entity.question.QuestionRating;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +16,7 @@ public class QuestionRatingDtoToQuestionRatingConverter implements Converter<Que
         targetQuestionRating.setActivityStatus(questionRatingDto.isActivityStatus());
         targetQuestionRating.setSurvey(questionRatingDto.getSurvey());
         targetQuestionRating.setQuestionNumberInTheSurvey(questionRatingDto.getQuestionNumberInTheSurvey());
+        targetQuestionRating.setNextQuestionNumberInTheSurvey(questionRatingDto.getNextQuestionNumberInTheSurvey());
         targetQuestionRating.setTypeQuestion(questionRatingDto.getTypeQuestion());
         targetQuestionRating.setTextQuestion(questionRatingDto.getTextQuestion());
         targetQuestionRating.setDescriptionText(questionRatingDto.getDescriptionText());

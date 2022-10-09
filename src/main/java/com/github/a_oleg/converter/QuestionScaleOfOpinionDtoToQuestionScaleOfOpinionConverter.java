@@ -1,7 +1,7 @@
 package com.github.a_oleg.converter;
 
 import com.github.a_oleg.dto.questions.QuestionScaleOfOpinionDto;
-import com.github.a_oleg.entity.questions.QuestionScaleOfOpinion;
+import com.github.a_oleg.entity.question.QuestionScaleOfOpinion;
 import org.apache.tomcat.util.buf.StringUtils;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -17,6 +17,7 @@ public class QuestionScaleOfOpinionDtoToQuestionScaleOfOpinionConverter implemen
         targetQuestionScaleOfOpinion.setActivityStatus(questionScaleOfOpinionDto.isActivityStatus());
         targetQuestionScaleOfOpinion.setSurvey(questionScaleOfOpinionDto.getSurvey());
         targetQuestionScaleOfOpinion.setQuestionNumberInTheSurvey(questionScaleOfOpinionDto.getQuestionNumberInTheSurvey());
+        targetQuestionScaleOfOpinion.setNextQuestionNumberInTheSurvey(questionScaleOfOpinionDto.getNextQuestionNumberInTheSurvey());
         targetQuestionScaleOfOpinion.setTypeQuestion(questionScaleOfOpinionDto.getTypeQuestion());
         targetQuestionScaleOfOpinion.setTextQuestion(questionScaleOfOpinionDto.getTextQuestion());
         targetQuestionScaleOfOpinion.setDescriptionText(questionScaleOfOpinionDto.getDescriptionText());

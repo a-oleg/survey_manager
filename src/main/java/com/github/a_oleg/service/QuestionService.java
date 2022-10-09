@@ -1,7 +1,7 @@
 package com.github.a_oleg.service;
 
 import com.github.a_oleg.dto.questions.*;
-import com.github.a_oleg.entity.questions.*;
+import com.github.a_oleg.entity.question.*;
 import com.github.a_oleg.exception.ClientException;
 import com.github.a_oleg.exception.ServerException;
 import com.github.a_oleg.repository.questions.*;
