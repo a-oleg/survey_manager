@@ -32,15 +32,16 @@ public class SurveyService {
     }
 
     /**Метод, возвращающий опрос*/
-    public SurveyDto getSurvey(Integer surveyId) throws ServerException {
-        if(surveyId == null) {
-            throw new ServerException("Error: SurveyService.getSurvey - SurveyID cannot be null");
+    public SurveyDto getSurvey(SurveyDto surveyDto) throws ServerException {
+        if(surveyDto == null) {
+            throw new ServerException("Error: SurveyService.getSurvey - surveyDto cannot be null");
         }
-        if(surveyRepository.findById(surveyId).isPresent()) {
-            Survey survey = surveyRepository.findById(surveyId).orElse(new Survey());
+        if(surveyRepository.findById((Integer)surveyDto.getSurveyId()).isPresent()) {
+            Survey survey = surveyRepository.findById((Integer)surveyDto.getSurveyId()).orElse(new Survey());
             return conversionService.convert(survey, SurveyDto.class);
         } else {
-            throw new ServerException("Error: SurveyService.getSurvey - Failed to return survey with ID " + surveyId);
+            throw new ServerException("Error: SurveyService.getSurvey - Failed to return survey with ID "
+                    + surveyDto.getSurveyId());
         }
     }
 

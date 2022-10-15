@@ -21,10 +21,14 @@ public class SurveyController {
         this.surveyService = surveyService;
     }
     @PostMapping("new")
-    public ResponseEntity<SurveyDto> createSurvey(@RequestBody SurveyDto surveyDto) throws ClientException, ServerException {
+    public ResponseEntity<SurveyDto> createSurvey(@RequestBody SurveyDto surveyDto) {
         logger.info("Info: SurveyController.createSurvey - A request to create a new survey has been accepted");
         if(surveyDto == null) {
             logger.warn("Warning: SurveyController.createSurvey - The request body is null");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(surveyDto);
+        }
+        if(surveyDto.getActivityStatus() == false) {
+            logger.warn("Warning: SurveyController.createSurvey - ActivityStatus cannot be false");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(surveyDto);
         }
         SurveyDto resultSurveyDto;
@@ -43,19 +47,26 @@ public class SurveyController {
     }
 
     @GetMapping("get")
-    public ResponseEntity<SurveyDto> getSurvey(@RequestParam(name = "surveyId", required = true)Integer surveyId) {
-        logger.info("Info: SurveyController.getSurvey - The request to return the survey from the database was accepted");
-        if(surveyId == null) {
+    public ResponseEntity<SurveyDto> getSurvey(@RequestBody SurveyDto surveyDto) {
+        logger.info("Info: SurveyController.getSurvey - The request to return the survey ID" +
+                surveyDto.getSurveyId() + " from the database was accepted");
+        if(surveyDto == null) {
             logger.warn("Warning: SurveyController.getSurvey - The request is null");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
+        if(surveyDto.getActivityStatus() == false) {
+            logger.warn("Warning: SurveyController.getSurvey - Survey ID " + surveyDto.getSurveyId() +
+                    " activityStatus cannot be false");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(surveyDto);
+        }
         SurveyDto returnedSurveyDto;
         try {
-            returnedSurveyDto = surveyService.getSurvey(surveyId);
-            logger.info("Info: SurveyController.getSurvey - The survey was successfully received");
+            returnedSurveyDto = surveyService.getSurvey(surveyDto);
+            logger.info("Info: SurveyController.getSurvey - The survey ID" + returnedSurveyDto.getSurveyId() +
+                    " was successfully received");
             return ResponseEntity.status(HttpStatus.OK).body(returnedSurveyDto);
         } catch (ServerException e) {
-            logger.warn(e.getMessage());
+            logger.warn("Warning: SurveyController.getSurvey - " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
@@ -63,9 +74,15 @@ public class SurveyController {
     /**Метод, обновляющий данные опроса*/
     @PutMapping("update")
     public ResponseEntity<SurveyDto> updateSurvey(@RequestBody SurveyDto surveyDto) {
-        logger.info("Info: SurveyController.editSurvey - The request to editSurvey the survey was accepted");
+        logger.info("Info: SurveyController.editSurvey - The request to edit Survey ID " + surveyDto.getSurveyId() +
+                " was accepted");
         if(surveyDto == null) {
             logger.warn("Warning: SurveyController.editSurvey - The request body is null");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(surveyDto);
+        }
+        if(surveyDto.getActivityStatus() == false) {
+            logger.warn("Warning: SurveyController.updateSurvey - Survey ID " + surveyDto.getSurveyId() +
+                    " activityStatus cannot be false");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(surveyDto);
         }
         SurveyDto updatedSurveyDto;
@@ -75,30 +92,38 @@ public class SurveyController {
             logger.warn(e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(surveyDto);
         }
-        logger.info("Info: SurveyController.editSurvey - The survey ID " + surveyDto.getSurveyId() + " has been updated successfully");
+        logger.info("Info: SurveyController.editSurvey - The survey ID " + surveyDto.getSurveyId() +
+                " has been updated successfully");
         return ResponseEntity.status(HttpStatus.OK).body(updatedSurveyDto);
     }
 
     /**Метод, удаляющий опрос*/
     @DeleteMapping("delete")
-    public ResponseEntity<SurveyDto> deleteSurvey(@RequestParam(name = "surveyId", required = true) Integer surveyId) {
+    public ResponseEntity<SurveyDto> deleteSurvey(@RequestBody SurveyDto surveyDto) {
         logger.info("Info: SurveyController.deleteSurvey - The request to delete the survey was accepted");
-        if(surveyId == null) {
+        if(surveyDto == null) {
             logger.warn("Warning: SurveyController.deleteSurvey - The request is null");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
+        if(surveyDto.getActivityStatus() == false) {
+            logger.warn("Warning: SurveyController.deleteSurvey - Survey ID " + surveyDto.getSurveyId() +
+                    " activityStatus cannot be false");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(surveyDto);
+        }
         SurveyDto resultDto;
         try {
-            resultDto = surveyService.deleteSurvey(surveyId);
+            resultDto = surveyService.deleteSurvey(surveyDto.getSurveyId());
         } catch (ClientException e) {
-            logger.error(e.getMessage());
+            logger.error("Warning: SurveyController.deleteSurvey - " + e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
         if(resultDto != null) {
-            logger.info("Info: SurveyController.deleteSurvey - The survey ID " + surveyId + " was successfully deleted");
+            logger.info("Info: SurveyController.deleteSurvey - The survey ID " + surveyDto.getSurveyId()
+                    + " was successfully deleted");
             return ResponseEntity.status(HttpStatus.OK).body(resultDto);
         } else {
-            logger.error("Error: SurveyController.deleteSurvey - Survey ID " + resultDto.getSurveyId() + " deletion failed");
+            logger.error("Error: SurveyController.deleteSurvey - Survey ID " + resultDto.getSurveyId() +
+                    " deletion failed");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(resultDto);
         }
     }
