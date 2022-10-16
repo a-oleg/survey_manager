@@ -12,14 +12,14 @@ public class QuestionTheChoiceOfMediaDto extends AbstractQuestionDto {
     public QuestionTheChoiceOfMediaDto() {
     }
 
-    public QuestionTheChoiceOfMediaDto(int parentCode, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, int nextQuestionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, List<ChoiceImage> listChoiceImage, String textInOtherField) {
-        super(parentCode, activityStatus, survey, questionNumberInTheSurvey, nextQuestionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
+    public QuestionTheChoiceOfMediaDto(int parentCode, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, List<ChoiceImage> listChoiceImage, String textInOtherField) {
+        super(parentCode, activityStatus, survey, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
         this.listChoiceImage = listChoiceImage;
         this.textInOtherField = textInOtherField;
     }
 
-    public QuestionTheChoiceOfMediaDto(int questionId, int parentCode, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, int nextQuestionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, List<ChoiceImage> listChoiceImage, String textInOtherField) {
-        super(questionId, parentCode, activityStatus, survey, questionNumberInTheSurvey, nextQuestionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
+    public QuestionTheChoiceOfMediaDto(int questionId, int parentCode, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, List<ChoiceImage> listChoiceImage, String textInOtherField) {
+        super(questionId, parentCode, activityStatus, survey, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
         this.listChoiceImage = listChoiceImage;
         this.textInOtherField = textInOtherField;
     }

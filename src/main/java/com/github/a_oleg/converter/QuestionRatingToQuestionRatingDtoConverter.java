@@ -16,7 +16,6 @@ public class QuestionRatingToQuestionRatingDtoConverter implements Converter<Que
         targetQuestionRatingDto.setActivityStatus(questionRating.isActivityStatus());
         targetQuestionRatingDto.setSurvey(questionRating.getSurvey());
         targetQuestionRatingDto.setQuestionNumberInTheSurvey(questionRating.getQuestionNumberInTheSurvey());
-        targetQuestionRatingDto.setNextQuestionNumberInTheSurvey(questionRating.getNextQuestionNumberInTheSurvey());
         targetQuestionRatingDto.setTypeQuestion(questionRating.getTypeQuestion());
         targetQuestionRatingDto.setTextQuestion(questionRating.getTextQuestion());
         targetQuestionRatingDto.setDescriptionText(questionRating.getDescriptionText());

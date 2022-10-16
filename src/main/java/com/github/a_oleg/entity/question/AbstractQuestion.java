@@ -19,8 +19,6 @@ public abstract class AbstractQuestion {
     Survey survey;
     @Column(name = "question_number_in_the_survey")
     int questionNumberInTheSurvey;
-    @Column(name = "next_question_number_in_the_survey")
-    int nextQuestionNumberInTheSurvey;
     @Column(name = "type_question")
     String typeQuestion;
     @Column(name = "text_question")
@@ -33,25 +31,23 @@ public abstract class AbstractQuestion {
     public AbstractQuestion() {
     }
 
-    public AbstractQuestion(int parentCode, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, int nextQuestionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
+    public AbstractQuestion(int parentCode, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
         this.parentCode = parentCode;
         this.activityStatus = activityStatus;
         this.survey = survey;
         this.questionNumberInTheSurvey = questionNumberInTheSurvey;
-        this.nextQuestionNumberInTheSurvey = nextQuestionNumberInTheSurvey;
         this.typeQuestion = typeQuestion;
         this.textQuestion = textQuestion;
         this.descriptionText = descriptionText;
         this.buttonText = buttonText;
     }
 
-    public AbstractQuestion(int questionId, int parentCode, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, int nextQuestionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
+    public AbstractQuestion(int questionId, int parentCode, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
         this.questionId = questionId;
         this.parentCode = parentCode;
         this.activityStatus = activityStatus;
         this.survey = survey;
         this.questionNumberInTheSurvey = questionNumberInTheSurvey;
-        this.nextQuestionNumberInTheSurvey = nextQuestionNumberInTheSurvey;
         this.typeQuestion = typeQuestion;
         this.textQuestion = textQuestion;
         this.descriptionText = descriptionText;
@@ -96,14 +92,6 @@ public abstract class AbstractQuestion {
 
     public void setQuestionNumberInTheSurvey(int questionNumberInTheSurvey) {
         this.questionNumberInTheSurvey = questionNumberInTheSurvey;
-    }
-
-    public int getNextQuestionNumberInTheSurvey() {
-        return nextQuestionNumberInTheSurvey;
-    }
-
-    public void setNextQuestionNumberInTheSurvey(int nextQuestionNumberInTheSurvey) {
-        this.nextQuestionNumberInTheSurvey = nextQuestionNumberInTheSurvey;
     }
 
     public String getTypeQuestion() {

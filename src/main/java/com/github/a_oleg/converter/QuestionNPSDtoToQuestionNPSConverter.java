@@ -16,14 +16,12 @@ public class QuestionNPSDtoToQuestionNPSConverter implements Converter<QuestionN
         targetQuestionNPS.setActivityStatus(questionNPSDto.isActivityStatus());
         targetQuestionNPS.setSurvey(questionNPSDto.getSurvey());
         targetQuestionNPS.setQuestionNumberInTheSurvey(questionNPSDto.getQuestionNumberInTheSurvey());
-        targetQuestionNPS.setNextQuestionNumberInTheSurvey(questionNPSDto.getNextQuestionNumberInTheSurvey());
         targetQuestionNPS.setTypeQuestion(questionNPSDto.getTypeQuestion());
         targetQuestionNPS.setTextQuestion(questionNPSDto.getTextQuestion());
         targetQuestionNPS.setDescriptionText(questionNPSDto.getDescriptionText());
         targetQuestionNPS.setButtonText(questionNPSDto.getButtonText());
         targetQuestionNPS.setHaveButtonIFindItDifficultToAnswer(questionNPSDto.isHaveButtonIFindItDifficultToAnswer());
         targetQuestionNPS.setTextInCommentField(questionNPSDto.getTextInCommentField());
-        targetQuestionNPS.setRatingForEnteringComment(questionNPSDto.getRatingForEnteringComment());
         targetQuestionNPS.setFigureType(questionNPSDto.getFigureType());
         targetQuestionNPS.setGradientType(questionNPSDto.getGradientType());
 

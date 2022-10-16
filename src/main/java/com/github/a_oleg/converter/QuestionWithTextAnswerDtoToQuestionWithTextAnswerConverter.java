@@ -16,7 +16,6 @@ public class QuestionWithTextAnswerDtoToQuestionWithTextAnswerConverter implemen
         targetQuestionWithTextAnswer.setActivityStatus(questionWithTextAnswerDto.isActivityStatus());
         targetQuestionWithTextAnswer.setSurvey(questionWithTextAnswerDto.getSurvey());
         targetQuestionWithTextAnswer.setQuestionNumberInTheSurvey(questionWithTextAnswerDto.getQuestionNumberInTheSurvey());
-        targetQuestionWithTextAnswer.setNextQuestionNumberInTheSurvey(questionWithTextAnswerDto.getNextQuestionNumberInTheSurvey());
         targetQuestionWithTextAnswer.setTypeQuestion(questionWithTextAnswerDto.getTypeQuestion());
         targetQuestionWithTextAnswer.setTextQuestion(questionWithTextAnswerDto.getTextQuestion());
         targetQuestionWithTextAnswer.setDescriptionText(questionWithTextAnswerDto.getDescriptionText());

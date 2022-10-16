@@ -5,8 +5,8 @@ import com.github.a_oleg.entity.question.QuestionWithTextAnswer;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "subquestion")
-public class Subquestion {
+@Table(name = "subquestion_with_text_answer")
+public class SubquestionWithTextAnswer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "subquestion_id")

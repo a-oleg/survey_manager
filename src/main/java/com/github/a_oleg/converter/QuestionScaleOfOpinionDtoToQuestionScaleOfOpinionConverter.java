@@ -17,7 +17,6 @@ public class QuestionScaleOfOpinionDtoToQuestionScaleOfOpinionConverter implemen
         targetQuestionScaleOfOpinion.setActivityStatus(questionScaleOfOpinionDto.isActivityStatus());
         targetQuestionScaleOfOpinion.setSurvey(questionScaleOfOpinionDto.getSurvey());
         targetQuestionScaleOfOpinion.setQuestionNumberInTheSurvey(questionScaleOfOpinionDto.getQuestionNumberInTheSurvey());
-        targetQuestionScaleOfOpinion.setNextQuestionNumberInTheSurvey(questionScaleOfOpinionDto.getNextQuestionNumberInTheSurvey());
         targetQuestionScaleOfOpinion.setTypeQuestion(questionScaleOfOpinionDto.getTypeQuestion());
         targetQuestionScaleOfOpinion.setTextQuestion(questionScaleOfOpinionDto.getTextQuestion());
         targetQuestionScaleOfOpinion.setDescriptionText(questionScaleOfOpinionDto.getDescriptionText());
