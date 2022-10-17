@@ -12,7 +12,7 @@ public class QuestionWithTextAnswerToQuestionWithTextAnswerDtoConverter implemen
         QuestionWithTextAnswerDto targetQuestionWithTextAnswerDto = new QuestionWithTextAnswerDto();
 
         targetQuestionWithTextAnswerDto.setQuestionId(questionWithTextAnswer.getQuestionId());
-        targetQuestionWithTextAnswerDto.setParentCode(questionWithTextAnswer.getParentCode());
+        targetQuestionWithTextAnswerDto.setParentId(questionWithTextAnswer.getParentId());
         targetQuestionWithTextAnswerDto.setActivityStatus(questionWithTextAnswer.isActivityStatus());
         targetQuestionWithTextAnswerDto.setSurvey(questionWithTextAnswer.getSurvey());
         targetQuestionWithTextAnswerDto.setQuestionNumberInTheSurvey(questionWithTextAnswer.getQuestionNumberInTheSurvey());

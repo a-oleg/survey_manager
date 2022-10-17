@@ -27,7 +27,7 @@ public class SurveyController {
             logger.warn("Warning: SurveyController.createSurvey - The request body is null");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(surveyDto);
         }
-        if(surveyDto.getActivityStatus() == false) {
+        if(!surveyDto.getActivityStatus()) {
             logger.warn("Warning: SurveyController.createSurvey - ActivityStatus cannot be false");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(surveyDto);
         }
@@ -54,7 +54,7 @@ public class SurveyController {
             logger.warn("Warning: SurveyController.getSurvey - The request is null");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
-        if(surveyDto.getActivityStatus() == false) {
+        if(!surveyDto.getActivityStatus()) {
             logger.warn("Warning: SurveyController.getSurvey - Survey ID " + surveyDto.getSurveyId() +
                     " activityStatus cannot be false");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(surveyDto);
@@ -80,7 +80,7 @@ public class SurveyController {
             logger.warn("Warning: SurveyController.editSurvey - The request body is null");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(surveyDto);
         }
-        if(surveyDto.getActivityStatus() == false) {
+        if(!surveyDto.getActivityStatus()) {
             logger.warn("Warning: SurveyController.updateSurvey - Survey ID " + surveyDto.getSurveyId() +
                     " activityStatus cannot be false");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(surveyDto);
@@ -105,7 +105,7 @@ public class SurveyController {
             logger.warn("Warning: SurveyController.deleteSurvey - The request is null");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
-        if(surveyDto.getActivityStatus() == false) {
+        if(!surveyDto.getActivityStatus()) {
             logger.warn("Warning: SurveyController.deleteSurvey - Survey ID " + surveyDto.getSurveyId() +
                     " activityStatus cannot be false");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(surveyDto);

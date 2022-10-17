@@ -12,7 +12,7 @@ public class QuestionNPSToQuestionNPSDtoConverter implements Converter<QuestionN
         QuestionNPSDto targetQuestionNPSDto = new QuestionNPSDto();
 
         targetQuestionNPSDto.setQuestionId(questionNPS.getQuestionId());
-        targetQuestionNPSDto.setParentCode(questionNPS.getParentCode());
+        targetQuestionNPSDto.setParentId(questionNPS.getParentId());
         targetQuestionNPSDto.setActivityStatus(questionNPS.isActivityStatus());
         targetQuestionNPSDto.setSurvey(questionNPS.getSurvey());
         targetQuestionNPSDto.setQuestionNumberInTheSurvey(questionNPS.getQuestionNumberInTheSurvey());

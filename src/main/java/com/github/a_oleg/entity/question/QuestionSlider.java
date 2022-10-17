@@ -10,12 +10,17 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "question_slider")
 public class QuestionSlider extends AbstractQuestion {
+    //Тип вопроса-слайдера. Принимает значения: числовой или процентный
     @Column(name = "type_slider")
     String typeSlider;
+    //Количество элементов шкалы. В случае числового типа, появляются фигуры с подписью: 1, 2, 3 и.т.д.
+    //В случае процентного типа, подпись элемента вычисляется как 100/количество элементов. Полученное значение округляется
     @Column(name = "count_of_scale_elements")
     int countOfScaleElements;
+    //Элемент шкалы, на котором будет по умолчанию установлен выбор, после загрузки вопроса пользователю
     @Column(name = "default_scale_element_number")
     int defaultScaleElementNumber;
+    //Тип фигуры для шкалы оценки
     @Column(name = "figure_type")
     FigureType figureType;
 

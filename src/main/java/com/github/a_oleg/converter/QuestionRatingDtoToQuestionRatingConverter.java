@@ -12,7 +12,7 @@ public class QuestionRatingDtoToQuestionRatingConverter implements Converter<Que
         QuestionRating targetQuestionRating = new QuestionRating();
 
         targetQuestionRating.setQuestionId(questionRatingDto.getQuestionId());
-        targetQuestionRating.setParentCode(questionRatingDto.getParentCode());
+        targetQuestionRating.setParentId(questionRatingDto.getParentId());
         targetQuestionRating.setActivityStatus(questionRatingDto.isActivityStatus());
         targetQuestionRating.setSurvey(questionRatingDto.getSurvey());
         targetQuestionRating.setQuestionNumberInTheSurvey(questionRatingDto.getQuestionNumberInTheSurvey());

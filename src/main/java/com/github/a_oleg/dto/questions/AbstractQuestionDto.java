@@ -4,7 +4,7 @@ import com.github.a_oleg.entity.Survey;
 
 public abstract class AbstractQuestionDto {
     int questionId;
-    int parentCode;
+    int parentId;
     boolean activityStatus;
     Survey survey;
     int questionNumberInTheSurvey;
@@ -16,8 +16,8 @@ public abstract class AbstractQuestionDto {
     public AbstractQuestionDto() {
     }
 
-    public AbstractQuestionDto(int parentCode, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
-        this.parentCode = parentCode;
+    public AbstractQuestionDto(int parentId, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
+        this.parentId = parentId;
         this.activityStatus = activityStatus;
         this.survey = survey;
         this.questionNumberInTheSurvey = questionNumberInTheSurvey;
@@ -27,9 +27,9 @@ public abstract class AbstractQuestionDto {
         this.buttonText = buttonText;
     }
 
-    public AbstractQuestionDto(int questionId, int parentCode, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
+    public AbstractQuestionDto(int questionId, int parentId, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
         this.questionId = questionId;
-        this.parentCode = parentCode;
+        this.parentId = parentId;
         this.activityStatus = activityStatus;
         this.survey = survey;
         this.questionNumberInTheSurvey = questionNumberInTheSurvey;
@@ -47,12 +47,12 @@ public abstract class AbstractQuestionDto {
         this.questionId = questionId;
     }
 
-    public int getParentCode() {
-        return parentCode;
+    public int getParentId() {
+        return parentId;
     }
 
-    public void setParentCode(int parentCode) {
-        this.parentCode = parentCode;
+    public void setParentId(int parentId) {
+        this.parentId = parentId;
     }
 
     public boolean isActivityStatus() {

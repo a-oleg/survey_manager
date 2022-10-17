@@ -9,8 +9,10 @@ import java.util.List;
 @Entity
 @Table(name = "question_with_text_answer")
 public class QuestionWithTextAnswer extends AbstractQuestion {
+    //Подвопросы (от 1шт.)
     @OneToMany(mappedBy = "questionWithTextAnswer",cascade = CascadeType.ALL)
     List<SubquestionWithTextAnswer> subquestionWithTextAnswerAndPrefixPostfixText;
+    //Наличие кнопки "Затрудняюсь ответить"
     @Column(name = "have_button_i_find_it_difficult_to_answer")
     boolean haveButtonIFindItDifficultToAnswer;
 

@@ -6,33 +6,42 @@ import javax.persistence.*;
 
 @MappedSuperclass
 public abstract class AbstractQuestion {
+    //ID вопроса
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "question_id")
     int questionId;
-    @Column(name = "parent_code")
-    int parentCode;
+    //ID вопроса, который был создан первоначально, до редактирования. Первоначальной версии вопроса присваивается значение -1
+    @Column(name = "parent_id")
+    int parentId;
+    //Статус активности
     @Column(name = "activity_status")
     boolean activityStatus;
+    //ID опроса
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "survey_id")
     Survey survey;
+    //Номер вопроса в опросе
     @Column(name = "question_number_in_the_survey")
     int questionNumberInTheSurvey;
+    //Тип вопроса: NPS, CSI, с вариантами ответов и пр.
     @Column(name = "type_question")
     String typeQuestion;
+    //Текст вопроса
     @Column(name = "text_question")
     String textQuestion;
+    //Текст описания вопроса
     @Column(name = "description_text")
     String descriptionText;
+    //Текст кнопки перехода к следующему вопросу
     @Column(name = "button_text")
     String buttonText;
 
     public AbstractQuestion() {
     }
 
-    public AbstractQuestion(int parentCode, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
-        this.parentCode = parentCode;
+    public AbstractQuestion(int parentId, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
+        this.parentId = parentId;
         this.activityStatus = activityStatus;
         this.survey = survey;
         this.questionNumberInTheSurvey = questionNumberInTheSurvey;
@@ -42,9 +51,9 @@ public abstract class AbstractQuestion {
         this.buttonText = buttonText;
     }
 
-    public AbstractQuestion(int questionId, int parentCode, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
+    public AbstractQuestion(int questionId, int parentId, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
         this.questionId = questionId;
-        this.parentCode = parentCode;
+        this.parentId = parentId;
         this.activityStatus = activityStatus;
         this.survey = survey;
         this.questionNumberInTheSurvey = questionNumberInTheSurvey;
@@ -62,12 +71,12 @@ public abstract class AbstractQuestion {
         this.questionId = questionId;
     }
 
-    public int getParentCode() {
-        return parentCode;
+    public int getParentId() {
+        return parentId;
     }
 
-    public void setParentCode(int parentCode) {
-        this.parentCode = parentCode;
+    public void setParentId(int parentId) {
+        this.parentId = parentId;
     }
 
     public boolean isActivityStatus() {

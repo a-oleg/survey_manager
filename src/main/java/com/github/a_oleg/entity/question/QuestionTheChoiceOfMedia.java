@@ -9,8 +9,10 @@ import java.util.List;
 @Entity
 @Table(name = "question_the_choice_of_media")
 public class QuestionTheChoiceOfMedia extends AbstractQuestion {
-    @OneToMany(mappedBy = "questionTheChoiceOfMedia",cascade = CascadeType.ALL)
+    //Список изображений и подписей
+    @OneToMany(mappedBy = "choice_image_id",cascade = CascadeType.ALL)
     List<ChoiceImage> listChoiceImage;
+    //Текст по умолчанию в поле для комментариев пользователя
     @Column(name = "text_in_other_field")
     String textInOtherField;
 

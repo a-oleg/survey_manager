@@ -11,10 +11,13 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "question_rating")
 public class QuestionRating extends AbstractQuestion {
+    //Количество элементов шкалы
     @Column(name = "count_of_scale_elements")
     int countOfScaleElements;
+    //Тип фигуры для шкалы оценки
     @Column(name = "figure_type")
     FigureType figureType;
+    //Тип градиента шкалы оценки
     @Column(name = "gradient_type")
     GradientType gradientType;
 

@@ -11,16 +11,23 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "question_scale_of_opinion")
 public class QuestionScaleOfOpinion extends AbstractQuestion {
+    //Описание элементов, которое выводится под фигурой (разделитель - символ ~). По умолчанию: категорически не согласен, не согласен,
+    //нейтрален, согласен, полностью согласен
     @Column(name = "description_of_assessment")
     String descriptionOfAssessment;
+    //Наличие кнопки "Затрудняюсь ответить"
     @Column(name = "have_button_i_find_it_difficult_to_answer")
     boolean haveButtonIFindItDifficultToAnswer;
+    //
     @Column(name = "rating_for_entering_comment")
     int ratingForEnteringComment;
+    //Текст по умолчанию в поле для комментариев пользователя
     @Column(name = "text_in_comment_field")
     String textInCommentField;
+    //Тип фигуры для шкалы оценки
     @Column(name = "figure_type")
     FigureType figureType;
+    //Тип градиента шкалы оценки
     @Column(name = "gradient_type")
     GradientType gradientType;
 
