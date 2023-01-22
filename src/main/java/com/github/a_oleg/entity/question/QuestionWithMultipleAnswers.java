@@ -10,7 +10,7 @@ import java.util.List;
 @Table(name = "question_with_multiple_answers")
 public class QuestionWithMultipleAnswers extends AbstractQuestion {
     //Список текстов вариантов ответов, из которых выбирает пользователь
-    @OneToMany(mappedBy = "choice_id",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "choiceId",cascade = CascadeType.ALL)
     List<ChoiceTextAnswer> listChoiceTextAnswer;
     //Возможность выбрать несколько вариантов в качестве ответа на вопрос
     @Column(name = "multiple_choice_of_answers")

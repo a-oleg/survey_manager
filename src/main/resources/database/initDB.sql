@@ -10,9 +10,9 @@ CREATE TABLE IF NOT EXISTS surveys
 CREATE TABLE IF NOT EXISTS question_nps
 (
     question_id BIGSERIAL PRIMARY KEY,
-    parent_id BIGINTEGER NOT NULL,
+    parent_id INTEGER NOT NULL,
     activity_status BOOLEAN NOT NULL,
-    survey_id BIGINTEGER REFERENCES surveys(survey_id),
+    survey_id INTEGER REFERENCES surveys(survey_id),
     question_number_in_the_survey INTEGER NOT NULL,
     type_question VARCHAR(50) NOT NULL,
     text_question VARCHAR(255) NOT NULL,
@@ -27,9 +27,9 @@ CREATE TABLE IF NOT EXISTS question_nps
 CREATE TABLE IF NOT EXISTS question_rating
 (
     question_id BIGSERIAL PRIMARY KEY,
-    parent_id BIGINTEGER NOT NULL,
+    parent_id INTEGER NOT NULL,
     activity_status BOOLEAN NOT NULL,
-    survey_id BIGINTEGER REFERENCES surveys(survey_id),
+    survey_id INTEGER REFERENCES surveys(survey_id),
     question_number_in_the_survey INTEGER NOT NULL,
     type_question VARCHAR(50) NOT NULL,
     text_question VARCHAR(255) NOT NULL,
@@ -43,9 +43,9 @@ CREATE TABLE IF NOT EXISTS question_rating
 CREATE TABLE IF NOT EXISTS question_scale_of_opinion
 (
     question_id BIGSERIAL PRIMARY KEY,
-    parent_id BIGINTEGER NOT NULL,
+    parent_id INTEGER NOT NULL,
     activity_status BOOLEAN NOT NULL,
-    survey_id BIGINTEGER REFERENCES surveys(survey_id),
+    survey_id INTEGER REFERENCES surveys(survey_id),
     question_number_in_the_survey INTEGER NOT NULL,
     type_question VARCHAR(50) NOT NULL,
     text_question VARCHAR(255) NOT NULL,
@@ -62,9 +62,9 @@ CREATE TABLE IF NOT EXISTS question_scale_of_opinion
 CREATE TABLE IF NOT EXISTS question_slider
 (
     question_id BIGSERIAL PRIMARY KEY,
-    parent_id BIGINTEGER NOT NULL,
+    parent_id INTEGER NOT NULL,
     activity_status BOOLEAN NOT NULL,
-    survey_id BIGINTEGER REFERENCES surveys(survey_id),
+    survey_id INTEGER REFERENCES surveys(survey_id),
     question_number_in_the_survey INTEGER NOT NULL,
     type_question VARCHAR(50) NOT NULL,
     text_question VARCHAR(255) NOT NULL,
@@ -76,12 +76,19 @@ CREATE TABLE IF NOT EXISTS question_slider
     figure_type VARCHAR(50) NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS choice_image
+(
+    choice_id BIGSERIAL PRIMARY KEY,
+    image BYTEA NOT NULL,
+    text VARCHAR(255) NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS question_the_choice_of_media
 (
     question_id BIGSERIAL PRIMARY KEY,
-    parent_id BIGINTEGER NOT NULL,
+    parent_id INTEGER NOT NULL,
     activity_status BOOLEAN NOT NULL,
-    survey_id BIGINTEGER REFERENCES surveys(survey_id),
+    survey_id INTEGER REFERENCES surveys(survey_id),
     question_number_in_the_survey INTEGER NOT NULL,
     type_question VARCHAR(50) NOT NULL,
     text_question VARCHAR(255) NOT NULL,
@@ -91,20 +98,18 @@ CREATE TABLE IF NOT EXISTS question_the_choice_of_media
     text_in_comment_field VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS choice_image
+CREATE TABLE IF NOT EXISTS choice_text_answer
 (
     choice_id BIGSERIAL PRIMARY KEY,
-    image BLOB NOT NULL,
-    question_id BIGINTEGER REFERENCES question_the_choice_of_media(question_id),
-    text VARCHAR(255) NOT NULL
+    text_answer VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS question_with_multiple_answers
 (
     question_id BIGSERIAL PRIMARY KEY,
-    parent_id BIGINTEGER NOT NULL,
+    parent_id INTEGER NOT NULL,
     activity_status BOOLEAN NOT NULL,
-    survey_id BIGINTEGER REFERENCES surveys(survey_id),
+    survey_id INTEGER REFERENCES surveys(survey_id),
     question_number_in_the_survey INTEGER NOT NULL,
     type_question VARCHAR(50) NOT NULL,
     text_question VARCHAR(255) NOT NULL,
@@ -114,26 +119,25 @@ CREATE TABLE IF NOT EXISTS question_with_multiple_answers
     multiple_choice_of_answers BOOLEAN NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS subquestion_with_text_answer
+(
+    subquestion_id BIGSERIAL PRIMARY KEY,
+    subquestion_text VARCHAR(255) NOT NULL,
+    prefix_text VARCHAR(255) NOT NULL,
+    postfix_text VARCHAR(255) NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS question_with_text_answer
 (
     question_id BIGSERIAL PRIMARY KEY,
-    parent_id BIGINTEGER NOT NULL,
+    parent_id INTEGER NOT NULL,
     activity_status BOOLEAN NOT NULL,
-    survey_id BIGINTEGER REFERENCES surveys(survey_id),
+    survey_id INTEGER REFERENCES surveys(survey_id),
     question_number_in_the_survey INTEGER NOT NULL,
     type_question VARCHAR(50) NOT NULL,
     text_question VARCHAR(255) NOT NULL,
     description_text VARCHAR(255) NOT NULL,
     button_text VARCHAR(255) NOT NULL,
     answer_options VARCHAR(50) NOT NULL,
-    subquestion REFERENCES surveys(survey_id)
-);
-
-CREATE TABLE IF NOT EXISTS subquestion_with_text_answer
-(
-    subquestion_id BIGSERIAL PRIMARY KEY,
-    subquestion_text VARCHAR(255) NOT NULL,
-    prefix_text VARCHAR(255) NOT NULL,
-    postfix_text VARCHAR(255) NOT NULL,
-    question_id BIGINTEGER REFERENCES question_with_text_answer(question_id)
+    subquestion INTEGER REFERENCES subquestion_with_text_answer(subquestion_id)
 );

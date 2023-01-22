@@ -5,7 +5,7 @@ import com.github.a_oleg.entity.question.QuestionWithMultipleAnswers;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "choise_text_answer")
+@Table(name = "choice_text_answer")
 public class ChoiceTextAnswer {
     //ID выбора текстового варианта ответа
     @Id

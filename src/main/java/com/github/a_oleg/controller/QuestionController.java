@@ -411,19 +411,19 @@ public class QuestionController {
 
     /**Метод, создающий вопрос-NPS*/
     @PostMapping("new/nps")
-    public ResponseEntity<QuestionNPSDto> createQuestionNPS(@RequestBody QuestionNPSDto questionNPSDto) {
+    public ResponseEntity<QuestionNPSDto> createQuestionNPS(@RequestBody QuestionNPSDto questionNpsDto) {
         logger.info("Info: QuestionController.createQuestionNPS - A request to create a new question" +
                 " has been accepted");
-        if (questionNPSDto == null) {
+        if (questionNpsDto == null) {
             logger.warn("Warning: QuestionController.createQuestionNPS - The request body is null");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(questionNPSDto);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(questionNpsDto);
         }
         QuestionNPSDto resultQuestionNPSDto;
         try {
-            resultQuestionNPSDto = questionService.createQuestionNPS(questionNPSDto);
+            resultQuestionNPSDto = questionService.createQuestionNPS(questionNpsDto);
         } catch (ServerException e) {
             logger.error("Error: QuestionController.createQuestionNPS - " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(questionNPSDto);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(questionNpsDto);
         }
         logger.info("Info: QuestionController.createQuestionNPS - The question was successfully created");
         return ResponseEntity.status(HttpStatus.CREATED).body(resultQuestionNPSDto);

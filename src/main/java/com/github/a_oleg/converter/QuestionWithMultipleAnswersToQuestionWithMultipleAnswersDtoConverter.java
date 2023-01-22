@@ -23,7 +23,7 @@ public class QuestionWithMultipleAnswersToQuestionWithMultipleAnswersDtoConverte
         targetQuestionWithMultipleAnswersDto.setTextQuestion(questionWithMultipleAnswers.getTextQuestion());
         targetQuestionWithMultipleAnswersDto.setDescriptionText(questionWithMultipleAnswers.getDescriptionText());
         targetQuestionWithMultipleAnswersDto.setButtonText(questionWithMultipleAnswers.getButtonText());
-        targetQuestionWithMultipleAnswersDto.setAnswerOptions(new ArrayList<String>(Arrays.asList(questionWithMultipleAnswers.getAnswerOptions().split("~"))));
+        //targetQuestionWithMultipleAnswersDto.setAnswerOptions(new ArrayList<String>(Arrays.asList(questionWithMultipleAnswers.getAnswerOptions().split("~"))));
         targetQuestionWithMultipleAnswersDto.setMultipleChoiceOfAnswers(questionWithMultipleAnswers.isMultipleChoiceOfAnswers());
 
         return targetQuestionWithMultipleAnswersDto;
