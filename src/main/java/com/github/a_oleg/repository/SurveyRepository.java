@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Repository
 public interface SurveyRepository extends JpaRepository<Survey, Integer> {
-    Set<Survey> findById(int survey_id);
+    Set<Survey> findById(int id);
     Set<Survey> findByCreator(String creator);
     Set<Survey> findByFolderId(int folderId);
 }

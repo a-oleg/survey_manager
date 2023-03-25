@@ -18,7 +18,7 @@ public abstract class AbstractQuestion {
     @Column(name = "activity_status")
     boolean activityStatus;
     //ID опроса
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "survey_id")
     Survey survey;
     //Номер вопроса в опросе

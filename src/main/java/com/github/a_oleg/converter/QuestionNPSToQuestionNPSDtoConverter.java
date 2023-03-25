@@ -1,6 +1,6 @@
 package com.github.a_oleg.converter;
 
-import com.github.a_oleg.dto.questions.QuestionNPSDto;
+import com.github.a_oleg.controller.questions.QuestionNPSDto;
 import com.github.a_oleg.entity.question.QuestionNPS;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -14,7 +14,7 @@ public class QuestionNPSToQuestionNPSDtoConverter implements Converter<QuestionN
         targetQuestionNPSDto.setQuestionId(questionNPS.getQuestionId());
         targetQuestionNPSDto.setParentId(questionNPS.getParentId());
         targetQuestionNPSDto.setActivityStatus(questionNPS.isActivityStatus());
-        targetQuestionNPSDto.setSurvey(questionNPS.getSurvey());
+        targetQuestionNPSDto.setSurveyId(questionNPS.getSurvey().getSurveyId());
         targetQuestionNPSDto.setQuestionNumberInTheSurvey(questionNPS.getQuestionNumberInTheSurvey());
         targetQuestionNPSDto.setTypeQuestion(questionNPS.getTypeQuestion());
         targetQuestionNPSDto.setTextQuestion(questionNPS.getTextQuestion());

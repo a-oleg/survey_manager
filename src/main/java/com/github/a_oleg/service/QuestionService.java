@@ -1,6 +1,11 @@
 package com.github.a_oleg.service;
 
-import com.github.a_oleg.dto.questions.*;
+import com.github.a_oleg.controller.questions.QuestionNPSDto;
+import com.github.a_oleg.controller.questions.QuestionRatingDto;
+import com.github.a_oleg.controller.questions.QuestionScaleOfOpinionDto;
+import com.github.a_oleg.controller.questions.QuestionSliderDto;
+import com.github.a_oleg.controller.questions.QuestionWithTextAnswerDto;
+import com.github.a_oleg.entity.Survey;
 import com.github.a_oleg.entity.question.*;
 import com.github.a_oleg.exception.ClientException;
 import com.github.a_oleg.exception.ServerException;
@@ -9,6 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Transactional
 @Service
@@ -48,22 +56,40 @@ public class QuestionService {
                 QuestionWithTextAnswerDto.class);
     }
 
-    /**Метод, возвращающий вопрос с текстовым ответом*/
+    /**Метод, возвращающий вопрос с текстовым ответом по ID*/
     public QuestionWithTextAnswerDto getQuestionWithTextAnswer(Integer questionId) throws ServerException {
         if(questionId == null) {
-            throw new ServerException("Error: QuestionService.getQuestionWithTextAnswerDto - QuestionId cannot be null");
+            throw new ServerException("Error: QuestionService.getQuestionWithTextAnswer - QuestionId cannot be null");
         }
         if(questionWithTextAnswerRepository.findById(questionId).isPresent()) {
             QuestionWithTextAnswer questionWithTextAnswer = questionWithTextAnswerRepository.
                     findById(questionId).orElse(new QuestionWithTextAnswer());
             return conversionService.convert(questionWithTextAnswer, QuestionWithTextAnswerDto.class);
         } else {
-            throw new ServerException("Error: QuestionService.getQuestionWithTextAnswerDto -" +
+            throw new ServerException("Error: QuestionService.getQuestionWithTextAnswer -" +
                     " Failed to return question with ID " + questionId);
         }
     }
 
-    /**Метод, обновляющий данные вопроса с текстовым ответом*/
+    /**Метод, возвращающий все вопросы с текстовым ответом по объекту-опросу*/
+    public Set<QuestionWithTextAnswerDto> getQuestionsWithTextAnswerBySurvey(Survey survey) throws ServerException {
+        if(survey == null) {
+            throw new ServerException("Error: QuestionService.getQuestionWithTextAnswerByIDSurvey - Survey cannot be null");
+        }
+        if(!questionWithTextAnswerRepository.findBySurvey(survey).isEmpty()) {
+            Set<QuestionWithTextAnswer> questionsWithTextAnswers = questionWithTextAnswerRepository.findBySurvey(survey);
+            Set<QuestionWithTextAnswerDto> questionWithTextAnswerDtos = new HashSet<>();
+            for(QuestionWithTextAnswer questionWithTextAnswer : questionsWithTextAnswers) {
+                questionWithTextAnswerDtos.add(conversionService.convert(questionWithTextAnswer, QuestionWithTextAnswerDto.class));
+            }
+            return questionWithTextAnswerDtos;
+        } else {
+            throw new ServerException("Error: QuestionService.getQuestionWithTextAnswerByIDSurvey -" +
+                    " Failed to return question with ID " + survey.getSurveyId());
+        }
+    }
+
+    /**Метод, обновляющий данные вопроса с текстовым ответом по ID*/
     public QuestionWithTextAnswerDto updateQuestionWithTextAnswer(QuestionWithTextAnswerDto questionWithTextAnswerDto)
             throws ClientException {
         if(questionWithTextAnswerDto == null) {
@@ -81,7 +107,7 @@ public class QuestionService {
         }
     }
 
-    /**Метод, удаляющий вопрос с текстовым ответом*/
+    /**Метод, удаляющий вопрос с текстовым ответом по ID*/
     public QuestionWithTextAnswerDto deleteQuestionWithTextAnswer(Integer questionId) throws ClientException {
         if(questionId == null) {
             throw new ClientException("Error: QuestionService.deleteQuestionWithTextAnswer - The questionID "
@@ -108,7 +134,7 @@ public class QuestionService {
                 QuestionRatingDto.class);
     }
 
-    /**Метод, возвращающий вопрос-рейтинг*/
+    /**Метод, возвращающий вопрос-рейтинг по ID*/
     public QuestionRatingDto getQuestionRating(Integer questionId) throws ServerException {
         if(questionId == null) {
             throw new ServerException("Error: QuestionService.getQuestionRating - QuestionId cannot be null");
@@ -122,7 +148,7 @@ public class QuestionService {
         }
     }
 
-    /**Метод, обновляющий данные вопроса-рейтинга*/
+    /**Метод, обновляющий данные вопроса-рейтинга по ID*/
     public QuestionRatingDto updateQuestionRating(QuestionRatingDto questionRatingDto)
             throws ClientException {
         if(questionRatingDto == null) {
@@ -140,7 +166,7 @@ public class QuestionService {
         }
     }
 
-    /**Метод, удаляющий вопрос-рейтинг*/
+    /**Метод, удаляющий вопрос-рейтинг по ID*/
     public QuestionRatingDto deleteQuestionRating(Integer questionId) throws ClientException {
         if(questionId == null) {
             throw new ClientException("Error: QuestionService.deleteQuestionRating - The questionID " + questionId +
@@ -167,7 +193,7 @@ public class QuestionService {
         return conversionService.convert(questionSliderRepository.save(questionSlider), QuestionSliderDto.class);
     }
 
-    /**Метод, возвращающий вопрос-слайдер*/
+    /**Метод, возвращающий вопрос-слайдер по ID*/
     public QuestionSliderDto getQuestionSlider(Integer questionId) throws ServerException {
         if(questionId == null) {
             throw new ServerException("Error: QuestionService.getQuestionSlider - QuestionId cannot be null");
@@ -181,7 +207,25 @@ public class QuestionService {
         }
     }
 
-    /**Метод, обновляющий данные вопроса-слайдера*/
+    /**Метод, возвращающий все вопросы-рейтинги по объекту-опросу*/
+    public Set<QuestionSliderDto> getQuestionsSliderBySurvey(Survey survey) throws ServerException {
+        if(survey == null) {
+            throw new ServerException("Error: QuestionService.getQuestionsSliderBySurvey - Survey cannot be null");
+        }
+        if(!questionWithTextAnswerRepository.findBySurvey(survey).isEmpty()) {
+            Set<QuestionSlider> questionsSlider = questionSliderRepository.findBySurvey(survey);
+            Set<QuestionSliderDto> questionSliderDtos = new HashSet<>();
+            for(QuestionSlider questionSlider : questionsSlider) {
+                questionSliderDtos.add(conversionService.convert(questionSlider, QuestionSliderDto.class));
+            }
+            return questionSliderDtos;
+        } else {
+            throw new ServerException("Error: QuestionService.getQuestionsSliderBySurvey -" +
+                    " Failed to return question with ID " + survey.getSurveyId());
+        }
+    }
+
+    /**Метод, обновляющий данные вопроса-слайдера по ID*/
     public QuestionSliderDto updateQuestionSlider(QuestionSliderDto questionSliderDto) throws ClientException {
         if(questionSliderDto == null) {
             throw new ClientException("Error: QuestionService.updateQuestionSliderDto - Question cannot be null");
@@ -196,7 +240,7 @@ public class QuestionService {
         }
     }
 
-    /**Метод, удаляющий вопрос-слайдер*/
+    /**Метод, удаляющий вопрос-слайдер по ID*/
     public QuestionSliderDto deleteQuestionSlider(Integer questionId) throws ClientException {
         if(questionId == null) {
             throw new ClientException("Error: QuestionService.deleteQuestionSlider - The questionID "
@@ -225,7 +269,7 @@ public class QuestionService {
                 QuestionScaleOfOpinionDto.class);
     }
 
-    /**Метод, возвращающий вопрос-шкалу мнений*/
+    /**Метод, возвращающий вопрос-шкалу мнений по ID*/
     public QuestionScaleOfOpinionDto getQuestionScaleOfOpinion(Integer questionId) throws ServerException {
         if(questionId == null) {
             throw new ServerException("Error: QuestionService.getQuestionScaleOfOpinion - QuestionId cannot be null");
@@ -240,7 +284,25 @@ public class QuestionService {
         }
     }
 
-    /**Метод, обновляющий данные вопроса-шкалы мнений*/
+    /**Метод, возвращающий все вопросы-шкалы мнений объекту-опросу*/
+    public Set<QuestionScaleOfOpinionDto> getQuestionsScaleOfOpinionBySurvey(Survey survey) throws ServerException {
+        if(survey == null) {
+            throw new ServerException("Error: QuestionService.getQuestionScaleOfOpinionBySurvey - Survey cannot be null");
+        }
+        if(!questionWithTextAnswerRepository.findBySurvey(survey).isEmpty()) {
+            Set<QuestionScaleOfOpinion> questionScaleOfOpinions = questionScaleOfOpinionRepository.findBySurvey(survey);
+            Set<QuestionScaleOfOpinionDto> questionWithTextAnswerDtos = new HashSet<>();
+            for(QuestionScaleOfOpinion questionScaleOfOpinion : questionScaleOfOpinions) {
+                questionWithTextAnswerDtos.add(conversionService.convert(questionScaleOfOpinion, QuestionScaleOfOpinionDto.class));
+            }
+            return questionWithTextAnswerDtos;
+        } else {
+            throw new ServerException("Error: QuestionService.getQuestionWithTextAnswerByIDSurvey -" +
+                    " Failed to return question with ID " + survey.getSurveyId());
+        }
+    }
+
+    /**Метод, обновляющий данные вопроса-шкалы мнений по ID*/
     public QuestionScaleOfOpinionDto updateQuestionScaleOfOpinion(QuestionScaleOfOpinionDto questionScaleOfOpinionDto)
             throws ClientException {
         if(questionScaleOfOpinionDto == null) {
@@ -258,7 +320,7 @@ public class QuestionService {
         }
     }
 
-    /**Метод, удаляющий вопрос-шкалу мнения*/
+    /**Метод, удаляющий вопрос-шкалу мнения по ID*/
     public QuestionScaleOfOpinionDto deleteQuestionScaleOfOpinion(Integer questionId) throws ClientException {
         if(questionId == null) {
             throw new ClientException("Error: QuestionService.deleteQuestionScaleOfOpinion - The questionID "
@@ -286,7 +348,7 @@ public class QuestionService {
         return conversionService.convert(questionNPSRepository.save(questionNPS), QuestionNPSDto.class);
     }
 
-    /**Метод, возвращающий вопрос-NPS*/
+    /**Метод, возвращающий вопрос-NPS по ID*/
     public QuestionNPSDto getQuestionNPS(Integer questionId) throws ServerException {
         if(questionId == null) {
             throw new ServerException("Error: QuestionService.getQuestionNPS - QuestionId cannot be null");
@@ -300,7 +362,25 @@ public class QuestionService {
         }
     }
 
-    /**Метод, обновляющий данные вопроса-NPS*/
+    /**Метод, возвращающий все вопросы с текстовым ответом по объекту-опросу*/
+    public Set<QuestionNPSDto> getQuestionsNPSBySurvey(Survey survey) throws ServerException {
+        if(survey == null) {
+            throw new ServerException("Error: QuestionService.getQuestionsNPSByIDSurvey - Survey cannot be null");
+        }
+        if(!questionNPSRepository.findBySurvey(survey).isEmpty()) {
+            Set<QuestionNPS> questionsNPS = questionNPSRepository.findBySurvey(survey);
+            Set<QuestionNPSDto> questionNPSDtos = new HashSet<>();
+            for(QuestionNPS questionNPS : questionsNPS) {
+                questionNPSDtos.add(conversionService.convert(questionNPS, QuestionNPSDto.class));
+            }
+            return questionNPSDtos;
+        } else {
+            throw new ServerException("Error: QuestionService.getQuestionsNPSByIDSurvey -" +
+                    " Failed to return question with ID " + survey.getSurveyId());
+        }
+    }
+
+    /**Метод, обновляющий данные вопроса-NPS по ID*/
     public QuestionNPSDto updateQuestionNPS(QuestionNPSDto questionNPSDto)
             throws ClientException {
         if(questionNPSDto == null) {
@@ -317,7 +397,7 @@ public class QuestionService {
         }
     }
 
-    /**Метод, удаляющий вопрос-NPS*/
+    /**Метод, удаляющий вопрос-NPS по ID*/
     public QuestionNPSDto deleteQuestionNPS(Integer questionId) throws ClientException {
         if(questionId == null) {
             throw new ClientException("Error: QuestionService.deleteQuestionNPS - The questionID "

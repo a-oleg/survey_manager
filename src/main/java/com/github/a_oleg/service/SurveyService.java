@@ -1,6 +1,10 @@
 package com.github.a_oleg.service;
 
+import com.github.a_oleg.controller.questions.QuestionNPSDto;
+import com.github.a_oleg.controller.questions.QuestionScaleOfOpinionDto;
+import com.github.a_oleg.controller.questions.QuestionSliderDto;
 import com.github.a_oleg.dto.SurveyDto;
+import com.github.a_oleg.controller.questions.QuestionWithTextAnswerDto;
 import com.github.a_oleg.entity.Survey;
 import com.github.a_oleg.exception.ClientException;
 import com.github.a_oleg.exception.ServerException;
@@ -10,15 +14,22 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Transactional
 @Service
 public class SurveyService {
     private final SurveyRepository surveyRepository;
+    private final QuestionService questionService;
     private final ConversionService conversionService;
 
     @Autowired
-    public SurveyService(SurveyRepository surveyRepository, ConversionService conversionService) {
+    public SurveyService(SurveyRepository surveyRepository,
+                         QuestionService questionService,
+                         ConversionService conversionService) {
         this.surveyRepository = surveyRepository;
+        this.questionService = questionService;
         this.conversionService = conversionService;
     }
 
@@ -31,17 +42,36 @@ public class SurveyService {
         return conversionService.convert(surveyRepository.save(survey), SurveyDto.class);
     }
 
-    /**Метод, возвращающий опрос*/
-    public SurveyDto getSurvey(SurveyDto surveyDto) throws ServerException {
-        if(surveyDto == null) {
-            throw new ServerException("Error: SurveyService.getSurvey - surveyDto cannot be null");
+    /**Метод, возвращающий опрос с вопросами*/
+    public SurveyDto getSurvey(int surveyId) throws ServerException {
+        if(surveyId == 0) {
+            throw new ServerException("Error: SurveyService.getSurvey - surveyId cannot be 0");
         }
-        if(surveyRepository.findById((Integer)surveyDto.getSurveyId()).isPresent()) {
-            Survey survey = surveyRepository.findById((Integer)surveyDto.getSurveyId()).orElse(new Survey());
-            return conversionService.convert(survey, SurveyDto.class);
+        if(surveyRepository.findById((Integer)surveyId).isPresent()) {
+            Survey returnedSurvey = surveyRepository.findById((Integer)surveyId).orElse(new Survey());
+            SurveyDto returnedSurveyDto = conversionService.convert(returnedSurvey, SurveyDto.class);
+
+            Set<QuestionWithTextAnswerDto> questionsWithTextAnswer = new HashSet<>();
+            questionsWithTextAnswer.addAll(questionService.getQuestionsWithTextAnswerBySurvey(returnedSurvey));
+            returnedSurveyDto.setSetQuestionsWithTextAnswerDto(questionsWithTextAnswer);
+
+            Set<QuestionNPSDto> questionsNPS = new HashSet<>();
+            questionsNPS.addAll(questionService.getQuestionsNPSBySurvey(returnedSurvey));
+            returnedSurveyDto.setSetQuestionsNPSDto(questionsNPS);
+
+            Set<QuestionScaleOfOpinionDto> questionsScaleOfOpinion = new HashSet<>();
+            questionsScaleOfOpinion.addAll(questionService.getQuestionsScaleOfOpinionBySurvey(returnedSurvey));
+            returnedSurveyDto.setSetQuestionsScaleOfOpinionDto(questionsScaleOfOpinion);
+
+            Set<QuestionSliderDto> questionsSlider = new HashSet<>();
+            questionsSlider.addAll(questionService.getQuestionsSliderBySurvey(returnedSurvey));
+            returnedSurveyDto.setSetQuestionsSliderDto(questionsSlider);
+
+            //returnedSurveyDto.setListOfQuestions(questionWithTextAnswer);
+            return returnedSurveyDto;
         } else {
             throw new ServerException("Error: SurveyService.getSurvey - Failed to return survey with ID "
-                    + surveyDto.getSurveyId());
+                    + surveyId);
         }
     }
 
@@ -51,7 +81,7 @@ public class SurveyService {
             throw new ClientException("Error: SurveyService.updateSurvey - The surveyDto cannot have a null value");
         }
         Survey survey = conversionService.convert(surveyDto, Survey.class);
-        if(surveyRepository.findById((Integer)survey.getSurveyId()).isPresent()) {
+        if(surveyRepository.findById(survey.getSurveyId()) != null) {
             return conversionService.convert(surveyRepository.save(survey), SurveyDto.class);
         } else {
             throw new ClientException("Error: SurveyService.updateSurvey - Couldn't find survey with ID "

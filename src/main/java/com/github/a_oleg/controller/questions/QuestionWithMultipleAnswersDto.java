@@ -1,6 +1,4 @@
-package com.github.a_oleg.dto.questions;
-
-import com.github.a_oleg.entity.Survey;
+package com.github.a_oleg.controller.questions;
 
 import java.util.ArrayList;
 
@@ -19,15 +17,15 @@ public class QuestionWithMultipleAnswersDto extends AbstractQuestionDto {
         this.textInCommentField = textInCommentField;
     }
 
-    public QuestionWithMultipleAnswersDto(int parentId, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, ArrayList<String> answerOptions, boolean multipleChoiceOfAnswers, String textInCommentField) {
-        super(parentId, activityStatus, survey, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
+    public QuestionWithMultipleAnswersDto(int parentId, boolean activityStatus, int surveyId, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, ArrayList<String> answerOptions, boolean multipleChoiceOfAnswers, String textInCommentField) {
+        super(parentId, activityStatus, surveyId, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
         this.answerOptions = answerOptions;
         this.multipleChoiceOfAnswers = multipleChoiceOfAnswers;
         this.textInCommentField = textInCommentField;
     }
 
-    public QuestionWithMultipleAnswersDto(int questionId, int parentId, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, ArrayList<String> answerOptions, boolean multipleChoiceOfAnswers, String textInCommentField) {
-        super(questionId, parentId, activityStatus, survey, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
+    public QuestionWithMultipleAnswersDto(int questionId, int parentId, boolean activityStatus, int surveyId, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, ArrayList<String> answerOptions, boolean multipleChoiceOfAnswers, String textInCommentField) {
+        super(questionId, parentId, activityStatus, surveyId, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
         this.answerOptions = answerOptions;
         this.multipleChoiceOfAnswers = multipleChoiceOfAnswers;
         this.textInCommentField = textInCommentField;

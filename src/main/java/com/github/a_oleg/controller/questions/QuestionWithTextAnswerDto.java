@@ -1,6 +1,5 @@
-package com.github.a_oleg.dto.questions;
+package com.github.a_oleg.controller.questions;
 
-import com.github.a_oleg.entity.Survey;
 import com.github.a_oleg.entity.subquestion.SubquestionWithTextAnswer;
 
 import java.util.List;
@@ -12,14 +11,14 @@ public class QuestionWithTextAnswerDto extends AbstractQuestionDto {
     public QuestionWithTextAnswerDto() {
     }
 
-    public QuestionWithTextAnswerDto(int parentCode, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, List<SubquestionWithTextAnswer> subquestionWithTextAnswerAndPrefixPostfixText, boolean haveButtonIFindItDifficultToAnswer) {
-        super(parentCode, activityStatus, survey, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
+    public QuestionWithTextAnswerDto(int parentCode, boolean activityStatus, int surveyId, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, List<SubquestionWithTextAnswer> subquestionWithTextAnswerAndPrefixPostfixText, boolean haveButtonIFindItDifficultToAnswer) {
+        super(parentCode, activityStatus, surveyId, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
         this.subquestionWithTextAnswerAndPrefixPostfixText = subquestionWithTextAnswerAndPrefixPostfixText;
         this.haveButtonIFindItDifficultToAnswer = haveButtonIFindItDifficultToAnswer;
     }
 
-    public QuestionWithTextAnswerDto(int questionId, int parentCode, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, List<SubquestionWithTextAnswer> subquestionWithTextAnswerAndPrefixPostfixText, boolean haveButtonIFindItDifficultToAnswer) {
-        super(questionId, parentCode, activityStatus, survey, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
+    public QuestionWithTextAnswerDto(int questionId, int parentCode, boolean activityStatus, int surveyId, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, List<SubquestionWithTextAnswer> subquestionWithTextAnswerAndPrefixPostfixText, boolean haveButtonIFindItDifficultToAnswer) {
+        super(questionId, parentCode, activityStatus, surveyId, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
         this.subquestionWithTextAnswerAndPrefixPostfixText = subquestionWithTextAnswerAndPrefixPostfixText;
         this.haveButtonIFindItDifficultToAnswer = haveButtonIFindItDifficultToAnswer;
     }

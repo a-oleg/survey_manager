@@ -1,12 +1,19 @@
 package com.github.a_oleg.converter;
 
-import com.github.a_oleg.dto.questions.QuestionRatingDto;
+import com.github.a_oleg.controller.questions.QuestionRatingDto;
 import com.github.a_oleg.entity.question.QuestionRating;
+import com.github.a_oleg.repository.SurveyRepository;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 @Component
 public class QuestionRatingDtoToQuestionRatingConverter implements Converter<QuestionRatingDto, QuestionRating> {
+    private final SurveyRepository surveyRepository;
+
+    public QuestionRatingDtoToQuestionRatingConverter(SurveyRepository surveyRepository) {
+        this.surveyRepository = surveyRepository;
+    }
+
     @Override
     public QuestionRating convert(QuestionRatingDto questionRatingDto) {
         QuestionRating targetQuestionRating = new QuestionRating();
@@ -14,7 +21,7 @@ public class QuestionRatingDtoToQuestionRatingConverter implements Converter<Que
         targetQuestionRating.setQuestionId(questionRatingDto.getQuestionId());
         targetQuestionRating.setParentId(questionRatingDto.getParentId());
         targetQuestionRating.setActivityStatus(questionRatingDto.isActivityStatus());
-        targetQuestionRating.setSurvey(questionRatingDto.getSurvey());
+        targetQuestionRating.setSurvey(surveyRepository.findById(questionRatingDto.getSurveyId()).stream().findFirst().get());
         targetQuestionRating.setQuestionNumberInTheSurvey(questionRatingDto.getQuestionNumberInTheSurvey());
         targetQuestionRating.setTypeQuestion(questionRatingDto.getTypeQuestion());
         targetQuestionRating.setTextQuestion(questionRatingDto.getTextQuestion());

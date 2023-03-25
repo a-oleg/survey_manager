@@ -1,6 +1,6 @@
 package com.github.a_oleg.converter;
 
-import com.github.a_oleg.dto.questions.QuestionSliderDto;
+import com.github.a_oleg.controller.questions.QuestionSliderDto;
 import com.github.a_oleg.entity.question.QuestionSlider;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -14,7 +14,7 @@ public class QuestionSliderToQuestionSliderDtoConverter implements Converter<Que
         targetQuestionSliderDto.setQuestionId(questionSlider.getQuestionId());
         targetQuestionSliderDto.setParentId(questionSlider.getParentId());
         targetQuestionSliderDto.setActivityStatus(questionSlider.isActivityStatus());
-        targetQuestionSliderDto.setSurvey(questionSlider.getSurvey());
+        targetQuestionSliderDto.setSurveyId(questionSlider.getSurvey().getSurveyId());
         targetQuestionSliderDto.setQuestionNumberInTheSurvey(questionSlider.getQuestionNumberInTheSurvey());
         targetQuestionSliderDto.setTypeQuestion(questionSlider.getTypeQuestion());
         targetQuestionSliderDto.setTextQuestion(questionSlider.getTextQuestion());

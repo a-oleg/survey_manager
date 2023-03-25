@@ -1,20 +1,29 @@
 package com.github.a_oleg.controller;
 
-import com.github.a_oleg.service.SurveyService;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import com.github.a_oleg.repository.questions.QuestionNPSRepository;
+import org.junit.jupiter.api.Test;
+import org.springframework.stereotype.Component;
 
-@ExtendWith(MockitoExtension.class)
+//@ExtendWith(MockitoExtension.class)
+@Component
 public class SurveyControllerTest {
-    @Mock
-    SurveyService surveyService;
-    @InjectMocks
-    SurveyController surveyController;
+    private final QuestionNPSRepository questionNPSRepository;
+
+    public SurveyControllerTest(QuestionNPSRepository questionNPSRepository) {
+        this.questionNPSRepository = questionNPSRepository;
+    }
+//    @Mock
+//    SurveyService surveyService;
+//    @InjectMocks
+//    SurveyController surveyController;
 
 //    @Test
 //    whenCorrectPostRequest_thenReturnStatusCreated() {
 //
+//    }
+
+//    @Test
+//    void testRepository() {
+//        System.out.println(questionNPSRepository.findBySurvey(1));
 //    }
 }

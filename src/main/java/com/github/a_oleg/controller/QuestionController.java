@@ -1,6 +1,10 @@
 package com.github.a_oleg.controller;
 
-import com.github.a_oleg.dto.questions.*;
+import com.github.a_oleg.controller.questions.QuestionNPSDto;
+import com.github.a_oleg.controller.questions.QuestionRatingDto;
+import com.github.a_oleg.controller.questions.QuestionScaleOfOpinionDto;
+import com.github.a_oleg.controller.questions.QuestionSliderDto;
+import com.github.a_oleg.controller.questions.QuestionWithTextAnswerDto;
 import com.github.a_oleg.exception.ClientException;
 import com.github.a_oleg.exception.ServerException;
 import com.github.a_oleg.service.QuestionService;
@@ -25,6 +29,7 @@ public class QuestionController {
     /**
      * Метод, принимающий запрос на саздание вопроса с текстовым ответом
      */
+    @CrossOrigin
     @PostMapping("new/withtextanswer")
     public ResponseEntity<QuestionWithTextAnswerDto> createQuestionWithTextAnswer(@RequestBody QuestionWithTextAnswerDto
                                                                                               questionWithTextAnswerDto) {
@@ -126,6 +131,7 @@ public class QuestionController {
     /**
      * Метод, принимающий запрос на саздание вопроса-рейтинга
      */
+    @CrossOrigin
     @PostMapping("new/rating")
     public ResponseEntity<QuestionRatingDto> createQuestionRating(@RequestBody QuestionRatingDto questionRatingDto) {
         logger.info("Info: QuestionController.createQuestionRating - A request to create a new question" +
@@ -223,12 +229,19 @@ public class QuestionController {
     }
 
     /**Метод, принимающий запрос на саздание вопроса-слайдера*/
+    @CrossOrigin
     @PostMapping("new/slider")
     public ResponseEntity<QuestionSliderDto> createQuestionSlider(@RequestBody QuestionSliderDto questionSliderDto) {
         logger.info("Info: QuestionController.createQuestionSlider - A request to create a new question" +
                 " has been accepted");
         if (questionSliderDto == null) {
             logger.warn("Warning: QuestionController.createQuestionSlider - The request body is null");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(questionSliderDto);
+        }
+        if(questionSliderDto.getCountOfScaleElements() < questionSliderDto.getDefaultScaleElementNumber()) {
+            logger.warn("Warning: QuestionController.createQuestionSlider - DefaultScaleElementNumber (" +
+                    questionSliderDto.getDefaultScaleElementNumber() + ") there can't be more CountOfScaleElements (" +
+                    questionSliderDto.getCountOfScaleElements() + ")");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(questionSliderDto);
         }
         QuestionSliderDto resultQuestionSliderDto;
@@ -287,7 +300,7 @@ public class QuestionController {
 
 
     /**
-     * Метод, удаляющий вопрос с текстовым ответом
+     * Метод, удаляющий вопрос-слайдер
      */
     @DeleteMapping("delete/slider")
     public ResponseEntity<QuestionSliderDto> deleteQuestionSlider(@RequestParam(name = "questionId",
@@ -317,6 +330,7 @@ public class QuestionController {
     }
 
     /**Метод, принимающий запрос на саздание вопроса-шкалы мнения*/
+    @CrossOrigin
     @PostMapping("new/scaleofopinion")
     public ResponseEntity<QuestionScaleOfOpinionDto> createQuestionScaleOfOpinion(@RequestBody QuestionScaleOfOpinionDto
                                                                                               questionScaleOfOpinionDto) {
@@ -410,6 +424,7 @@ public class QuestionController {
     }
 
     /**Метод, создающий вопрос-NPS*/
+    @CrossOrigin
     @PostMapping("new/nps")
     public ResponseEntity<QuestionNPSDto> createQuestionNPS(@RequestBody QuestionNPSDto questionNpsDto) {
         logger.info("Info: QuestionController.createQuestionNPS - A request to create a new question" +
@@ -500,3 +515,5 @@ public class QuestionController {
         }
     }
 }
+
+

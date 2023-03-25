@@ -1,6 +1,5 @@
-package com.github.a_oleg.dto.questions;
+package com.github.a_oleg.controller.questions;
 
-import com.github.a_oleg.entity.Survey;
 import com.github.a_oleg.enums.FigureType;
 
 public class QuestionSliderDto extends AbstractQuestionDto {
@@ -12,16 +11,16 @@ public class QuestionSliderDto extends AbstractQuestionDto {
     public QuestionSliderDto() {
     }
 
-    public QuestionSliderDto(int parentCode, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, String typeSlider, int countOfScaleElements, int defaultScaleElementNumber, FigureType figureType) {
-        super(parentCode, activityStatus, survey, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
+    public QuestionSliderDto(int parentCode, boolean activityStatus, int surveyId, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, String typeSlider, int countOfScaleElements, int defaultScaleElementNumber, FigureType figureType) {
+        super(parentCode, activityStatus, surveyId, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
         this.typeSlider = typeSlider;
         this.countOfScaleElements = countOfScaleElements;
         this.defaultScaleElementNumber = defaultScaleElementNumber;
         this.figureType = figureType;
     }
 
-    public QuestionSliderDto(int questionId, int parentCode, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, String typeSlider, int countOfScaleElements, int defaultScaleElementNumber, FigureType figureType) {
-        super(questionId, parentCode, activityStatus, survey, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
+    public QuestionSliderDto(int questionId, int parentCode, boolean activityStatus, int surveyId, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, String typeSlider, int countOfScaleElements, int defaultScaleElementNumber, FigureType figureType) {
+        super(questionId, parentCode, activityStatus, surveyId, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
         this.typeSlider = typeSlider;
         this.countOfScaleElements = countOfScaleElements;
         this.defaultScaleElementNumber = defaultScaleElementNumber;

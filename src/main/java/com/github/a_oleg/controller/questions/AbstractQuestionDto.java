@@ -1,12 +1,10 @@
-package com.github.a_oleg.dto.questions;
-
-import com.github.a_oleg.entity.Survey;
+package com.github.a_oleg.controller.questions;
 
 public abstract class AbstractQuestionDto {
     int questionId;
     int parentId;
     boolean activityStatus;
-    Survey survey;
+    int surveyId;
     int questionNumberInTheSurvey;
     String typeQuestion;
     String textQuestion;
@@ -16,10 +14,10 @@ public abstract class AbstractQuestionDto {
     public AbstractQuestionDto() {
     }
 
-    public AbstractQuestionDto(int parentId, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
+    public AbstractQuestionDto(int parentId, boolean activityStatus, int surveyId, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
         this.parentId = parentId;
         this.activityStatus = activityStatus;
-        this.survey = survey;
+        this.surveyId = surveyId;
         this.questionNumberInTheSurvey = questionNumberInTheSurvey;
         this.typeQuestion = typeQuestion;
         this.textQuestion = textQuestion;
@@ -27,11 +25,11 @@ public abstract class AbstractQuestionDto {
         this.buttonText = buttonText;
     }
 
-    public AbstractQuestionDto(int questionId, int parentId, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
+    public AbstractQuestionDto(int questionId, int parentId, boolean activityStatus, int surveyId, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText) {
         this.questionId = questionId;
         this.parentId = parentId;
         this.activityStatus = activityStatus;
-        this.survey = survey;
+        this.surveyId = surveyId;
         this.questionNumberInTheSurvey = questionNumberInTheSurvey;
         this.typeQuestion = typeQuestion;
         this.textQuestion = textQuestion;
@@ -63,12 +61,12 @@ public abstract class AbstractQuestionDto {
         this.activityStatus = activityStatus;
     }
 
-    public Survey getSurvey() {
-        return survey;
+    public int getSurveyId() {
+        return surveyId;
     }
 
-    public void setSurvey(Survey survey) {
-        this.survey = survey;
+    public void setSurveyId(int surveyId) {
+        this.surveyId = surveyId;
     }
 
     public int getQuestionNumberInTheSurvey() {

@@ -1,6 +1,6 @@
 package com.github.a_oleg.entity.choiceoption;
 
-import com.github.a_oleg.entity.question.QuestionWithMultipleAnswers;
+import com.github.a_oleg.entity.question.QuestionWithMultipleAnswer;
 
 import javax.persistence.*;
 
@@ -18,5 +18,5 @@ public class ChoiceTextAnswer {
     //ID вопроса с текстовым вариантом ответа
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id")
-    QuestionWithMultipleAnswers questionWithMultipleAnswers;
+    QuestionWithMultipleAnswer questionWithMultipleAnswer;
 }

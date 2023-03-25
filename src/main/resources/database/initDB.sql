@@ -19,9 +19,12 @@ CREATE TABLE IF NOT EXISTS question_nps
     description_text VARCHAR(255) NOT NULL,
     button_text VARCHAR(255) NOT NULL,
     have_button_i_find_it_difficult_to_answer BOOLEAN NOT NULL,
-    text_in_comment_field VARCHAR(255) NOT NULL,
-    figure_type VARCHAR(50) NOT NULL,
-    gradient_type VARCHAR(50) NOT NULL
+    --Восстановить not null--
+    text_in_comment_field VARCHAR(255),
+    --Восстановить not null--
+    figure_type VARCHAR(50),
+    --Восстановить not null--
+    gradient_type VARCHAR(50)
 );
 
 CREATE TABLE IF NOT EXISTS question_rating
@@ -36,8 +39,10 @@ CREATE TABLE IF NOT EXISTS question_rating
     description_text VARCHAR(255) NOT NULL,
     button_text VARCHAR(255) NOT NULL,
     count_of_scale_elements INTEGER NOT NULL,
-    figure_type VARCHAR(50) NOT NULL,
-    gradient_type VARCHAR(50) NOT NULL
+    --Восстановить not null--
+    figure_type VARCHAR(50),
+    --Восстановить not null--
+    gradient_type VARCHAR(50)
 );
 
 CREATE TABLE IF NOT EXISTS question_scale_of_opinion
@@ -54,9 +59,12 @@ CREATE TABLE IF NOT EXISTS question_scale_of_opinion
     description_of_assessment VARCHAR(255) NOT NULL,
     have_button_i_find_it_difficult_to_answer BOOLEAN NOT NULL,
     rating_for_entering_comment INTEGER NOT NULL,
-    text_in_comment_field VARCHAR(255) NOT NULL,
-    figure_type VARCHAR(50) NOT NULL,
-    gradient_type VARCHAR(50) NOT NULL
+    --Восстановить not null--
+    text_in_comment_field VARCHAR(255),
+    --Восстановить not null--
+    figure_type VARCHAR(50),
+    --Восстановить not null--
+    gradient_type VARCHAR(50)
 );
 
 CREATE TABLE IF NOT EXISTS question_slider
@@ -73,7 +81,8 @@ CREATE TABLE IF NOT EXISTS question_slider
     type_slider VARCHAR(50) NOT NULL,
     count_of_scale_elements INTEGER NOT NULL,
     default_scale_element_number INTEGER NOT NULL,
-    figure_type VARCHAR(50) NOT NULL
+    --Восстановить not null--
+    figure_type VARCHAR(50)
 );
 
 CREATE TABLE IF NOT EXISTS choice_image
@@ -119,14 +128,6 @@ CREATE TABLE IF NOT EXISTS question_with_multiple_answers
     multiple_choice_of_answers BOOLEAN NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS subquestion_with_text_answer
-(
-    subquestion_id BIGSERIAL PRIMARY KEY,
-    subquestion_text VARCHAR(255) NOT NULL,
-    prefix_text VARCHAR(255) NOT NULL,
-    postfix_text VARCHAR(255) NOT NULL
-);
-
 CREATE TABLE IF NOT EXISTS question_with_text_answer
 (
     question_id BIGSERIAL PRIMARY KEY,
@@ -138,6 +139,14 @@ CREATE TABLE IF NOT EXISTS question_with_text_answer
     text_question VARCHAR(255) NOT NULL,
     description_text VARCHAR(255) NOT NULL,
     button_text VARCHAR(255) NOT NULL,
-    answer_options VARCHAR(50) NOT NULL,
-    subquestion INTEGER REFERENCES subquestion_with_text_answer(subquestion_id)
+    have_button_i_find_it_difficult_to_answer BOOLEAN NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS subquestion_with_text_answer
+(
+    subquestion_id BIGSERIAL PRIMARY KEY,
+    question_id INTEGER REFERENCES question_with_text_answer(question_id),
+    subquestion_text VARCHAR(255) NOT NULL,
+    prefix_text VARCHAR(255) NOT NULL,
+    postfix_text VARCHAR(255) NOT NULL
 );

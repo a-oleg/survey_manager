@@ -1,6 +1,5 @@
-package com.github.a_oleg.dto.questions;
+package com.github.a_oleg.controller.questions;
 
-import com.github.a_oleg.entity.Survey;
 import com.github.a_oleg.enums.FigureType;
 import com.github.a_oleg.enums.GradientType;
 
@@ -17,8 +16,8 @@ public class QuestionScaleOfOpinionDto extends AbstractQuestionDto {
     public QuestionScaleOfOpinionDto() {
     }
 
-    public QuestionScaleOfOpinionDto(int parentCode, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, ArrayList<String> descriptionOfAssessment, boolean haveButtonIFindItDifficultToAnswer, int ratingForEnteringComment, String textInTheCommentField, FigureType figureType, GradientType gradientType) {
-        super(parentCode, activityStatus, survey, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
+    public QuestionScaleOfOpinionDto(int parentCode, boolean activityStatus, int surveyId, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, ArrayList<String> descriptionOfAssessment, boolean haveButtonIFindItDifficultToAnswer, int ratingForEnteringComment, String textInTheCommentField, FigureType figureType, GradientType gradientType) {
+        super(parentCode, activityStatus, surveyId, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
         this.descriptionOfAssessment = descriptionOfAssessment;
         this.haveButtonIFindItDifficultToAnswer = haveButtonIFindItDifficultToAnswer;
         this.ratingForEnteringComment = ratingForEnteringComment;
@@ -27,8 +26,8 @@ public class QuestionScaleOfOpinionDto extends AbstractQuestionDto {
         this.gradientType = gradientType;
     }
 
-    public QuestionScaleOfOpinionDto(int questionId, int parentCode, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, ArrayList<String> descriptionOfAssessment, boolean haveButtonIFindItDifficultToAnswer, int ratingForEnteringComment, String textInTheCommentField, FigureType figureType, GradientType gradientType) {
-        super(questionId, parentCode, activityStatus, survey, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
+    public QuestionScaleOfOpinionDto(int questionId, int parentCode, boolean activityStatus, int surveyId, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, ArrayList<String> descriptionOfAssessment, boolean haveButtonIFindItDifficultToAnswer, int ratingForEnteringComment, String textInTheCommentField, FigureType figureType, GradientType gradientType) {
+        super(questionId, parentCode, activityStatus, surveyId, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
         this.descriptionOfAssessment = descriptionOfAssessment;
         this.haveButtonIFindItDifficultToAnswer = haveButtonIFindItDifficultToAnswer;
         this.ratingForEnteringComment = ratingForEnteringComment;
