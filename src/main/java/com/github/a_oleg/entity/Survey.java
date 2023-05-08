@@ -13,9 +13,6 @@ public class Survey {
     @Column(name = "creator")
     String creator;
 
-    //@ManyToMany
-    //ArrayList<Integer> observers;
-
     @Column(name = "survey_name")
     String surveyName;
 
@@ -24,9 +21,6 @@ public class Survey {
 
     @Column(name = "activity_status")
     boolean activityStatus;
-
-    //ArrayList<String> tags;
-
 
     public Survey() {
     }

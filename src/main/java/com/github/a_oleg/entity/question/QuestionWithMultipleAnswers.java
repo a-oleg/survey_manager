@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "question_with_multiple_answers")
-public class QuestionWithMultipleAnswer extends AbstractQuestion {
+public class QuestionWithMultipleAnswers extends AbstractQuestion {
     //Список текстов вариантов ответов, из которых выбирает пользователь
     @OneToMany(mappedBy = "choiceId",cascade = CascadeType.ALL)
     List<ChoiceTextAnswer> listChoiceTextAnswer;
@@ -19,17 +19,17 @@ public class QuestionWithMultipleAnswer extends AbstractQuestion {
     @Column(name = "text_in_comment_field")
     String textInCommentField;
 
-    public QuestionWithMultipleAnswer() {
+    public QuestionWithMultipleAnswers() {
     }
 
-    public QuestionWithMultipleAnswer(int parentId, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, List<ChoiceTextAnswer> listChoiceTextAnswer, boolean multipleChoiceOfAnswers, String textInCommentField) {
+    public QuestionWithMultipleAnswers(int parentId, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, List<ChoiceTextAnswer> listChoiceTextAnswer, boolean multipleChoiceOfAnswers, String textInCommentField) {
         super(parentId, activityStatus, survey, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
         this.listChoiceTextAnswer = listChoiceTextAnswer;
         this.multipleChoiceOfAnswers = multipleChoiceOfAnswers;
         this.textInCommentField = textInCommentField;
     }
 
-    public QuestionWithMultipleAnswer(int questionId, int parentId, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, List<ChoiceTextAnswer> listChoiceTextAnswer, boolean multipleChoiceOfAnswers, String textInCommentField) {
+    public QuestionWithMultipleAnswers(int questionId, int parentId, boolean activityStatus, Survey survey, int questionNumberInTheSurvey, String typeQuestion, String textQuestion, String descriptionText, String buttonText, List<ChoiceTextAnswer> listChoiceTextAnswer, boolean multipleChoiceOfAnswers, String textInCommentField) {
         super(questionId, parentId, activityStatus, survey, questionNumberInTheSurvey, typeQuestion, textQuestion, descriptionText, buttonText);
         this.listChoiceTextAnswer = listChoiceTextAnswer;
         this.multipleChoiceOfAnswers = multipleChoiceOfAnswers;

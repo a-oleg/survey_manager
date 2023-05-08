@@ -9,6 +9,7 @@ import com.github.a_oleg.entity.Survey;
 import com.github.a_oleg.entity.question.*;
 import com.github.a_oleg.exception.ClientException;
 import com.github.a_oleg.exception.ServerException;
+import com.github.a_oleg.mapper.QuestionMapper;
 import com.github.a_oleg.repository.questions.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
@@ -50,10 +51,10 @@ public class QuestionService {
             throw new ServerException("Error: QuestionService.createQuestionWithTextAnswer -" +
                     " The questionDto cannot have a null value");
         }
-        QuestionWithTextAnswer questionWithTextAnswer = conversionService.convert(questionWithTextAnswerDto,
-                QuestionWithTextAnswer.class);
-        return conversionService.convert(questionWithTextAnswerRepository.save(questionWithTextAnswer),
-                QuestionWithTextAnswerDto.class);
+        QuestionWithTextAnswer questionWithTextAnswer =
+                QuestionMapper.INSTANCE.toQuestionWithTextAnswer(questionWithTextAnswerDto);
+        return QuestionMapper.INSTANCE.toQuestionWithTextAnswerDto(
+                questionWithTextAnswerRepository.save(questionWithTextAnswer));
     }
 
     /**Метод, возвращающий вопрос с текстовым ответом по ID*/
@@ -61,10 +62,11 @@ public class QuestionService {
         if(questionId == null) {
             throw new ServerException("Error: QuestionService.getQuestionWithTextAnswer - QuestionId cannot be null");
         }
+
         if(questionWithTextAnswerRepository.findById(questionId).isPresent()) {
             QuestionWithTextAnswer questionWithTextAnswer = questionWithTextAnswerRepository.
                     findById(questionId).orElse(new QuestionWithTextAnswer());
-            return conversionService.convert(questionWithTextAnswer, QuestionWithTextAnswerDto.class);
+            return QuestionMapper.INSTANCE.toQuestionWithTextAnswerDto(questionWithTextAnswer);
         } else {
             throw new ServerException("Error: QuestionService.getQuestionWithTextAnswer -" +
                     " Failed to return question with ID " + questionId);
@@ -76,11 +78,12 @@ public class QuestionService {
         if(survey == null) {
             throw new ServerException("Error: QuestionService.getQuestionWithTextAnswerByIDSurvey - Survey cannot be null");
         }
+
         if(!questionWithTextAnswerRepository.findBySurvey(survey).isEmpty()) {
             Set<QuestionWithTextAnswer> questionsWithTextAnswers = questionWithTextAnswerRepository.findBySurvey(survey);
             Set<QuestionWithTextAnswerDto> questionWithTextAnswerDtos = new HashSet<>();
             for(QuestionWithTextAnswer questionWithTextAnswer : questionsWithTextAnswers) {
-                questionWithTextAnswerDtos.add(conversionService.convert(questionWithTextAnswer, QuestionWithTextAnswerDto.class));
+                questionWithTextAnswerDtos.add(QuestionMapper.INSTANCE.toQuestionWithTextAnswerDto(questionWithTextAnswer));
             }
             return questionWithTextAnswerDtos;
         } else {
@@ -93,16 +96,16 @@ public class QuestionService {
     public QuestionWithTextAnswerDto updateQuestionWithTextAnswer(QuestionWithTextAnswerDto questionWithTextAnswerDto)
             throws ClientException {
         if(questionWithTextAnswerDto == null) {
-            throw new ClientException("Error: QuestionService.updateQuestionWithTextAnswerDto -" +
-                    " Question cannot be null");
+            throw new ClientException("Error: QuestionService.updateQuestionWithTextAnswer - Question cannot be null");
         }
-        QuestionWithTextAnswer questionWithTextAnswer = conversionService.convert(questionWithTextAnswerDto,
-                QuestionWithTextAnswer.class);
+
+        QuestionWithTextAnswer questionWithTextAnswer =
+                QuestionMapper.INSTANCE.toQuestionWithTextAnswer(questionWithTextAnswerDto);
         if(questionWithTextAnswerRepository.findById((Integer)questionWithTextAnswer.getQuestionId()).isPresent()) {
-            return conversionService.convert(questionWithTextAnswerRepository.save(questionWithTextAnswer),
-                    QuestionWithTextAnswerDto.class);
+            return QuestionMapper.INSTANCE.toQuestionWithTextAnswerDto(
+                    questionWithTextAnswerRepository.save(questionWithTextAnswer));
         } else {
-            throw new ClientException("Error: QuestionService.updateQuestionWithTextAnswerDto - Couldn't find question" +
+            throw new ClientException("Error: QuestionService.updateQuestionWithTextAnswer - Couldn't find question" +
                     " with ID " + questionWithTextAnswerDto.getQuestionId());
         }
     }
@@ -113,10 +116,13 @@ public class QuestionService {
             throw new ClientException("Error: QuestionService.deleteQuestionWithTextAnswer - The questionID "
                     + questionId + " cannot be null");
         }
+
         if(questionWithTextAnswerRepository.findById(questionId).isPresent()) {
-            QuestionWithTextAnswer questionWithTextAnswer = questionWithTextAnswerRepository.findById(questionId).orElse(new QuestionWithTextAnswer());
+            QuestionWithTextAnswer questionWithTextAnswer = questionWithTextAnswerRepository.findById(questionId)
+                    .orElse(new QuestionWithTextAnswer());
             questionWithTextAnswerRepository.delete(questionWithTextAnswer);
-            return conversionService.convert(questionWithTextAnswer, QuestionWithTextAnswerDto.class);
+            return QuestionMapper.INSTANCE.toQuestionWithTextAnswerDto(
+                    questionWithTextAnswerRepository.save(questionWithTextAnswer));
         } else {
             throw new ClientException("Error: QuestionService.deleteQuestionWithTextAnswer - The question ID "
                     + questionId + " is missing from the database");
@@ -126,12 +132,12 @@ public class QuestionService {
     /**Метод, создающий новый вопрос-рейтинг*/
     public QuestionRatingDto createQuestionRating(QuestionRatingDto questionRatingDto) throws ServerException {
         if(questionRatingDto == null) {
-            throw new ServerException("Error: QuestionService.createQuestionRating - The questionRating cannot have a null value");
+            throw new ServerException("Error: QuestionService.createQuestionRating -" +
+                    "The questionRating cannot have a null value");
         }
-        QuestionRating questionRating = conversionService.convert(questionRatingDto,
-                QuestionRating.class);
-        return conversionService.convert(questionRatingRepository.save(questionRating),
-                QuestionRatingDto.class);
+
+        QuestionRating questionRating = QuestionMapper.INSTANCE.toQuestionRating(questionRatingDto);
+        return QuestionMapper.INSTANCE.toQuestionRatingDto(questionRatingRepository.save(questionRating));
     }
 
     /**Метод, возвращающий вопрос-рейтинг по ID*/
@@ -139,9 +145,10 @@ public class QuestionService {
         if(questionId == null) {
             throw new ServerException("Error: QuestionService.getQuestionRating - QuestionId cannot be null");
         }
+
         if(questionRatingRepository.findById(questionId).isPresent()) {
             QuestionRating questionRating = questionRatingRepository.findById(questionId).orElse(new QuestionRating());
-            return conversionService.convert(questionRating, QuestionRatingDto.class);
+            return QuestionMapper.INSTANCE.toQuestionRatingDto(questionRating);
         } else {
             throw new ServerException("Error: QuestionService.getQuestionRating -" +
                     " Failed to return question with ID " + questionId);
@@ -155,11 +162,10 @@ public class QuestionService {
             throw new ClientException("Error: QuestionService.updateQuestionRatingDto -" +
                     " Question cannot be null");
         }
-        QuestionRating questionRating = conversionService.convert(questionRatingDto,
-                QuestionRating.class);
+
+        QuestionRating questionRating = QuestionMapper.INSTANCE.toQuestionRating(questionRatingDto);
         if(questionRatingRepository.findById((Integer)questionRating.getQuestionId()).isPresent()) {
-            return conversionService.convert(questionRatingRepository.save(questionRating),
-                    QuestionRatingDto.class);
+            return QuestionMapper.INSTANCE.toQuestionRatingDto(questionRatingRepository.save(questionRating));
         } else {
             throw new ClientException("Error: QuestionService.updateQuestionRatingDto - Couldn't find question" +
                     " with ID " + questionRatingDto.getQuestionId());
@@ -172,10 +178,11 @@ public class QuestionService {
             throw new ClientException("Error: QuestionService.deleteQuestionRating - The questionID " + questionId +
                     " cannot be null");
         }
+
         if(questionRatingRepository.findById(questionId).isPresent()) {
             QuestionRating questionRating = questionRatingRepository.findById(questionId).orElse(new QuestionRating());
             questionRatingRepository.delete(questionRating);
-            return conversionService.convert(questionRating, QuestionRatingDto.class);
+            return QuestionMapper.INSTANCE.toQuestionRatingDto(questionRating);
         } else {
             throw new ClientException("Error: QuestionService.deleteQuestionRating - The question ID "
                     + questionId + " is missing from the database");
@@ -189,8 +196,9 @@ public class QuestionService {
             throw new ServerException("Error: QuestionService.createQuestionSlider -" +
                     " The questionDto cannot have a null value");
         }
-        QuestionSlider questionSlider = conversionService.convert(questionSliderDto, QuestionSlider.class);
-        return conversionService.convert(questionSliderRepository.save(questionSlider), QuestionSliderDto.class);
+
+        QuestionSlider questionSlider = QuestionMapper.INSTANCE.toQuestionSlider(questionSliderDto);
+        return QuestionMapper.INSTANCE.toQuestionSliderDto(questionSliderRepository.save(questionSlider));
     }
 
     /**Метод, возвращающий вопрос-слайдер по ID*/
@@ -200,7 +208,7 @@ public class QuestionService {
         }
         if(questionSliderRepository.findById(questionId).isPresent()) {
             QuestionSlider questionSlider = questionSliderRepository.findById(questionId).orElse(new QuestionSlider());
-            return conversionService.convert(questionSlider, QuestionSliderDto.class);
+            return QuestionMapper.INSTANCE.toQuestionSliderDto(questionSlider);
         } else {
             throw new ServerException("Error: QuestionService.getQuestionSlider -" +
                     " Failed to return question with ID " + questionId);
@@ -212,11 +220,12 @@ public class QuestionService {
         if(survey == null) {
             throw new ServerException("Error: QuestionService.getQuestionsSliderBySurvey - Survey cannot be null");
         }
+
         if(!questionWithTextAnswerRepository.findBySurvey(survey).isEmpty()) {
             Set<QuestionSlider> questionsSlider = questionSliderRepository.findBySurvey(survey);
             Set<QuestionSliderDto> questionSliderDtos = new HashSet<>();
             for(QuestionSlider questionSlider : questionsSlider) {
-                questionSliderDtos.add(conversionService.convert(questionSlider, QuestionSliderDto.class));
+                questionSliderDtos.add(QuestionMapper.INSTANCE.toQuestionSliderDto(questionSlider));
             }
             return questionSliderDtos;
         } else {
@@ -230,10 +239,10 @@ public class QuestionService {
         if(questionSliderDto == null) {
             throw new ClientException("Error: QuestionService.updateQuestionSliderDto - Question cannot be null");
         }
-        QuestionSlider questionSlider = conversionService.convert(questionSliderDto,
-                QuestionSlider.class);
+
+        QuestionSlider questionSlider = QuestionMapper.INSTANCE.toQuestionSlider(questionSliderDto);
         if(questionWithTextAnswerRepository.findById((Integer)questionSlider.getQuestionId()).isPresent()) {
-            return conversionService.convert(questionSliderRepository.save(questionSlider), QuestionSliderDto.class);
+            return QuestionMapper.INSTANCE.toQuestionSliderDto(questionSliderRepository.save(questionSlider));
         } else {
             throw new ClientException("Error: QuestionService.updateQuestionSliderDto - Couldn't find question" +
                     " with ID " + questionSlider.getQuestionId());
@@ -246,10 +255,11 @@ public class QuestionService {
             throw new ClientException("Error: QuestionService.deleteQuestionSlider - The questionID "
                     + questionId + " cannot be null");
         }
+
         if(questionSliderRepository.findById(questionId).isPresent()) {
             QuestionSlider questionSlider = questionSliderRepository.findById(questionId).orElse(new QuestionSlider());
             questionSliderRepository.delete(questionSlider);
-            return conversionService.convert(questionSlider, QuestionSliderDto.class);
+            return QuestionMapper.INSTANCE.toQuestionSliderDto(questionSlider);
         } else {
             throw new ClientException("Error: QuestionService.deleteQuestionSlider - The question ID "
                     + questionId + " is missing from the database");
@@ -263,6 +273,7 @@ public class QuestionService {
             throw new ServerException("Error: QuestionService.createQuestionScaleOfOpinion -" +
                     " The questionScaleOfOpinionDto cannot have a null value");
         }
+
         QuestionScaleOfOpinion questionScaleOfOpinion = conversionService.convert(questionScaleOfOpinionDto,
                 QuestionScaleOfOpinion.class);
         return conversionService.convert(questionScaleOfOpinionRepository.save(questionScaleOfOpinion),
@@ -343,9 +354,8 @@ public class QuestionService {
             throw new ServerException("Error: QuestionService.createQuestionNPS -" +
                     " The questionDto cannot have a null value");
         }
-        QuestionNPS questionNPS = conversionService.convert(questionNPSDto,
-                QuestionNPS.class);
-        return conversionService.convert(questionNPSRepository.save(questionNPS), QuestionNPSDto.class);
+        QuestionNPS questionNPS = QuestionMapper.INSTANCE.toQuestionNPS(questionNPSDto);
+        return QuestionMapper.INSTANCE.toQuestionNPSDto(questionNPSRepository.save(questionNPS));
     }
 
     /**Метод, возвращающий вопрос-NPS по ID*/
@@ -355,7 +365,7 @@ public class QuestionService {
         }
         if(questionNPSRepository.findById(questionId).isPresent()) {
             QuestionNPS questionNPS = questionNPSRepository.findById(questionId).orElse(new QuestionNPS());
-            return conversionService.convert(questionNPS, QuestionNPSDto.class);
+            return QuestionMapper.INSTANCE.toQuestionNPSDto(questionNPS);
         } else {
             throw new ServerException("Error: QuestionService.getQuestionNPS -" +
                     " Failed to return question with ID " + questionId);
@@ -371,7 +381,7 @@ public class QuestionService {
             Set<QuestionNPS> questionsNPS = questionNPSRepository.findBySurvey(survey);
             Set<QuestionNPSDto> questionNPSDtos = new HashSet<>();
             for(QuestionNPS questionNPS : questionsNPS) {
-                questionNPSDtos.add(conversionService.convert(questionNPS, QuestionNPSDto.class));
+                questionNPSDtos.add(QuestionMapper.INSTANCE.toQuestionNPSDto(questionNPS));
             }
             return questionNPSDtos;
         } else {
@@ -386,11 +396,9 @@ public class QuestionService {
         if(questionNPSDto == null) {
             throw new ClientException("Error: QuestionService.updateQuestionNPS - Question cannot be null");
         }
-        QuestionNPS questionNPS = conversionService.convert(questionNPSDto,
-                QuestionNPS.class);
+        QuestionNPS questionNPS = QuestionMapper.INSTANCE.toQuestionNPS(questionNPSDto);
         if(questionWithTextAnswerRepository.findById((Integer)questionNPS.getQuestionId()).isPresent()) {
-            return conversionService.convert(questionNPSRepository.save(questionNPS),
-                    QuestionNPSDto.class);
+            return QuestionMapper.INSTANCE.toQuestionNPSDto(questionNPSRepository.save(questionNPS));
         } else {
             throw new ClientException("Error: QuestionService.updateQuestionNPS - Couldn't find question" +
                     " with ID " + questionNPSDto.getQuestionId());
@@ -406,7 +414,7 @@ public class QuestionService {
         if(questionNPSRepository.findById(questionId).isPresent()) {
             QuestionNPS questionNPS = questionNPSRepository.findById(questionId).orElse(new QuestionNPS());
             questionNPSRepository.delete(questionNPS);
-            return conversionService.convert(questionNPS, QuestionNPSDto.class);
+            return QuestionMapper.INSTANCE.toQuestionNPSDto(questionNPS);
         } else {
             throw new ClientException("Error: QuestionService.deleteQuestionNPS - The question ID "
                     + questionId + " is missing from the database");

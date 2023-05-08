@@ -1,14 +1,8 @@
 package com.github.a_oleg.controller;
 
-import com.github.a_oleg.controller.questions.AbstractQuestionDto;
 import com.github.a_oleg.dto.SurveyDto;
-import com.github.a_oleg.controller.questions.QuestionNPSDto;
-import com.github.a_oleg.controller.questions.QuestionRatingDto;
-import com.github.a_oleg.enums.FigureType;
-import com.github.a_oleg.enums.GradientType;
 import com.github.a_oleg.exception.ClientException;
 import com.github.a_oleg.exception.ServerException;
-import com.github.a_oleg.service.QuestionService;
 import com.github.a_oleg.service.SurveyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,21 +12,17 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
-import java.util.Set;
-
 @RestController
 @RequestMapping(value = "surveys", produces = { MediaType.APPLICATION_JSON_VALUE })
 public class SurveyController {
     private Logger logger = LoggerFactory.getLogger(SurveyController.class);
     private final SurveyService surveyService;
-    private final QuestionService questionService;
 
     @Autowired
-    public SurveyController(SurveyService surveyService, QuestionService questionService) {
+    public SurveyController(SurveyService surveyService) {
         this.surveyService = surveyService;
-        this.questionService = questionService;
     }
+
     @PostMapping("new")
     public ResponseEntity<SurveyDto> createSurvey(@RequestBody SurveyDto surveyDto) {
         logger.info("Info: SurveyController.createSurvey - A request to create a new survey has been accepted");
@@ -58,26 +48,6 @@ public class SurveyController {
         logger.info("Info: SurveyController.createSurvey - The survey was successfully created");
         return ResponseEntity.status(HttpStatus.CREATED).body(resultSurveyDto);
     }
-
-//    @GetMapping("get")
-//    public ResponseEntity<SurveyDto> getSurvey(@RequestParam(name = "surveyId",  required = true) Integer surveyId) {
-//        logger.info("Info: SurveyController.getSurvey - The request to return the survey ID" +
-//                surveyId + " from the database was accepted");
-//        if(surveyId == null) {
-//            logger.warn("Warning: SurveyController.getSurvey - The request is null");
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-//        }
-//        SurveyDto returnedSurveyDto;
-//        try {
-//            returnedSurveyDto = surveyService.getSurvey(surveyId);
-//            logger.info("Info: SurveyController.getSurvey - The survey ID " + returnedSurveyDto.getSurveyId() +
-//                    " was successfully received");
-//            return ResponseEntity.status(HttpStatus.OK).body(returnedSurveyDto);
-//        } catch (ServerException e) {
-//            logger.warn("Warning: SurveyController.getSurvey - " + e.getMessage());
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-//        }
-//    }
 
     @GetMapping("get")
     public ResponseEntity<SurveyDto> getSurvey(@RequestParam(name = "surveyId",  required = true) Integer surveyId) {

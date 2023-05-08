@@ -8,9 +8,9 @@ import com.github.a_oleg.controller.questions.QuestionWithTextAnswerDto;
 import com.github.a_oleg.entity.Survey;
 import com.github.a_oleg.exception.ClientException;
 import com.github.a_oleg.exception.ServerException;
+import com.github.a_oleg.mapper.SurveyMapper;
 import com.github.a_oleg.repository.SurveyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,15 +22,12 @@ import java.util.Set;
 public class SurveyService {
     private final SurveyRepository surveyRepository;
     private final QuestionService questionService;
-    private final ConversionService conversionService;
 
     @Autowired
     public SurveyService(SurveyRepository surveyRepository,
-                         QuestionService questionService,
-                         ConversionService conversionService) {
+                         QuestionService questionService) {
         this.surveyRepository = surveyRepository;
         this.questionService = questionService;
-        this.conversionService = conversionService;
     }
 
     /**Метод, создающий новый опрос*/
@@ -38,8 +35,8 @@ public class SurveyService {
         if(surveyDto == null) {
             throw new ServerException("Error: SurveyService.createSurvey - The surveyDto cannot have a null value");
         }
-        Survey survey = conversionService.convert(surveyDto, Survey.class);
-        return conversionService.convert(surveyRepository.save(survey), SurveyDto.class);
+        Survey survey = SurveyMapper.INSTANCE.toSurvey(surveyDto);
+        return SurveyMapper.INSTANCE.toSurveyDto(surveyRepository.save(survey));
     }
 
     /**Метод, возвращающий опрос с вопросами*/
@@ -49,7 +46,7 @@ public class SurveyService {
         }
         if(surveyRepository.findById((Integer)surveyId).isPresent()) {
             Survey returnedSurvey = surveyRepository.findById((Integer)surveyId).orElse(new Survey());
-            SurveyDto returnedSurveyDto = conversionService.convert(returnedSurvey, SurveyDto.class);
+            SurveyDto returnedSurveyDto = SurveyMapper.INSTANCE.toSurveyDto(returnedSurvey);
 
             Set<QuestionWithTextAnswerDto> questionsWithTextAnswer = new HashSet<>();
             questionsWithTextAnswer.addAll(questionService.getQuestionsWithTextAnswerBySurvey(returnedSurvey));
@@ -67,7 +64,6 @@ public class SurveyService {
             questionsSlider.addAll(questionService.getQuestionsSliderBySurvey(returnedSurvey));
             returnedSurveyDto.setSetQuestionsSliderDto(questionsSlider);
 
-            //returnedSurveyDto.setListOfQuestions(questionWithTextAnswer);
             return returnedSurveyDto;
         } else {
             throw new ServerException("Error: SurveyService.getSurvey - Failed to return survey with ID "
@@ -80,9 +76,9 @@ public class SurveyService {
         if(surveyDto == null) {
             throw new ClientException("Error: SurveyService.updateSurvey - The surveyDto cannot have a null value");
         }
-        Survey survey = conversionService.convert(surveyDto, Survey.class);
+        Survey survey = SurveyMapper.INSTANCE.toSurvey(surveyDto);
         if(surveyRepository.findById(survey.getSurveyId()) != null) {
-            return conversionService.convert(surveyRepository.save(survey), SurveyDto.class);
+            return SurveyMapper.INSTANCE.toSurveyDto(surveyRepository.save(survey));
         } else {
             throw new ClientException("Error: SurveyService.updateSurvey - Couldn't find survey with ID "
                     + surveyDto.getSurveyId());
@@ -94,11 +90,10 @@ public class SurveyService {
         if(surveyId == null) {
             throw new ClientException("Error: SurveyService.deleteSurvey - SurveyID " + surveyId + " cannot be null");
         }
-
         if(surveyRepository.findById(surveyId).isPresent()) {
             Survey survey = surveyRepository.findById(surveyId).orElse(new Survey());
             surveyRepository.delete(survey);
-            return conversionService.convert(survey, SurveyDto.class);
+            return SurveyMapper.INSTANCE.toSurveyDto(survey);
         } else {
             throw new ClientException("Error: SurveyService.deleteSurvey - The survey ID " + surveyId +
                     " is missing from the database");
