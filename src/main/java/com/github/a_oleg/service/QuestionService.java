@@ -2,7 +2,6 @@ package com.github.a_oleg.service;
 
 import com.github.a_oleg.controller.questions.QuestionNPSDto;
 import com.github.a_oleg.controller.questions.QuestionRatingDto;
-import com.github.a_oleg.controller.questions.QuestionScaleOfOpinionDto;
 import com.github.a_oleg.controller.questions.QuestionSliderDto;
 import com.github.a_oleg.controller.questions.QuestionWithTextAnswerDto;
 import com.github.a_oleg.entity.Survey;
@@ -12,7 +11,6 @@ import com.github.a_oleg.exception.ServerException;
 import com.github.a_oleg.mapper.QuestionMapper;
 import com.github.a_oleg.repository.questions.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,21 +25,18 @@ public class QuestionService {
     private final QuestionSliderRepository questionSliderRepository;
     private final QuestionScaleOfOpinionRepository questionScaleOfOpinionRepository;
     private final QuestionNPSRepository questionNPSRepository;
-    private final ConversionService conversionService;
 
     @Autowired
     public QuestionService(QuestionWithTextAnswerRepository questionWithTextAnswerRepository,
                            QuestionRatingRepository questionRatingRepository,
                            QuestionSliderRepository questionSliderRepository,
                            QuestionScaleOfOpinionRepository questionScaleOfOpinionRepository,
-                           QuestionNPSRepository questionNPSRepository,
-                           ConversionService conversionService) {
+                           QuestionNPSRepository questionNPSRepository) {
         this.questionWithTextAnswerRepository = questionWithTextAnswerRepository;
         this.questionRatingRepository = questionRatingRepository;
         this.questionSliderRepository = questionSliderRepository;
         this.questionScaleOfOpinionRepository = questionScaleOfOpinionRepository;
         this.questionNPSRepository = questionNPSRepository;
-        this.conversionService = conversionService;
     }
 
     /**Метод, создающий новый вопрос с текстовым ответом*/
@@ -262,87 +257,6 @@ public class QuestionService {
             return QuestionMapper.INSTANCE.toQuestionSliderDto(questionSlider);
         } else {
             throw new ClientException("Error: QuestionService.deleteQuestionSlider - The question ID "
-                    + questionId + " is missing from the database");
-        }
-    }
-
-    /**Метод, создающий новый вопрос-шкалу мнений*/
-    public QuestionScaleOfOpinionDto createQuestionScaleOfOpinion(QuestionScaleOfOpinionDto questionScaleOfOpinionDto)
-            throws ServerException {
-        if(questionScaleOfOpinionDto == null) {
-            throw new ServerException("Error: QuestionService.createQuestionScaleOfOpinion -" +
-                    " The questionScaleOfOpinionDto cannot have a null value");
-        }
-
-        QuestionScaleOfOpinion questionScaleOfOpinion = conversionService.convert(questionScaleOfOpinionDto,
-                QuestionScaleOfOpinion.class);
-        return conversionService.convert(questionScaleOfOpinionRepository.save(questionScaleOfOpinion),
-                QuestionScaleOfOpinionDto.class);
-    }
-
-    /**Метод, возвращающий вопрос-шкалу мнений по ID*/
-    public QuestionScaleOfOpinionDto getQuestionScaleOfOpinion(Integer questionId) throws ServerException {
-        if(questionId == null) {
-            throw new ServerException("Error: QuestionService.getQuestionScaleOfOpinion - QuestionId cannot be null");
-        }
-        if(questionScaleOfOpinionRepository.findById(questionId).isPresent()) {
-            QuestionScaleOfOpinion questionScaleOfOpinion = questionScaleOfOpinionRepository.
-                    findById(questionId).orElse(new QuestionScaleOfOpinion());
-            return conversionService.convert(questionScaleOfOpinion, QuestionScaleOfOpinionDto.class);
-        } else {
-            throw new ServerException("Error: QuestionService.getQuestionScaleOfOpinion -" +
-                    " Failed to return question with ID " + questionId);
-        }
-    }
-
-    /**Метод, возвращающий все вопросы-шкалы мнений объекту-опросу*/
-    public Set<QuestionScaleOfOpinionDto> getQuestionsScaleOfOpinionBySurvey(Survey survey) throws ServerException {
-        if(survey == null) {
-            throw new ServerException("Error: QuestionService.getQuestionScaleOfOpinionBySurvey - Survey cannot be null");
-        }
-        if(!questionWithTextAnswerRepository.findBySurvey(survey).isEmpty()) {
-            Set<QuestionScaleOfOpinion> questionScaleOfOpinions = questionScaleOfOpinionRepository.findBySurvey(survey);
-            Set<QuestionScaleOfOpinionDto> questionWithTextAnswerDtos = new HashSet<>();
-            for(QuestionScaleOfOpinion questionScaleOfOpinion : questionScaleOfOpinions) {
-                questionWithTextAnswerDtos.add(conversionService.convert(questionScaleOfOpinion, QuestionScaleOfOpinionDto.class));
-            }
-            return questionWithTextAnswerDtos;
-        } else {
-            throw new ServerException("Error: QuestionService.getQuestionWithTextAnswerByIDSurvey -" +
-                    " Failed to return question with ID " + survey.getSurveyId());
-        }
-    }
-
-    /**Метод, обновляющий данные вопроса-шкалы мнений по ID*/
-    public QuestionScaleOfOpinionDto updateQuestionScaleOfOpinion(QuestionScaleOfOpinionDto questionScaleOfOpinionDto)
-            throws ClientException {
-        if(questionScaleOfOpinionDto == null) {
-            throw new ClientException("Error: QuestionService.updateQuestionScaleOfOpinionDto -" +
-                    " Question cannot be null");
-        }
-        QuestionScaleOfOpinion questionScaleOfOpinion = conversionService.convert(questionScaleOfOpinionDto,
-                QuestionScaleOfOpinion.class);
-        if(questionScaleOfOpinionRepository.findById((Integer)questionScaleOfOpinion.getQuestionId()).isPresent()) {
-            return conversionService.convert(questionScaleOfOpinionRepository.save(questionScaleOfOpinion),
-                    QuestionScaleOfOpinionDto.class);
-        } else {
-            throw new ClientException("Error: QuestionService.updateQuestionScaleOfOpinionDto - Couldn't find question" +
-                    " with ID " + questionScaleOfOpinionDto.getQuestionId());
-        }
-    }
-
-    /**Метод, удаляющий вопрос-шкалу мнения по ID*/
-    public QuestionScaleOfOpinionDto deleteQuestionScaleOfOpinion(Integer questionId) throws ClientException {
-        if(questionId == null) {
-            throw new ClientException("Error: QuestionService.deleteQuestionScaleOfOpinion - The questionID "
-                    + questionId + " cannot be null");
-        }
-        if(questionScaleOfOpinionRepository.findById(questionId).isPresent()) {
-            QuestionScaleOfOpinion questionScaleOfOpinion = questionScaleOfOpinionRepository.findById(questionId).orElse(new QuestionScaleOfOpinion());
-            questionScaleOfOpinionRepository.delete(questionScaleOfOpinion);
-            return conversionService.convert(questionScaleOfOpinion, QuestionScaleOfOpinionDto.class);
-        } else {
-            throw new ClientException("Error: QuestionService.deleteQuestionScaleOfOpinion - The question ID "
                     + questionId + " is missing from the database");
         }
     }

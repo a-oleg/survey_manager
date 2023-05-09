@@ -56,10 +56,6 @@ public class SurveyService {
             questionsNPS.addAll(questionService.getQuestionsNPSBySurvey(returnedSurvey));
             returnedSurveyDto.setSetQuestionsNPSDto(questionsNPS);
 
-            Set<QuestionScaleOfOpinionDto> questionsScaleOfOpinion = new HashSet<>();
-            questionsScaleOfOpinion.addAll(questionService.getQuestionsScaleOfOpinionBySurvey(returnedSurvey));
-            returnedSurveyDto.setSetQuestionsScaleOfOpinionDto(questionsScaleOfOpinion);
-
             Set<QuestionSliderDto> questionsSlider = new HashSet<>();
             questionsSlider.addAll(questionService.getQuestionsSliderBySurvey(returnedSurvey));
             returnedSurveyDto.setSetQuestionsSliderDto(questionsSlider);

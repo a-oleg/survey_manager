@@ -13,7 +13,7 @@ import com.github.a_oleg.entity.question.QuestionWithTextAnswer;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper (componentModel = "spring")
 public interface QuestionMapper {
     QuestionMapper INSTANCE = Mappers.getMapper(QuestionMapper.class);
 
